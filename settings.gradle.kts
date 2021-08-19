@@ -1,1 +1,1 @@
-rootProject.name = "spring-boot-starter-upbit"
+rootProject.name = "upbit"
