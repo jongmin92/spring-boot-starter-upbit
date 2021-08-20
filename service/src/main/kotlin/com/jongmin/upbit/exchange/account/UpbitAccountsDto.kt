@@ -1,3 +1,5 @@
+package com.jongmin.upbit.exchange.account
+
 data class UpbitAccounts(
     val data: List<UpbitAccount>
 ) {
@@ -9,7 +11,7 @@ data class UpbitAccounts(
         val currency: String,
 
         /**
-         * 설명: 주문가능 금액/수량 (NumberString)
+         * 설명: 주문가능 금액/수량
          * 타입: NumberString
          */
         val balance: String,
