@@ -237,3 +237,201 @@ data class UpbitOrders(
         val tradeCount: Int
     )
 }
+
+data class UpbitOrdersChance(
+    /**
+     * 설명: 매수 수수료 비율
+     * 타입: NumberString
+     */
+    val bidFee: String,
+
+    /**
+     * 설명: 마켓에 대한 정보
+     * 타입: NumberString
+     */
+    val askFee: String,
+
+    /**
+     * 설명: 마켓에 대한 정보
+     * 타입: Market
+     */
+    val market: Market,
+
+    /**
+     * 설명: 매수 시 사용하는 화폐의 계좌 상태
+     * 타입: BidAccount
+     */
+    val bidAccount: BidAccount,
+
+    /**
+     * 설명: 매도 시 사용하는 화폐의 계좌 상태
+     * 타입: AskAccount
+     */
+    val askAccount: AskAccount
+) {
+    data class Market(
+        /**
+         * 설명: 마켓의 유일 키
+         * 타입: String
+         */
+        val id: String,
+
+        /**
+         * 설명: 마켓 이름
+         * 타입: String
+         */
+        val name: String,
+
+        /**
+         * 설명: 지원 주문 방식
+         * 타입: List<String>
+         */
+        val orderTypes: List<String>,
+
+        /**
+         * 설명: 지원 주문 종류
+         * 타입: List<String>
+         */
+        val orderSides: List<String>,
+
+        /**
+         * 설명: 매수 시 제약사항
+         * 타입: Bid
+         */
+        val bid: Bid,
+
+        /**
+         * 설명: 매도 시 제약사항
+         * 타입: Ask
+         */
+        val ask: Ask,
+
+        /**
+         * 설명: 최대 매도/매수 금액
+         * 타입: NumberString
+         */
+        val maxTotal: String,
+
+        /**
+         * 설명: 마켓 운영 상태
+         * 타입: String
+         */
+        val state: String
+    ) {
+        data class Bid(
+            /**
+             * 설명: 화폐를 의미하는 영문 대문자 코드
+             * 타입: String
+             */
+            val currency: String,
+
+            /**
+             * 설명: 주문금액 단위
+             * 타입: String
+             */
+            val priceUnit: String,
+
+            /**
+             * 설명: 최소 매도/매수 금액
+             * 타입: Number
+             */
+            val minTotal: Int,
+        )
+
+        data class Ask(
+            /**
+             * 설명: 화폐를 의미하는 영문 대문자 코드
+             * 타입: String
+             */
+            val currency: String,
+
+            /**
+             * 설명: 주문금액 단위
+             * 타입: String
+             */
+            val priceUnit: String,
+
+            /**
+             * 설명: 최소 매도/매수 금액
+             * 타입: Number
+             */
+            val minTotal: Int,
+        )
+    }
+
+    data class BidAccount(
+        /**
+         * 설명: 화폐를 의미하는 영문 대문자 코드
+         * 타입: String
+         */
+        val currency: String,
+
+        /**
+         * 설명: 주문가능 금액/수량
+         * 타입: NumberString
+         */
+        val balance: String,
+
+        /**
+         * 설명: 주문 중 묶여있는 금액/수량
+         * 타입: NumberString
+         */
+        val locked: String,
+
+        /**
+         * 설명: 매수평균가
+         * 타입: NumberString
+         */
+        val avgBuyPrice: String,
+
+        /**
+         * 설명: 매수평균가 수정 여부
+         * 타입: Boolean
+         */
+        val avgBuyPriceModified: Boolean,
+
+        /**
+         * 설명: 평단가 기준 화폐
+         * 타입: String
+         */
+        val unitCurrency: String
+    )
+
+    data class AskAccount(
+        /**
+         * 설명: 화폐를 의미하는 영문 대문자 코드
+         * 타입: String
+         */
+        val currency: String,
+
+        /**
+         * 설명: 주문가능 금액/수량
+         * 타입: NumberString
+         */
+        val balance: String,
+
+        /**
+         * 설명: 주문 중 묶여있는 금액/수량
+         * 타입: NumberString
+         */
+        val locked: String,
+
+        /**
+         * 설명: 매수평균가
+         * 타입: NumberString
+         */
+        val avgBuyPrice: String,
+
+        /**
+         * 설명: 매수평균가 수정 여부
+         * 타입: Boolean
+         */
+        val avgBuyPriceModified: Boolean,
+
+        /**
+         * 설명: 평단가 기준 화폐
+         * 타입: String
+         */
+        val unitCurrency: String
+    )
+}

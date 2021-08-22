@@ -29,4 +29,13 @@ interface UpbitOrdersService {
         market: String, state: String, states: List<String>, uuids: List<String>, identifiers: List<String>,
         page: Int, limit: Int, orderBy: String
     ): UpbitOrders
+
+    /**
+     * 주문 가능 정보
+     * 마켓별 주문 가능 정보를 확인한다.
+     *
+     * @param market Market ID
+     * @return 마켓별 주문 가능 정보
+     */
+    fun getOrdersChance(market: String): UpbitOrdersChance
 }
