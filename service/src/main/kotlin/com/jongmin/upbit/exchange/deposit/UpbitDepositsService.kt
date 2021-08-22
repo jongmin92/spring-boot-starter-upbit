@@ -18,4 +18,14 @@ interface UpbitDepositsService {
         currency: String, state: String, uuids: List<String>, txids: List<String>, limit: Int,
         page: Int, orderBy: String
     ): List<UpbitDeposits>
+
+    /**
+     * 개별 입금 조회
+     *
+     * @param uuid 개별 입금의 UUID
+     * @param txid 개별 입금의 TXID
+     * @param currency Currency 코드
+     * @return 개별 입금 정보
+     */
+    fun getDeposit(uuid: String, txid: String, currency: String): UpbitDeposit
 }
