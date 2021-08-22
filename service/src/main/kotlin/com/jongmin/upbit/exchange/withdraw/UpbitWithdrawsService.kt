@@ -18,4 +18,15 @@ interface UpbitWithdrawsService {
         currency: String, state: String, uuids: List<String>, txids: List<String>, limit: Int,
         page: Int, orderBy: String
     ): UpbitWithdraws
+
+    /**
+     * 개별 출금 조회
+     * 출금 UUID를 통해 개별 출금 정보를 조회한다.
+     *
+     * @param uuid 출금 UUID
+     * @param txid 출금 TXID
+     * @param currency Currency 코드
+     * @return
+     */
+    fun getWithdraw(uuid: String, txid: String, currency: String): UpbitWithdraw
 }
