@@ -3,6 +3,15 @@ package com.jongmin.upbit.exchange.order
 interface UpbitOrdersService {
 
     /**
+     * 주문 가능 정보
+     * 마켓별 주문 가능 정보를 확인한다.
+     *
+     * @param market Market ID
+     * @return 마켓별 주문 가능 정보
+     */
+    fun getOrdersChance(market: String): UpbitOrdersChance
+
+    /**
      * 개별 주문 조회
      * 주문 UUID 를 통해 개별 주문건을 조회한다.
      *
@@ -31,11 +40,12 @@ interface UpbitOrdersService {
     ): UpbitOrders
 
     /**
-     * 주문 가능 정보
-     * 마켓별 주문 가능 정보를 확인한다.
+     * 주문 취소 접수
+     * 주문 UUID를 통해 해당 주문에 대한 취소 접수를 한다.
      *
-     * @param market Market ID
-     * @return 마켓별 주문 가능 정보
+     * @param uuid 주문 UUID
+     * @param identifier 조회용 사용자 지정값
+     * @return 주문 취소
      */
-    fun getOrdersChance(market: String): UpbitOrdersChance
+    fun deleteOrder(uuid: String, identifier: String): UpbitOrderDelete
 }
