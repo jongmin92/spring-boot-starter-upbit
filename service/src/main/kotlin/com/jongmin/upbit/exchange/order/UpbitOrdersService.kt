@@ -48,4 +48,20 @@ interface UpbitOrdersService {
      * @return 주문 취소
      */
     fun deleteOrder(uuid: String, identifier: String): UpbitOrderDelete
+
+    /**
+     * 주문하기
+     * 주문 요청을 한다.
+     *
+     * @param market Market ID
+     * @param side 주문 종류
+     * @param volume 주문 수량
+     * @param price 유닛당 주문 가격
+     * @param ordType 주문 타입
+     * @param identifier 조회용 사용자 지정 값
+     *
+     */
+    fun postOrder(
+        market: String, side: String, volume: String, price: String, ordType: String, identifier: String
+    ): UpbitOrderPost
 }
