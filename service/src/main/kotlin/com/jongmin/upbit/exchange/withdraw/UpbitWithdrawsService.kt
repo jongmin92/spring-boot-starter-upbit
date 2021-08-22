@@ -50,10 +50,19 @@ interface UpbitWithdrawsService {
      * @param address 출금 지갑 주소
      * @param secondaryAddress 2차 출금주소 (필요한 코인에 한해서)
      * @param transactionType 출금 유형
-     * @return 출금 결과
+     * @return 코인 출금 결과
      */
     fun postWithdrawCoin(
         currency: String, amount: String, address: String, secondaryAddress: String,
         transactionType: String
     ): UpbitWithdrawCoinPost
+
+    /**
+     * 원화 출금하기
+     * 원화 출금을 요청한다. 등록된 출금 계좌로 출금된다.
+     *
+     * @param amount 출금 원화 수량
+     * @return 원화 출금 결과
+     */
+    fun postWithdrawKrw(amount: String): UpbitWithdrawKrwPost
 }
