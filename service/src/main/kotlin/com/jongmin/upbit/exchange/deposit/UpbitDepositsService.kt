@@ -62,4 +62,13 @@ interface UpbitDepositsService {
      * @return 보유한 입금 주소
      */
     fun getDepositsCoinAddress(currency: String): UpbitDepositsCoinAddress
+
+    /**
+     * 원화 입금하기
+     * 원화 입금을 요청한다.
+     *
+     * @param amount 입금액
+     * @return 입금 결과
+     */
+    fun depositKrw(amount: Int): UpbitDepositKrw
 }
