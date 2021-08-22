@@ -185,3 +185,23 @@ data class UpbitDepositsCoinAddresses(
         val secondaryAddress: String
     )
 }
+
+data class UpbitDepositsCoinAddress(
+    /**
+     * 설명: 화폐를 의미하는 영문 대문자 코드
+     * 타입: String
+     */
+    val currency: String,
+
+    /**
+     * 설명: 입금 주소
+     * 타입: String
+     */
+    val depositAddress: String,
+
+    /**
+     * 설명: 2차 입금 주소
+     * 타입: String
+     */
+    val secondaryAddress: String
+)
