@@ -1,5 +1,7 @@
 package com.jongmin.upbit.exchange.withdraw
 
+import com.jongmin.upbit.exchange.order.UpbitOrderPost
+
 interface UpbitWithdrawsService {
 
     /**
@@ -38,4 +40,20 @@ interface UpbitWithdrawsService {
      * @return 해당 통화의 가능한 출금 정보
      */
     fun getWithdrawsChance(currency: String): UpbitWithdrawsChance
+
+    /**
+     * 코인 출금하기
+     * 코인 출금을 요청한다.
+     *
+     * @param currency Currency 코드
+     * @param amount 출금 코인 수량
+     * @param address 출금 지갑 주소
+     * @param secondaryAddress 2차 출금주소 (필요한 코인에 한해서)
+     * @param transactionType 출금 유형
+     * @return 출금 결과
+     */
+    fun postWithdrawCoin(
+        currency: String, amount: String, address: String, secondaryAddress: String,
+        transactionType: String
+    ): UpbitWithdrawCoinPost
 }
