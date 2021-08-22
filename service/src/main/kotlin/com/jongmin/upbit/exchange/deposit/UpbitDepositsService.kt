@@ -46,4 +46,12 @@ interface UpbitDepositsService {
      * @return 입금 주소 생성 결과 (주소 발급 완료)
      */
     fun verifyToCreateDepositCoinAddress(currency: String): UpbitCreatedDepositCoinAddress
+
+    /**
+     * 전체 입금 주소 조회
+     * 내가 보유한 자산 리스트를 보여줍니다.
+     *
+     * @return 보유한 입금 주소 리스트
+     */
+    fun getDepositsCoinAddresses(): UpbitDepositsCoinAddresses
 }
