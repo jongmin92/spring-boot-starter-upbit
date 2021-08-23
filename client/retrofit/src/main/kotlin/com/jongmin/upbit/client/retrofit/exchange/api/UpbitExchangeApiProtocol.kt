@@ -1,12 +1,13 @@
 package com.jongmin.upbit.client.retrofit.exchange.api
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.jongmin.upbit.exchange.UpbitExchangeException
 import com.jongmin.upbit.exchange.account.UpbitAccounts
 
 data class UpbitAccountsResponse(
-    val data: List<UpbitAccount>
+    val data: List<UpbitAccountResponse>
 ) {
-    data class UpbitAccount(
+    data class UpbitAccountResponse(
         /**
          * 설명: 화폐를 의미하는 영문 대문자 코드
          * 타입: String
@@ -50,3 +51,28 @@ data class UpbitAccountsResponse(
         val unitCurrency: String
     )
 }
+
+fun UpbitAccountsResponse.UpbitAccountResponse.toDomain(): UpbitAccounts.UpbitAccount =
+    UpbitAccounts.UpbitAccount(
+        currency = currency,
+        balance = balance,
+        locked = locked,
+        avgBuyPrice = avgBuyPrice,
+        avgBuyPriceModified = avgBuyPriceModified,
+        unitCurrency = unitCurrency
+    )
+
+fun UpbitAccountsResponse.toDomain(): UpbitAccounts =
+    UpbitAccounts(data.map { it.toDomain() })
+
+data class ApiErrorResponse(
+    val error: Error
+) {
+    data class Error(
+        val name: String,
+        val message: String
+    )
+}
+
+fun ApiErrorResponse.toDomainException(cause: Throwable?): UpbitExchangeException =
+    UpbitExchangeException(error.name, error.message, cause)
