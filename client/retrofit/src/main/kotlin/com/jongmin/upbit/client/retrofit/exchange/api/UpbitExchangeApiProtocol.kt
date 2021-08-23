@@ -1,6 +1,7 @@
 package com.jongmin.upbit.client.retrofit.exchange.api
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.jongmin.upbit.exchange.account.UpbitAccounts
 
 data class UpbitAccountsResponse(
     val data: List<UpbitAccount>
