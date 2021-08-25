@@ -28,7 +28,8 @@ fun Map<String, Any>.toQueryString(): String {
 }
 
 fun String.hashing(): String {
-    val md = MessageDigest.getInstance("SHA-512")
-    md.update(this.toByteArray())
-    return String.format("%0128x", BigInteger(1, md.digest()))
+    return MessageDigest.getInstance("SHA-512").let {
+        it.update(this.toByteArray())
+        String.format("%0128x", BigInteger(1, it.digest()))
+    }
 }
