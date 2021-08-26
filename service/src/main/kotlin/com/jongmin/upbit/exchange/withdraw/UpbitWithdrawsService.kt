@@ -1,7 +1,5 @@
 package com.jongmin.upbit.exchange.withdraw
 
-import com.jongmin.upbit.exchange.order.UpbitOrderPost
-
 interface UpbitWithdrawsService {
 
     /**
