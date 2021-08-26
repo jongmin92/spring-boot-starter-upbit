@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
 import com.jongmin.upbit.client.retrofit.spring.boot.UpbitClientSettings
+import com.linecorp.armeria.client.retrofit2.ArmeriaRetrofit
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
 @EnableConfigurationProperties(UpbitClientSettings::class)
@@ -19,8 +19,7 @@ class UpbitExchangeRetrofitClientAutoConfigure {
 
     @Bean
     fun upbitExchangeApi(): UpbitExchangeApi {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+        return ArmeriaRetrofit.builder(BASE_URL)
             .addConverterFactory(JacksonConverterFactory.create(jacksonObjectMapper().apply {
                 configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             }))
