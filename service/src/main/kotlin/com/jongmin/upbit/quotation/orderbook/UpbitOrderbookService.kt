@@ -10,5 +10,5 @@ interface UpbitOrderbookService {
      *
      * @return 오더북 정보
      */
-    fun getOrderbooks(): UpbitOrderbooks
+    fun getOrderbooks(markets: String): UpbitOrderbooks
 }
