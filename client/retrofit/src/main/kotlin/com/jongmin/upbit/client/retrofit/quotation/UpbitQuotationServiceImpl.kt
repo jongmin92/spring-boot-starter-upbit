@@ -1,6 +1,6 @@
 package com.jongmin.upbit.client.retrofit.quotation
 
-import com.jongmin.upbit.client.retrofit.quotation.api.UpbitQuotationApi
+import com.jongmin.upbit.client.retrofit.quotation.api.UpbitCandleApi
 import com.jongmin.upbit.exchange.order.*
 import com.jongmin.upbit.quotation.UpbitQuotationService
 import com.jongmin.upbit.quotation.candles.DayCandles
@@ -11,7 +11,7 @@ import com.jongmin.upbit.quotation.market.UpbitMarkets
 import com.jongmin.upbit.quotation.ticker.UpbitTickers
 import com.jongmin.upbit.quotation.trades.UpbitTicks
 
-class UpbitQuotationServiceImpl(val upbitQuotationApi: UpbitQuotationApi) : UpbitQuotationService {
+class UpbitQuotationServiceImpl(val upbitCandleApi: UpbitCandleApi) : UpbitQuotationService {
     override fun getOrdersChance(market: String): UpbitOrdersChance {
         TODO("Not yet implemented")
     }
@@ -48,12 +48,7 @@ class UpbitQuotationServiceImpl(val upbitQuotationApi: UpbitQuotationApi) : Upbi
         TODO("Not yet implemented")
     }
 
-    override fun getUpbitMinuteCandle(
-        market: String,
-        to: String?,
-        count: Int,
-        unit: Int
-    ): MinuteCandles {
+    override fun getUpbitMinuteCandle(market: String, to: String?, count: Int): MinuteCandles {
         TODO("Not yet implemented")
     }
 
