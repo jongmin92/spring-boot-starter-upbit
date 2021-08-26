@@ -1,6 +1,10 @@
 package com.jongmin.upbit.client.retrofit.quotation.api.protocol
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.jongmin.upbit.quotation.candles.DayCandles
+import com.jongmin.upbit.quotation.candles.MinuteCandles
+import com.jongmin.upbit.quotation.candles.MonthCandles
+import com.jongmin.upbit.quotation.candles.WeekCandles
 
 data class MinuteCandlesResponse(
     val data: List<MinuteCandleResponse>
@@ -268,7 +272,7 @@ data class WeekCandlesResponse(
          * 타입: String
          */
         @JsonProperty("first_day_of_period")
-        val firstDayOfPeroid: String
+        val firstDayOfPeriod: String
     )
 }
 
@@ -351,7 +355,81 @@ data class MonthCandlesResponse(
          * 타입: String
          */
         @JsonProperty("first_day_of_period")
-        val firstDayOfPeroid: String
+        val firstDayOfPeriod: String
     )
 }
 
+fun MinuteCandlesResponse.MinuteCandleResponse.toDomain(): MinuteCandles.MinuteCandle =
+    MinuteCandles.MinuteCandle(
+        market,
+        candleDateTimeUtc,
+        candleDateTimeKst,
+        openingPrice,
+        highPrice,
+        lowPrice,
+        tradePrice,
+        timestamp,
+        candleAccTradePrice,
+        candleAccTradeVolume,
+        unit
+    )
+
+fun MinuteCandlesResponse.toDomain(): MinuteCandles =
+    MinuteCandles(data.map { it.toDomain() })
+
+fun DayCandlesResponse.DayCandleResponse.toDomain(): DayCandles.DayCandle =
+    DayCandles.DayCandle(
+        market,
+        candleDateTimeUtc,
+        candleDateTimeKst,
+        openingPrice,
+        highPrice,
+        lowPrice,
+        tradePrice,
+        timestamp,
+        candleAccTradePrice,
+        candleAccTradeVolume,
+        prevClosingPrice,
+        changePrice,
+        changeRate,
+        convertedTradePrice
+    )
+
+fun DayCandlesResponse.toDomain(): DayCandles =
+    DayCandles(data.map { it.toDomain() })
+
+fun WeekCandlesResponse.WeekCandleResponse.toDomain(): WeekCandles.WeekCandle =
+    WeekCandles.WeekCandle(
+        market,
+        candleDateTimeUtc,
+        candleDateTimeKst,
+        openingPrice,
+        highPrice,
+        lowPrice,
+        tradePrice,
+        timestamp,
+        candleAccTradePrice,
+        candleAccTradeVolume,
+        firstDayOfPeriod
+    )
+
+fun WeekCandlesResponse.toDomain(): WeekCandles =
+    WeekCandles(data.map { it.toDomain() })
+
+fun MonthCandlesResponse.MonthCandleResponse.toDomain(): MonthCandles.MonthCandle =
+    MonthCandles.MonthCandle(
+        market,
+        candleDateTimeUtc,
+        candleDateTimeKst,
+        openingPrice,
+        highPrice,
+        lowPrice,
+        tradePrice,
+        timestamp,
+        candleAccTradePrice,
+        candleAccTradeVolume,
+        firstDayOfPeriod
+    )
+
+fun MonthCandlesResponse.toDomain(): MonthCandles =
+    MonthCandles(data.map { it.toDomain() })

@@ -1,6 +1,8 @@
 package com.jongmin.upbit.client.retrofit.quotation.api.protocol
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.jongmin.upbit.quotation.ticker.UpbitChange
+import com.jongmin.upbit.quotation.ticker.UpbitTickers
 
 data class UpbitTickersResponse(
     val data: List<UpbitTickerResponse>
@@ -82,7 +84,7 @@ data class UpbitTickersResponse(
          * 타입: UpbitChange
          */
         @JsonProperty("change")
-        val change: UpbitChange,
+        val change: UpbitChangeProtocol,
 
         /**
          * 설명: 변화액의 절대값
@@ -184,6 +186,38 @@ data class UpbitTickersResponse(
     )
 }
 
-enum class UpbitChange(val change: String){
+enum class UpbitChangeProtocol(val change: String) {
     EVEN("EVEN"), RISE("RISE"), FALL("FALL")
 }
+
+fun UpbitTickersResponse.UpbitTickerResponse.toDomain(): UpbitTickers.UpbitTicker =
+    UpbitTickers.UpbitTicker(
+        market,
+        tradeDate,
+        tradeTime,
+        tradeDateKst,
+        tradeTimeKst,
+        openingPrice,
+        highPrice,
+        lowPrice,
+        tradePrice,
+        prevClosingPrice,
+        change = UpbitChange.valueOf(change.name),
+        changePrice,
+        changeRate,
+        signedChangePrice,
+        signedChangeRate,
+        tradeVolume,
+        accTradePrice,
+        accTradePrice24h,
+        accTradeVolume,
+        accTradeVolume24h,
+        highest52WeekPrice,
+        highest52WeekDate,
+        lowest52WeekPrice,
+        lowest52WeekDate,
+        timestamp
+    )
+
+fun UpbitTickersResponse.toDomain(): UpbitTickers =
+    UpbitTickers(data.map { it.toDomain() })

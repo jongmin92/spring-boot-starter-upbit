@@ -1,10 +1,11 @@
 package com.jongmin.upbit.client.retrofit.quotation.api.protocol
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.jongmin.upbit.quotation.trades.UpbitTicks
 
 class UpbitTicksResponse(
     val data: List<UpbitTickResponse>
-){
+) {
     class UpbitTickResponse(
 
         /**
@@ -78,3 +79,20 @@ class UpbitTicksResponse(
         val sequentialId: Long
     )
 }
+
+fun UpbitTicksResponse.UpbitTickResponse.toDomain(): UpbitTicks.UpbitTick =
+    UpbitTicks.UpbitTick(
+        market,
+        tradeDateUtc,
+        tradeTimeUtc,
+        timestamp,
+        tradePrice,
+        tradeVolume,
+        prevClosingPrice,
+        changePrice,
+        askBid,
+        sequentialId
+    )
+
+fun UpbitTicksResponse.toDomain(): UpbitTicks =
+    UpbitTicks(data.map { it.toDomain() })

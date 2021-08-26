@@ -69,7 +69,7 @@ data class UpbitTickers(
          * 설명: 변화 (상승, 보합 ,하락)
          * 타입: UpbitChange
          */
-        val change: com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitChange,
+        val change: UpbitChange,
 
         /**
          * 설명: 변화액의 절대값

@@ -1,6 +1,8 @@
 package com.jongmin.upbit.client.retrofit.quotation.api.protocol
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.jongmin.upbit.quotation.market.MarketWarning
+import com.jongmin.upbit.quotation.market.UpbitMarkets
 
 data class UpbitMarketsResponse(
     val data: List<UpbitMarketResponse>
@@ -34,11 +36,22 @@ data class UpbitMarketsResponse(
          */
 
         @JsonProperty("market_warning")
-        val marketWarning: MarketWarning
+        val marketWarning: MarketWarningProtocol
     )
 
 }
 
-enum class MarketWarning(val str: String) {
+enum class MarketWarningProtocol(val str: String) {
     NONE("NONE"), CAUTION("CAUTION")
 }
+
+fun UpbitMarketsResponse.UpbitMarketResponse.toDomain(): UpbitMarkets.UpbitMarket =
+    UpbitMarkets.UpbitMarket(
+        market,
+        koreanName,
+        englishName,
+        marketWarning = MarketWarning.valueOf(marketWarning.name)
+    )
+
+fun UpbitMarketsResponse.toDomain(): UpbitMarkets =
+    UpbitMarkets(data.map { it.toDomain() })

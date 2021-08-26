@@ -1,6 +1,7 @@
 package com.jongmin.upbit.client.retrofit.quotation.api.protocol
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.jongmin.upbit.quotation.orderbook.UpbitOrderbooks
 
 data class UpbitOrderbooksResponse(
     val data: List<UpbitOrderbookResponse>
@@ -41,6 +42,7 @@ data class UpbitOrderbooksResponse(
         @JsonProperty("orderbook_units")
         val orderbookUnits: List<UpbitOrderbookUnit>
     )
+
     data class UpbitOrderbookUnit(
         /**
          * 설명: 매도 가격
@@ -71,3 +73,17 @@ data class UpbitOrderbooksResponse(
         val bidSize: Double
     )
 }
+
+fun UpbitOrderbooksResponse.UpbitOrderbookUnit.toDomain(): UpbitOrderbooks.UpbitOrderbookUnit =
+    UpbitOrderbooks.UpbitOrderbookUnit(askPrice, bidPrice, askSize, bidSize)
+
+fun UpbitOrderbooksResponse.UpbitOrderbookResponse.toDomain(): UpbitOrderbooks.UpbitOrderbook =
+    UpbitOrderbooks.UpbitOrderbook(
+        market = market,
+        timestamp = timestamp,
+        totalAskSize = totalAskSize,
+        totalBidSize = totalBidSize,
+        orderbookUnits = orderbookUnits.map { it.toDomain() })
+
+fun UpbitOrderbooksResponse.toDomain(): UpbitOrderbooks =
+    UpbitOrderbooks(data.map { it.toDomain() })
