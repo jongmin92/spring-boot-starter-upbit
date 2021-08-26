@@ -50,7 +50,7 @@ data class MinuteCandles(
          * 설명: 해당 캔들의 마지막 틱이 저장된 시각
          * 타입: Long
          */
-        val timeStamp: Long,
+        val timestamp: Long,
 
         /**
          * 설명: 누적 거래 금액
@@ -122,7 +122,7 @@ data class DayCandles(
          * 설명: 해당 캔들의 마지막 틱이 저장된 시각
          * 타입: Long
          */
-        val timeStamp: Long,
+        val timestamp: Long,
 
         /**
          * 설명: 누적 거래 금액
@@ -212,7 +212,7 @@ data class WeekCandles(
          * 설명: 해당 캔들의 마지막 틱이 저장된 시각
          * 타입: Long
          */
-        val timeStamp: Long,
+        val timestamp: Long,
 
         /**
          * 설명: 누적 거래 금액
@@ -284,7 +284,7 @@ data class MonthCandles(
          * 설명: 해당 캔들의 마지막 틱이 저장된 시각
          * 타입: Long
          */
-        val timeStamp: Long,
+        val timestamp: Long,
 
         /**
          * 설명: 누적 거래 금액
