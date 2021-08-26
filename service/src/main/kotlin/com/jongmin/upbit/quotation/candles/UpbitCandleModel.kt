@@ -230,7 +230,7 @@ data class WeekCandles(
          * 설명: 캔들 기간의 가장 첫날
          * 타입: String
          */
-        val firstDayOfPeroid: String
+        val firstDayOfPeriod: String
     )
 }
 
@@ -302,6 +302,6 @@ data class MonthCandles(
          * 설명: 캔들 기간의 가장 첫날
          * 타입: String
          */
-        val firstDayOfPeroid: String
+        val firstDayOfPeriod: String
     )
 }
