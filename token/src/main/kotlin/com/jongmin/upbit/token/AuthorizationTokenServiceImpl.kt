@@ -6,12 +6,12 @@ import java.math.BigInteger
 import java.security.InvalidParameterException
 import java.security.MessageDigest
 
-class TokenServiceImpl(
+class AuthorizationTokenServiceImpl(
     private val properties: TokenProperties,
     private val nonceGenerator: () -> String
-) : TokenService {
+) : AuthorizationTokenService {
     override fun createToken(parameter: Map<String, Any>): String {
-        return Jwts.builder().apply {
+        val token = Jwts.builder().apply {
             claim("access_key", properties.accessKey)
             claim("nonce", nonceGenerator())
             if (parameter.isNotEmpty()) {
@@ -20,6 +20,7 @@ class TokenServiceImpl(
             }
             signWith(Keys.hmacShaKeyFor(properties.secretKey.toByteArray()))
         }.compact()
+        return "Bearer ${token}"
     }
 }
 

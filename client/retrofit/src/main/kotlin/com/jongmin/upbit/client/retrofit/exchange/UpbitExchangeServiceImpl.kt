@@ -7,17 +7,38 @@ import com.jongmin.upbit.client.retrofit.exchange.api.protocol.ApiErrorResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomainException
 import com.jongmin.upbit.exchange.UpbitExchangeService
-import com.jongmin.upbit.exchange.account.UpbitAccounts
-import com.jongmin.upbit.exchange.deposit.*
+import com.jongmin.upbit.exchange.account.UpbitAccount
+import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
+import com.jongmin.upbit.exchange.deposit.UpbitCreatedDepositCoinAddress
+import com.jongmin.upbit.exchange.deposit.UpbitDeposit
+import com.jongmin.upbit.exchange.deposit.UpbitDepositKrw
+import com.jongmin.upbit.exchange.deposit.UpbitDeposits
+import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddress
+import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddresses
 import com.jongmin.upbit.exchange.info.UpbitApiKeys
 import com.jongmin.upbit.exchange.info.UpbitWalletStatus
-import com.jongmin.upbit.exchange.order.*
-import com.jongmin.upbit.exchange.withdraw.*
+import com.jongmin.upbit.exchange.order.UpbitOrder
+import com.jongmin.upbit.exchange.order.UpbitOrderDelete
+import com.jongmin.upbit.exchange.order.UpbitOrderPost
+import com.jongmin.upbit.exchange.order.UpbitOrders
+import com.jongmin.upbit.exchange.order.UpbitOrdersChance
+import com.jongmin.upbit.exchange.withdraw.UpbitWithdraw
+import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawCoinPost
+import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawKrwPost
+import com.jongmin.upbit.exchange.withdraw.UpbitWithdraws
+import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawsChance
+import com.jongmin.upbit.token.AuthorizationTokenService
+import com.linecorp.armeria.client.Clients
 import retrofit2.Call
 
 class UpbitExchangeServiceImpl(
-    private val upbitExchangeApi: UpbitExchangeApi
+    private val upbitExchangeApi: UpbitExchangeApi,
+    private val authorizationTokenService: AuthorizationTokenService
 ) : UpbitExchangeService {
+    companion object {
+        const val AUTHORIZATION_HEADER = "Authorization"
+    }
+
     private val objectMapper = jacksonObjectMapper().apply {
         disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
     }
@@ -32,8 +53,10 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun getAccounts(): UpbitAccounts {
-        return apiExecute { upbitExchangeApi.getAccounts() }.toDomain()
+    override fun getAccounts(): List<UpbitAccount> {
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken()).use {
+            return apiExecute { upbitExchangeApi.getAccounts() }.map { it.toDomain() }
+        }
     }
 
     override fun getOrdersChance(market: String): UpbitOrdersChance {
