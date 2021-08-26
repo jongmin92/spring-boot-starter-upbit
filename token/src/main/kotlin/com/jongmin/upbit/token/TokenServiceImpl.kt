@@ -3,6 +3,7 @@ package com.jongmin.upbit.token
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import java.math.BigInteger
+import java.security.InvalidParameterException
 import java.security.MessageDigest
 
 class TokenServiceImpl(
@@ -23,8 +24,19 @@ class TokenServiceImpl(
 }
 
 fun Map<String, Any>.toQueryString(): String {
-    // TODO
-    return "queryString"
+    val queryElements = mutableListOf<String>()
+    this.forEach { entry ->
+        when (entry.value) {
+            is String -> queryElements.add("${entry.key}=${entry.value}")
+            is Array<*> -> {
+                (entry.value as Array<*>).forEach {
+                    queryElements.add("${entry.key}[]=${it.toString()}")
+                }
+            }
+            else -> throw InvalidParameterException("${entry.value.javaClass} is not supported type.")
+        }
+    }
+    return queryElements.joinToString("&")
 }
 
 fun String.hashing(): String {
