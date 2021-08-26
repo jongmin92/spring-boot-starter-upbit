@@ -66,7 +66,7 @@ data class UpbitTickers(
         val prevClosingPrice: Double,
 
         /**
-         * 설명: 변화 ( 상승, 보합 , 하락)
+         * 설명: 변화 (상승, 보합 ,하락)
          * 타입: UpbitChange
          */
         val change: UpbitChange,
