@@ -8,7 +8,7 @@ data class UpbitOrdersChance(
     val bidFee: String,
 
     /**
-     * 설명: 마켓에 대한 정보
+     * 설명: 매도 수수료 비율
      * 타입: NumberString
      */
     val askFee: String,
