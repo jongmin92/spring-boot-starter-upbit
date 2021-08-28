@@ -19,7 +19,7 @@ interface UpbitOrdersService {
      * @param identifier 조회용 사용자 지정 값
      * @return 개별 주문건
      */
-    fun getOrder(uuid: String, identifier: String): UpbitOrder
+    fun getOrder(uuid: String?, identifier: String?): UpbitOrder
 
     /**
      * 주문 리스트 조회

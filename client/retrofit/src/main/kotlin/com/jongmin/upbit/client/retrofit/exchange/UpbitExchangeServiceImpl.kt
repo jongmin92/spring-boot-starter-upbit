@@ -60,13 +60,19 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun getOrdersChance(market: String): UpbitOrdersChance {
-        val parameter = mapOf<String, Any>("market" to market)
-        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(parameter))
-        return apiExecute { upbitExchangeApi.getOrdersChance(market) }.toDomain()
+        val params = mapOf<String, Any>("market" to market)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.getOrdersChance(market) }.toDomain()
+        }
     }
 
-    override fun getOrder(uuid: String, identifier: String): UpbitOrder {
-        TODO("Not yet implemented")
+    override fun getOrder(uuid: String?, identifier: String?): UpbitOrder {
+        val params = mutableMapOf<String, Any>()
+        uuid?.let { params.put("uuid", it) }
+        identifier?.let { params.put("identifier", it) }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.getOrder(uuid, identifier) }.toDomain()
+        }
     }
 
     override fun getOrders(
