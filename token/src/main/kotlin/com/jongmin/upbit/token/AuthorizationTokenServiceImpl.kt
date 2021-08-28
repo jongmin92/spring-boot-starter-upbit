@@ -24,23 +24,23 @@ class AuthorizationTokenServiceImpl(
     }
 }
 
-fun Map<String, Any>.toQueryString(): String {
+internal fun Map<String, Any>.toQueryString(): String {
     val queryElements = mutableListOf<String>()
     this.forEach { entry ->
         when (entry.value) {
-            is String -> queryElements.add("${entry.key}=${entry.value}")
+            is String, Int, Long, Float, Double -> queryElements.add("${entry.key}=${entry.value}")
             is Array<*> -> {
                 (entry.value as Array<*>).forEach {
                     queryElements.add("${entry.key}[]=${it.toString()}")
                 }
             }
-            else -> throw InvalidParameterException("${entry.value.javaClass} is not supported type.")
+            else -> throw InvalidParameterException("'${entry.value.javaClass}' is not supported type.")
         }
     }
     return queryElements.joinToString("&")
 }
 
-fun String.hashing(): String {
+internal fun String.hashing(): String {
     return MessageDigest.getInstance("SHA-512").let {
         it.update(this.toByteArray())
         String.format("%0128x", BigInteger(1, it.digest()))
