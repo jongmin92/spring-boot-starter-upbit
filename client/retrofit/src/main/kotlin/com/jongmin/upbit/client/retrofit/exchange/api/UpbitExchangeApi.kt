@@ -7,39 +7,60 @@ import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostReq
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrdersChanceResponse
-import com.linecorp.armeria.server.annotation.Param
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface UpbitExchangeApi {
 
+    // 자산
     @GET("v1/accounts")
     fun getAccounts(): Call<List<UpbitAccountResponse>>
 
+    // 주문
     @GET("v1/orders/chance")
-    fun getOrdersChance(@Param market: String): Call<UpbitOrdersChanceResponse>
+    fun getOrdersChance(@Query("market") market: String): Call<UpbitOrdersChanceResponse>
 
     @GET("v1/order")
-    fun getOrder(@Param uuid: String?, @Param identifier: String?): Call<UpbitOrderIncludingTradesResponse>
+    fun getOrder(
+        @Query("uuid") uuid: String?,
+        @Query("identifier") identifier: String?
+    ): Call<UpbitOrderIncludingTradesResponse>
 
     @GET("v1/orders")
     fun getOrders(
-        @Param market: String,
-        @Param state: String = "wait",
-        @Param states: List<String>,
-        @Param uuids: List<String>,
-        @Param identifier: List<String>,
-        @Param page: Int = 1,
-        @Param limit: Int = 100,
-        @Param orderBy: String = "desc"
+        @Query("market") market: String,
+        @Query("state") state: String = "wait",
+        @Query("states") states: List<String>,
+        @Query("uuids") uuids: List<String>,
+        @Query("identifier") identifier: List<String>,
+        @Query("page") page: Int = 1,
+        @Query("limit") limit: Int = 100,
+        @Query("order_by") orderBy: String = "desc"
     ): Call<List<UpbitOrderResponse>>
 
     @DELETE("v1/order")
-    fun deleteOrder(@Param uuid: String?, @Param identifier: String?): Call<UpbitOrderDeleteResponse>
+    fun deleteOrder(
+        @Query("uuid") uuid: String?,
+        @Query("identifier") identifier: String?
+    ): Call<UpbitOrderDeleteResponse>
 
     @POST("v1/orders")
     fun postOrders(@Body request: UpbitOrderPostRequest): Call<UpbitOrderPostResponse>
+
+    // 출금
+    @GET("v1/withdraws")
+    fun getWithdraws(
+        @Query("currency") currency: String,
+        @Query("state") state: String,
+        @Query("uuids") uuids: List<String>,
+        @Query("txids") txids: List<String>,
+        @Query("page") page: Int = 1,
+        @Query("limit") limit: Int = 100,
+        @Query("order_by") orderBy: String = "desc"
+    ): Call<List<UpbitWithdrawResponse>>
 }

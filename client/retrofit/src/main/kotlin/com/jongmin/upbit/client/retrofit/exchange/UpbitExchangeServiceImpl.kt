@@ -26,7 +26,6 @@ import com.jongmin.upbit.exchange.order.UpbitOrdersChance
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdraw
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawCoinPost
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawKrwPost
-import com.jongmin.upbit.exchange.withdraw.UpbitWithdraws
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawsChance
 import com.jongmin.upbit.token.AuthorizationTokenService
 import com.linecorp.armeria.client.Clients
@@ -151,8 +150,21 @@ class UpbitExchangeServiceImpl(
         limit: Int,
         page: Int,
         orderBy: String
-    ): UpbitWithdraws {
-        TODO("Not yet implemented")
+    ): List<UpbitWithdraw> {
+        val params = mapOf("currency" to currency, "txids" to txids)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.getWithdraws(
+                    currency,
+                    state,
+                    uuids,
+                    txids,
+                    page,
+                    limit,
+                    orderBy
+                )
+            }.map { it.toDomain() }
+        }
     }
 
     override fun getWithdraw(uuid: String, txid: String, currency: String): UpbitWithdraw {

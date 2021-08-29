@@ -17,7 +17,7 @@ interface UpbitWithdrawsService {
     fun getWithdraws(
         currency: String, state: String, uuids: List<String>, txids: List<String>, limit: Int,
         page: Int, orderBy: String
-    ): UpbitWithdraws
+    ): List<UpbitWithdraw>
 
     /**
      * 개별 출금 조회
