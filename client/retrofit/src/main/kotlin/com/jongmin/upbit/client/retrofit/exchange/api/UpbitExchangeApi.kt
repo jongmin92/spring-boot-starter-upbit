@@ -8,6 +8,7 @@ import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostRes
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrdersChanceResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawsChanceResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -76,4 +77,7 @@ interface UpbitExchangeApi {
         @Query("txid") txid: String,
         @Query("currency") currency: String
     ): Call<UpbitWithdrawResponse>
+
+    @GET("v1/withdraws/chance")
+    fun getWithdrawsChance(@Query("currency") currency: String): Call<UpbitWithdrawsChanceResponse>
 }
