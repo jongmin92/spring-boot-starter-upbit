@@ -9,6 +9,8 @@ import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderRespons
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrdersChanceResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawKrwPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawKrwPostResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawsChanceResponse
 import retrofit2.Call
@@ -85,4 +87,7 @@ interface UpbitExchangeApi {
 
     @POST("v1/withdraws/coin")
     fun postWithdrawsCoin(@Body request: UpbitWithdrawCoinPostRequest): Call<UpbitWithdrawCoinPostResponse>
+
+    @POST("v1/withdraws/krw")
+    fun postWithdrawsKrw(@Body request: UpbitWithdrawKrwPostRequest): Call<UpbitWithdrawKrwPostResponse>
 }

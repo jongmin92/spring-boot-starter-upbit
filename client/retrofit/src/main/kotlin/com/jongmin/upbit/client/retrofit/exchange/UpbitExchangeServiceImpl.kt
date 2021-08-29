@@ -6,6 +6,7 @@ import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.ApiErrorResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawKrwPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomainException
 import com.jongmin.upbit.exchange.UpbitExchangeService
@@ -210,7 +211,14 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun postWithdrawKrw(amount: String): UpbitWithdrawKrwPost {
-        TODO("Not yet implemented")
+        val params = mapOf("amount" to amount)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.postWithdrawsKrw(
+                    UpbitWithdrawKrwPostRequest(amount)
+                )
+            }.toDomain()
+        }
     }
 
     override fun getDeposits(
