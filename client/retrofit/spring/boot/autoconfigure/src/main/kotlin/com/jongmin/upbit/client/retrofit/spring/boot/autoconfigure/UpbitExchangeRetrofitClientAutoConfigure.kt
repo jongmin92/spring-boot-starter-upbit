@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.UpbitExchangeServiceImpl
 import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
+import com.jongmin.upbit.client.retrofit.quotation.api.*
 import com.jongmin.upbit.client.retrofit.spring.boot.UpbitClientSettings
 import com.jongmin.upbit.token.AuthorizationTokenService
 import com.jongmin.upbit.token.AuthorizationTokenServiceImpl
@@ -13,6 +14,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import retrofit2.converter.jackson.JacksonConverterFactory
+import sun.jvm.hotspot.oops.Klass
 import java.util.*
 
 @EnableConfigurationProperties(UpbitClientSettings::class)
@@ -22,14 +24,32 @@ class UpbitExchangeRetrofitClientAutoConfigure {
         const val BASE_URL = "https://api.upbit.com/"
     }
 
-    @Bean
-    fun upbitExchangeApi(): UpbitExchangeApi =
+    private fun <T> makeDefaultRetrofitApi(clazz: Class<T>): T =
         ArmeriaRetrofit.builder(BASE_URL)
             .addConverterFactory(JacksonConverterFactory.create(jacksonObjectMapper().apply {
                 configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             }))
             .build()
-            .create(UpbitExchangeApi::class.java)
+            .create(clazz)
+
+    @Bean
+    fun upbitExchangeApi(): UpbitExchangeApi = makeDefaultRetrofitApi(UpbitExchangeApi::class.java)
+
+    @Bean
+    fun upbitCandleApi(): UpbitCandleApi = makeDefaultRetrofitApi(UpbitCandleApi::class.java)
+
+    @Bean
+    fun upbitMarketApi(): UpbitMarketApi = makeDefaultRetrofitApi(UpbitMarketApi::class.java)
+
+    @Bean
+    fun upbitOrderbookApi(): UpbitOrderbookApi =
+        makeDefaultRetrofitApi(UpbitOrderbookApi::class.java)
+
+    @Bean
+    fun upbitTickerApi(): UpbitTickerApi = makeDefaultRetrofitApi(UpbitTickerApi::class.java)
+
+    @Bean
+    fun upbitTradeApi(): UpbitTradeApi = makeDefaultRetrofitApi(UpbitTradeApi::class.java)
 
     @Bean
     fun authorizationTokenService(upbitClientSettings: UpbitClientSettings) =
