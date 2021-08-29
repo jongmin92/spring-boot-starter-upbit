@@ -15,9 +15,9 @@ interface UpbitWithdrawsService {
      * @return 출금 리스트
      */
     fun getWithdraws(
-        currency: String, state: String, uuids: List<String>, txids: List<String>, limit: Int,
-        page: Int, orderBy: String
-    ): UpbitWithdraws
+        currency: String, state: String, uuids: List<String>, txids: List<String>, limit: Int = 1,
+        page: Int = 100, orderBy: String = "desc"
+    ): List<UpbitWithdraw>
 
     /**
      * 개별 출금 조회
@@ -51,8 +51,8 @@ interface UpbitWithdrawsService {
      * @return 코인 출금 결과
      */
     fun postWithdrawCoin(
-        currency: String, amount: String, address: String, secondaryAddress: String,
-        transactionType: String
+        currency: String, amount: String, address: String, secondaryAddress: String?,
+        transactionType: String?
     ): UpbitWithdrawCoinPost
 
     /**

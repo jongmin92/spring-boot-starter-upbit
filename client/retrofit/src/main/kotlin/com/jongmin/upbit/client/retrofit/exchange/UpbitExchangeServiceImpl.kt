@@ -5,6 +5,8 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.ApiErrorResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawKrwPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomainException
 import com.jongmin.upbit.exchange.UpbitExchangeService
@@ -13,7 +15,6 @@ import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitCreatedDepositCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitDeposit
 import com.jongmin.upbit.exchange.deposit.UpbitDepositKrw
-import com.jongmin.upbit.exchange.deposit.UpbitDeposits
 import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddresses
 import com.jongmin.upbit.exchange.info.UpbitApiKeys
@@ -26,7 +27,6 @@ import com.jongmin.upbit.exchange.order.UpbitOrdersChance
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdraw
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawCoinPost
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawKrwPost
-import com.jongmin.upbit.exchange.withdraw.UpbitWithdraws
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawsChance
 import com.jongmin.upbit.token.AuthorizationTokenService
 import com.linecorp.armeria.client.Clients
@@ -131,12 +131,12 @@ class UpbitExchangeServiceImpl(
             return apiExecute {
                 upbitExchangeApi.postOrders(
                     UpbitOrderPostRequest(
-                        market,
-                        side,
-                        volume,
-                        price,
-                        ordType,
-                        identifier
+                        market = market,
+                        side = side,
+                        volume = volume,
+                        price = price,
+                        ordType = ordType,
+                        identifier = identifier
                     )
                 )
             }.toDomain()
@@ -151,30 +151,73 @@ class UpbitExchangeServiceImpl(
         limit: Int,
         page: Int,
         orderBy: String
-    ): UpbitWithdraws {
-        TODO("Not yet implemented")
+    ): List<UpbitWithdraw> {
+        val params = mapOf("currency" to currency, "txids" to txids)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.getWithdraws(
+                    currency = currency,
+                    state = state,
+                    uuids = uuids,
+                    txids = txids,
+                    limit = limit,
+                    page = page,
+                    orderBy = orderBy
+                )
+            }.map { it.toDomain() }
+        }
     }
 
     override fun getWithdraw(uuid: String, txid: String, currency: String): UpbitWithdraw {
-        TODO("Not yet implemented")
+        val params = mapOf("uuid" to uuid)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.getWithdraw(uuid, txid, currency) }.toDomain()
+        }
     }
 
     override fun getWithdrawsChance(currency: String): UpbitWithdrawsChance {
-        TODO("Not yet implemented")
+        val params = mapOf("currency" to currency)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.getWithdrawsChance(currency) }.toDomain()
+        }
     }
 
     override fun postWithdrawCoin(
         currency: String,
         amount: String,
         address: String,
-        secondaryAddress: String,
-        transactionType: String
+        secondaryAddress: String?,
+        transactionType: String?
     ): UpbitWithdrawCoinPost {
-        TODO("Not yet implemented")
+        val params = mapOf(
+            "currency" to currency,
+            "amount" to amount,
+            "address" to address
+        )
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.postWithdrawsCoin(
+                    UpbitWithdrawCoinPostRequest(
+                        currency = currency,
+                        amount = amount,
+                        address = address,
+                        secondaryAddress = secondaryAddress,
+                        transactionType = transactionType
+                    )
+                )
+            }.toDomain()
+        }
     }
 
     override fun postWithdrawKrw(amount: String): UpbitWithdrawKrwPost {
-        TODO("Not yet implemented")
+        val params = mapOf("amount" to amount)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.postWithdrawsKrw(
+                    UpbitWithdrawKrwPostRequest(amount)
+                )
+            }.toDomain()
+        }
     }
 
     override fun getDeposits(
@@ -185,12 +228,28 @@ class UpbitExchangeServiceImpl(
         limit: Int,
         page: Int,
         orderBy: String
-    ): List<UpbitDeposits> {
-        TODO("Not yet implemented")
+    ): List<UpbitDeposit> {
+        val params = mapOf("currency" to currency, "txids" to txids)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.getDeposits(
+                    currency = currency,
+                    state = state,
+                    uuids = uuids,
+                    txids = txids,
+                    page = page,
+                    limit = limit,
+                    orderBy = orderBy
+                )
+            }.map { it.toDomain() }
+        }
     }
 
     override fun getDeposit(uuid: String, txid: String, currency: String): UpbitDeposit {
-        TODO("Not yet implemented")
+        val params = mapOf("uuid" to uuid)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.getDeposit(uuid, txid, currency) }.toDomain()
+        }
     }
 
     override fun createDepositCoinAddress(currency: String): UpbitCreateDepositCoinAddress {
