@@ -550,6 +550,12 @@ data class UpbitOrderPost(
     val price: String,
 
     /**
+     * 설명: 체결 가격의 평균가
+     * 타입: NumberString
+     */
+    val avgPrice: String,
+
+    /**
      * 설명: 주문 상태
      * 타입: String
      */

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.ApiErrorResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomainException
 import com.jongmin.upbit.exchange.UpbitExchangeService
@@ -117,9 +118,29 @@ class UpbitExchangeServiceImpl(
         volume: String,
         price: String,
         ordType: String,
-        identifier: String
+        identifier: String?
     ): UpbitOrderPost {
-        TODO("Not yet implemented")
+        val params = mapOf<String, Any>(
+            "market" to market,
+            "side" to side,
+            "volume" to volume,
+            "price" to price,
+            "ord_type" to ordType
+        )
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.postOrders(
+                    UpbitOrderPostRequest(
+                        market,
+                        side,
+                        volume,
+                        price,
+                        ordType,
+                        identifier
+                    )
+                )
+            }.toDomain()
+        }
     }
 
     override fun getWithdraws(

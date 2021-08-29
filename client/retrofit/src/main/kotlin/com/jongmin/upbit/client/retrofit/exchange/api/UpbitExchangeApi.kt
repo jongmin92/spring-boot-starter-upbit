@@ -3,12 +3,16 @@ package com.jongmin.upbit.client.retrofit.exchange.api
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitAccountResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderDeleteResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderIncludingTradesResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrdersChanceResponse
 import com.linecorp.armeria.server.annotation.Param
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface UpbitExchangeApi {
 
@@ -35,4 +39,7 @@ interface UpbitExchangeApi {
 
     @DELETE("v1/order")
     fun deleteOrder(@Param uuid: String?, @Param identifier: String?): Call<UpbitOrderDeleteResponse>
+
+    @POST("v1/orders")
+    fun postOrders(@Body request: UpbitOrderPostRequest): Call<UpbitOrderPostResponse>
 }

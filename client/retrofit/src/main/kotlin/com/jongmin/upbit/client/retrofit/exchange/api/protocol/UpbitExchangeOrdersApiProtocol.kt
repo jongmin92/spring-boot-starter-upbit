@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.jongmin.upbit.exchange.order.UpbitOrder
 import com.jongmin.upbit.exchange.order.UpbitOrderDelete
 import com.jongmin.upbit.exchange.order.UpbitOrderIncludingTrades
+import com.jongmin.upbit.exchange.order.UpbitOrderPost
 import com.jongmin.upbit.exchange.order.UpbitOrdersChance
+import java.util.*
 
 data class UpbitOrdersChanceResponse(
     /**
@@ -715,6 +717,182 @@ fun UpbitOrderDeleteResponse.toDomain() = UpbitOrderDelete(
     side = side,
     ordType = ordType,
     price = price,
+    state = state,
+    market = market,
+    createdAt = createdAt,
+    volume = volume,
+    remainingVolume = remainingVolume,
+    reservedFee = reservedFee,
+    remainingFee = remainingFee,
+    paidFee = paidFee,
+    locked = locked,
+    executedVolume = executedVolume,
+    tradeCount = tradeCount
+)
+
+data class UpbitOrderPostRequest(
+    /**
+     * 설명: Market ID
+     * 타입: String
+     */
+    @JsonProperty("market")
+    val market: String,
+
+    /**
+     * 설명: 주문 종류
+     * 타입: String
+     */
+    @JsonProperty("side")
+    val side: String,
+
+    /**
+     * 설명: 주문량
+     * 타입: NumberString
+     */
+    @JsonProperty("volume")
+    val volume: String,
+
+    /**
+     * 설명: 주문 가격
+     * 타입: NumberString
+     */
+    @JsonProperty("price")
+    val price: String,
+
+    /**
+     * 설명: 주문 타입
+     * 타입: String
+     */
+    @JsonProperty("ord_type")
+    val ordType: String,
+
+    /**
+     * 설명: 조회용 사용자 지정값
+     * 타입: String
+     */
+    val identifier: String? = UUID.randomUUID().toString()
+)
+
+data class UpbitOrderPostResponse(
+    /**
+     * 설명: 주문의 고유 아이디
+     * 타입: String
+     */
+    @JsonProperty("uuid")
+    val uuid: String,
+
+    /**
+     * 설명: 주문 종류
+     * 타입: String
+     */
+    @JsonProperty("side")
+    val side: String,
+
+    /**
+     * 설명: 주문 방식
+     * 타입: String
+     */
+    @JsonProperty("ord_type")
+    val ordType: String,
+
+    /**
+     * 설명: 주문 당시 화폐 가격
+     * 타입: NumberString
+     */
+    @JsonProperty("price")
+    val price: String,
+
+    /**
+     * 설명: 체결 가격의 평균가
+     * 타입: NumberString
+     */
+    @JsonProperty("avg_price")
+    val avgPrice: String,
+
+    /**
+     * 설명: 주문 상태
+     * 타입: String
+     */
+    @JsonProperty("state")
+    val state: String,
+
+    /**
+     * 설명: 마켓의 유일키
+     * 타입: String
+     */
+    @JsonProperty("market")
+    val market: String,
+
+    /**
+     * 설명: 주문 생성 시간
+     * 타입: DateString
+     */
+    @JsonProperty("created_at")
+    val createdAt: String,
+
+    /**
+     * 설명: 사용자가 입력한 주문 양
+     * 타입: NumberString
+     */
+    @JsonProperty("volume")
+    val volume: String,
+
+    /**
+     * 설명: 체결 후 남은 주문 양
+     * 타입: NumberString
+     */
+    @JsonProperty("remaining_volume")
+    val remainingVolume: String,
+
+    /**
+     * 설명: 수수료로 예약된 비용
+     * 타입: NumberString
+     */
+    @JsonProperty("reserved_fee")
+    val reservedFee: String,
+
+    /**
+     * 설명: 남은 수수료
+     * 타입: NumberString
+     */
+    @JsonProperty("remaining_fee")
+    val remainingFee: String,
+
+    /**
+     * 설명: 사용된 수수료
+     * 타입: NumberString
+     */
+    @JsonProperty("paid_fee")
+    val paidFee: String,
+
+    /**
+     * 설명: 거래에 사용중인 비용
+     * 타입: NumberString
+     */
+    @JsonProperty("locked")
+    val locked: String,
+
+    /**
+     * 설명: 체결된 양
+     * 타입: NumberString
+     */
+    @JsonProperty("executed_volume")
+    val executedVolume: String,
+
+    /**
+     * 설명: 해당 주문에 걸린 체결 수
+     * 타입: NumberString
+     */
+    @JsonProperty("trade_count")
+    val tradeCount: Int
+)
+
+fun UpbitOrderPostResponse.toDomain() = UpbitOrderPost(
+    uuid = uuid,
+    side = side,
+    ordType = ordType,
+    price = price,
+    avgPrice = avgPrice,
     state = state,
     market = market,
     createdAt = createdAt,
