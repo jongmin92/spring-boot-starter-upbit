@@ -69,7 +69,7 @@ class UpbitQuotationServiceImpl(val upbitCandleApi: UpbitCandleApi) : UpbitQuota
         TODO("Not yet implemented")
     }
 
-    override fun getMarketAll(isDetails: Boolean): UpbitMarkets {
+    override fun getMarkets(isDetails: Boolean): UpbitMarkets {
         TODO("Not yet implemented")
     }
 
