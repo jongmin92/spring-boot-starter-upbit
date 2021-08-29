@@ -102,8 +102,13 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun deleteOrder(uuid: String, identifier: String): UpbitOrderDelete {
-        TODO("Not yet implemented")
+    override fun deleteOrder(uuid: String?, identifier: String?): UpbitOrderDelete {
+        val params = mutableMapOf<String, Any>()
+        uuid?.let { params.put("uuid", it) }
+        identifier?.let { params.put("identifier", it) }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.deleteOrder(uuid, identifier) }.toDomain()
+        }
     }
 
     override fun postOrder(

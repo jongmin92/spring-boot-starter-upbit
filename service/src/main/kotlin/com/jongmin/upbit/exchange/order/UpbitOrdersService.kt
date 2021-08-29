@@ -47,7 +47,7 @@ interface UpbitOrdersService {
      * @param identifier 조회용 사용자 지정값
      * @return 주문 취소
      */
-    fun deleteOrder(uuid: String, identifier: String): UpbitOrderDelete
+    fun deleteOrder(uuid: String?, identifier: String?): UpbitOrderDelete
 
     /**
      * 주문하기
