@@ -10,5 +10,5 @@ interface UpbitTickerService {
      *
      * @return 현재가 정보 리스트
      */
-    fun getUpbitTicker(markets: String): UpbitTickers
+    fun getUpbitTicker(markets: String): List<UpbitTicker>
 }

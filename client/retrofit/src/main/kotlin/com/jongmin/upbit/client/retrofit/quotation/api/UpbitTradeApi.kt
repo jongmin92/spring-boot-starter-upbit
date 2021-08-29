@@ -1,6 +1,6 @@
 package com.jongmin.upbit.client.retrofit.quotation.api
 
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitTicksResponse
+import com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitTickResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,5 +14,5 @@ interface UpbitTradeApi {
         @Query("count") count: Int? = null,
         @Query("cursor") cursor: String? = null,
         @Query("daysAgo") daysAgo: Int? = null
-    ): Call<UpbitTicksResponse>
+    ): Call<List<UpbitTickResponse>>
 }

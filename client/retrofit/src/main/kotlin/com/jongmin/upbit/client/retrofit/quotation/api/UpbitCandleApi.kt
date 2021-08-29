@@ -1,9 +1,6 @@
 package com.jongmin.upbit.client.retrofit.quotation.api
 
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.DayCandlesResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.MinuteCandlesResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.MonthCandlesResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.WeekCandlesResponse
+import com.jongmin.upbit.client.retrofit.quotation.api.protocol.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,7 +14,7 @@ interface UpbitCandleApi {
         @Query("market") market: String,
         @Query("to") to: String?,
         @Query("count") count: Int?
-    ): Call<MinuteCandlesResponse>
+    ): Call<List<MinuteCandleResponse>>
 
     @GET("/v1/candles/days")
     fun getUpbitDayCandles(
@@ -25,19 +22,19 @@ interface UpbitCandleApi {
         @Query("to") to: String?,
         @Query("count") count: Int?,
         @Query("convertingPriceUnit") convertingPriceUnit: String? = "KRW",
-    ): Call<DayCandlesResponse>
+    ): Call<List<DayCandleResponse>>
 
     @GET("/v1/candles/weeks")
     fun getUpbitWeekCandles(
         @Query("market") market: String,
         @Query("to") to: String? = "yyyy-MM-dd HH:mm:ss",
         @Query("count") count: Int?
-    ): Call<WeekCandlesResponse>
+    ): Call<List<WeekCandleResponse>>
 
     @GET("/v1/candles/months")
     fun getUpbitMonthCandles(
         @Query("market") market: String,
         @Query("to") to: String? = "yyyy-MM-dd HH:mm:ss",
         @Query("count") count: Int?
-    ): Call<MonthCandlesResponse>
+    ): Call<List<MonthCandleResponse>>
 }

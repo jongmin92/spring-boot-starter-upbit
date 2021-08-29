@@ -8,5 +8,5 @@ interface UpbitMarketService {
      *
      * @return 마켓 리스트
      */
-    fun getMarkets(isDetails: Boolean? = false): UpbitMarkets
+    fun getMarkets(isDetails: Boolean? = false): List<UpbitMarket>
 }

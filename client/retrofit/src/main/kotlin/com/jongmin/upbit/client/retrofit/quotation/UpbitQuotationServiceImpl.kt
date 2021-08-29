@@ -3,21 +3,18 @@ package com.jongmin.upbit.client.retrofit.quotation
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.ApiErrorResponse
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomainException
 import com.jongmin.upbit.client.retrofit.quotation.api.*
 import com.jongmin.upbit.client.retrofit.quotation.api.protocol.toDomain
-import com.jongmin.upbit.exchange.order.*
 import com.jongmin.upbit.quotation.UpbitQuotationService
-import com.jongmin.upbit.quotation.candles.DayCandles
-import com.jongmin.upbit.quotation.candles.MinuteCandles
-import com.jongmin.upbit.quotation.candles.MonthCandles
-import com.jongmin.upbit.quotation.candles.WeekCandles
-import com.jongmin.upbit.quotation.market.UpbitMarkets
-import com.jongmin.upbit.quotation.orderbook.UpbitOrderbooks
-import com.jongmin.upbit.quotation.ticker.UpbitTickers
-import com.jongmin.upbit.quotation.trades.UpbitTicks
-import com.linecorp.armeria.client.Clients
+import com.jongmin.upbit.quotation.candles.DayCandle
+import com.jongmin.upbit.quotation.candles.MinuteCandle
+import com.jongmin.upbit.quotation.candles.MonthCandle
+import com.jongmin.upbit.quotation.candles.WeekCandle
+import com.jongmin.upbit.quotation.market.UpbitMarket
+import com.jongmin.upbit.quotation.orderbook.UpbitOrderbook
+import com.jongmin.upbit.quotation.ticker.UpbitTicker
+import com.jongmin.upbit.quotation.trades.UpbitTick
 import retrofit2.Call
 
 class UpbitQuotationServiceImpl(
@@ -50,7 +47,7 @@ class UpbitQuotationServiceImpl(
         market: String,
         to: String?,
         count: Int?
-    ): MinuteCandles {
+    ): List<MinuteCandle> {
         return apiExecute {
             upbitCandleApi.getUpbitMinuteCandles(
                 unit = unit,
@@ -58,7 +55,7 @@ class UpbitQuotationServiceImpl(
                 to = to,
                 count = count
             )
-        }.toDomain()
+        }.map { it.toDomain() }
     }
 
     override fun getDayCandles(
@@ -66,7 +63,7 @@ class UpbitQuotationServiceImpl(
         to: String?,
         count: Int?,
         convertingPriceUnit: String?
-    ): DayCandles {
+    ): List<DayCandle>{
         return apiExecute {
             upbitCandleApi.getUpbitDayCandles(
                 market = market,
@@ -74,39 +71,39 @@ class UpbitQuotationServiceImpl(
                 count = count,
                 convertingPriceUnit = convertingPriceUnit
             )
-        }.toDomain()
+        }.map { it.toDomain() }
     }
 
-    override fun getWeekCandles(market: String, to: String?, count: Int?): WeekCandles {
+    override fun getWeekCandles(market: String, to: String?, count: Int?): List<WeekCandle> {
         return apiExecute {
             upbitCandleApi.getUpbitWeekCandles(
                 market = market,
                 to = to,
                 count = count
             )
-        }.toDomain()
+        }.map { it.toDomain() }
     }
 
-    override fun getMonthCandles(market: String, to: String?, count: Int?): MonthCandles {
+    override fun getMonthCandles(market: String, to: String?, count: Int?): List<MonthCandle> {
         return apiExecute {
             upbitCandleApi.getUpbitMonthCandles(
                 market = market,
                 to = to,
                 count = count
             )
-        }.toDomain()
+        }.map { it.toDomain() }
     }
 
-    override fun getMarkets(isDetails: Boolean?): UpbitMarkets {
-        return apiExecute { upbitMarketApi.getMarkets(isDetails = isDetails) }.toDomain()
+    override fun getMarkets(isDetails: Boolean?): List<UpbitMarket> {
+        return apiExecute { upbitMarketApi.getMarkets(isDetails = isDetails) }.map { it.toDomain() }
     }
 
-    override fun getOrderbooks(markets: String): UpbitOrderbooks {
-        return apiExecute { upbitOrderbookApi.getOrderbooks(markets = markets) }.toDomain()
+    override fun getOrderbooks(markets: String): List<UpbitOrderbook> {
+        return apiExecute { upbitOrderbookApi.getOrderbooks(markets = markets) }.map { it.toDomain() }
     }
 
-    override fun getUpbitTicker(markets: String): UpbitTickers {
-        return apiExecute { upbitTickerApi.getCurrentTicker(markets = markets) }.toDomain()
+    override fun getUpbitTicker(markets: String): List<UpbitTicker> {
+        return apiExecute { upbitTickerApi.getCurrentTicker(markets = markets) }.map { it.toDomain() }
     }
 
     override fun getUpbitTicks(
@@ -115,7 +112,7 @@ class UpbitQuotationServiceImpl(
         count: Int?,
         cursor: String?,
         daysAgo: Int?
-    ): UpbitTicks {
+    ): List<UpbitTick> {
         return apiExecute {
             upbitTradeApi.getTradeTicks(
                 market = market,
@@ -124,6 +121,6 @@ class UpbitQuotationServiceImpl(
                 cursor = cursor,
                 daysAgo = daysAgo
             )
-        }.toDomain()
+        }.map { it.toDomain() }
     }
 }

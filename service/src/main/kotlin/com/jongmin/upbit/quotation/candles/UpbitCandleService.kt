@@ -15,9 +15,9 @@ interface UpbitCandleService {
     fun getUpbitMinuteCandle(
         unit: Int = 1,
         market: String,
-        to: String? = "yyyy-MM-dd HH:mm:ss",
+        to: String? = "",
         count: Int? = 1
-    ): MinuteCandles
+    ): List<MinuteCandle>
 
     /**
      * 일별 캔들을 조회
@@ -31,10 +31,10 @@ interface UpbitCandleService {
      */
     fun getDayCandles(
         market: String,
-        to: String? = "yyyy-MM-dd HH:mm:ss",
+        to: String? = "",
         count: Int? = 1,
         convertingPriceUnit: String? = "KRW"
-    ): DayCandles
+    ): List<DayCandle>
 
     /**
      * 주별 캔들 조회
@@ -49,9 +49,9 @@ interface UpbitCandleService {
      */
     fun getWeekCandles(
         market: String,
-        to: String? = "yyyy-MM-dd HH:mm:ss",
+        to: String? = "",
         count: Int? = 1
-    ): WeekCandles
+    ): List<WeekCandle>
 
     /**
      * 월별 캔들 조회
@@ -65,7 +65,7 @@ interface UpbitCandleService {
      */
     fun getMonthCandles(
         market: String,
-        to: String? = "yyyy-MM-dd HH:mm:ss",
+        to: String? = "",
         count: Int? = 1
-    ): MonthCandles
+    ): List<MonthCandle>
 }

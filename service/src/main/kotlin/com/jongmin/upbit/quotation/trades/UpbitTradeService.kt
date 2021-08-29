@@ -21,5 +21,5 @@ interface UpbitTradeService {
         count: Int? = 10,
         cursor: String?,
         daysAgo: Int? = 0
-    ): UpbitTicks
+    ): List<UpbitTick>
 }
