@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.ApiErrorResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomainException
 import com.jongmin.upbit.exchange.UpbitExchangeService
@@ -130,12 +131,12 @@ class UpbitExchangeServiceImpl(
             return apiExecute {
                 upbitExchangeApi.postOrders(
                     UpbitOrderPostRequest(
-                        market,
-                        side,
-                        volume,
-                        price,
-                        ordType,
-                        identifier
+                        market = market,
+                        side = side,
+                        volume = volume,
+                        price = price,
+                        ordType = ordType,
+                        identifier = identifier
                     )
                 )
             }.toDomain()
@@ -155,13 +156,13 @@ class UpbitExchangeServiceImpl(
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute {
                 upbitExchangeApi.getWithdraws(
-                    currency,
-                    state,
-                    uuids,
-                    txids,
-                    page,
-                    limit,
-                    orderBy
+                    currency = currency,
+                    state = state,
+                    uuids = uuids,
+                    txids = txids,
+                    page = page,
+                    limit = limit,
+                    orderBy = orderBy
                 )
             }.map { it.toDomain() }
         }
@@ -185,10 +186,27 @@ class UpbitExchangeServiceImpl(
         currency: String,
         amount: String,
         address: String,
-        secondaryAddress: String,
-        transactionType: String
+        secondaryAddress: String?,
+        transactionType: String?
     ): UpbitWithdrawCoinPost {
-        TODO("Not yet implemented")
+        val params = mapOf(
+            "currency" to currency,
+            "amount" to amount,
+            "address" to address
+        )
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.postWithdrawsCoin(
+                    UpbitWithdrawCoinPostRequest(
+                        currency = currency,
+                        amount = amount,
+                        address = address,
+                        secondaryAddress = secondaryAddress,
+                        transactionType = transactionType
+                    )
+                )
+            }.toDomain()
+        }
     }
 
     override fun postWithdrawKrw(amount: String): UpbitWithdrawKrwPost {
