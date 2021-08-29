@@ -1,6 +1,6 @@
 package com.jongmin.upbit.client.retrofit.quotation
 
-import com.jongmin.upbit.client.retrofit.quotation.api.UpbitCandleApi
+import com.jongmin.upbit.client.retrofit.quotation.api.*
 import com.jongmin.upbit.exchange.order.*
 import com.jongmin.upbit.quotation.UpbitQuotationService
 import com.jongmin.upbit.quotation.candles.DayCandles
@@ -8,46 +8,17 @@ import com.jongmin.upbit.quotation.candles.MinuteCandles
 import com.jongmin.upbit.quotation.candles.MonthCandles
 import com.jongmin.upbit.quotation.candles.WeekCandles
 import com.jongmin.upbit.quotation.market.UpbitMarkets
+import com.jongmin.upbit.quotation.orderbook.UpbitOrderbooks
 import com.jongmin.upbit.quotation.ticker.UpbitTickers
 import com.jongmin.upbit.quotation.trades.UpbitTicks
 
-class UpbitQuotationServiceImpl(val upbitCandleApi: UpbitCandleApi) : UpbitQuotationService {
-    override fun getOrdersChance(market: String): UpbitOrdersChance {
-        TODO("Not yet implemented")
-    }
-
-    override fun getOrder(uuid: String?, identifier: String?): UpbitOrderIncludingTrades {
-        TODO("Not yet implemented")
-    }
-
-    override fun getOrders(
-        market: String,
-        state: String,
-        states: List<String>,
-        uuids: List<String>,
-        identifiers: List<String>,
-        page: Int,
-        limit: Int,
-        orderBy: String
-    ): List<UpbitOrder> {
-        TODO("Not yet implemented")
-    }
-
-    override fun deleteOrder(uuid: String?, identifier: String?): UpbitOrderDelete {
-        TODO("Not yet implemented")
-    }
-
-    override fun postOrder(
-        market: String,
-        side: String,
-        volume: String,
-        price: String,
-        ordType: String,
-        identifier: String?
-    ): UpbitOrderPost {
-        TODO("Not yet implemented")
-    }
-
+class UpbitQuotationServiceImpl(
+    private val upbitCandleApi: UpbitCandleApi,
+    private val upbitMarketApi: UpbitMarketApi,
+    private val upbitOrderbookApi: UpbitOrderbookApi,
+    private val upbitTickerApi: UpbitTickerApi,
+    private val upbitTradeApi: UpbitTradeApi
+) : UpbitQuotationService {
     override fun getUpbitMinuteCandle(market: String, to: String?, count: Int): MinuteCandles {
         TODO("Not yet implemented")
     }
@@ -70,6 +41,10 @@ class UpbitQuotationServiceImpl(val upbitCandleApi: UpbitCandleApi) : UpbitQuota
     }
 
     override fun getMarkets(isDetails: Boolean): UpbitMarkets {
+        TODO("Not yet implemented")
+    }
+
+    override fun getOrderbooks(markets: String): UpbitOrderbooks {
         TODO("Not yet implemented")
     }
 
