@@ -15,7 +15,6 @@ import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitCreatedDepositCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitDeposit
 import com.jongmin.upbit.exchange.deposit.UpbitDepositKrw
-import com.jongmin.upbit.exchange.deposit.UpbitDeposits
 import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddresses
 import com.jongmin.upbit.exchange.info.UpbitApiKeys
@@ -161,8 +160,8 @@ class UpbitExchangeServiceImpl(
                     state = state,
                     uuids = uuids,
                     txids = txids,
-                    page = page,
                     limit = limit,
+                    page = page,
                     orderBy = orderBy
                 )
             }.map { it.toDomain() }
@@ -229,8 +228,21 @@ class UpbitExchangeServiceImpl(
         limit: Int,
         page: Int,
         orderBy: String
-    ): List<UpbitDeposits> {
-        TODO("Not yet implemented")
+    ): List<UpbitDeposit> {
+        val params = mapOf("currency" to currency, "txids" to txids)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.getDeposits(
+                    currency = currency,
+                    state = state,
+                    uuids = uuids,
+                    txids = txids,
+                    page = page,
+                    limit = limit,
+                    orderBy = orderBy
+                )
+            }.map { it.toDomain() }
+        }
     }
 
     override fun getDeposit(uuid: String, txid: String, currency: String): UpbitDeposit {

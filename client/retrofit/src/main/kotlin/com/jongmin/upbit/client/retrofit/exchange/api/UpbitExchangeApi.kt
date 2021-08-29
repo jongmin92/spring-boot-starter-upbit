@@ -1,6 +1,7 @@
 package com.jongmin.upbit.client.retrofit.exchange.api
 
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitAccountResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderDeleteResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderIncludingTradesResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostRequest
@@ -90,4 +91,18 @@ interface UpbitExchangeApi {
 
     @POST("v1/withdraws/krw")
     fun postWithdrawsKrw(@Body request: UpbitWithdrawKrwPostRequest): Call<UpbitWithdrawKrwPostResponse>
+
+    /**
+     * 입금
+     */
+    @GET("v1/deposits")
+    fun getDeposits(
+        @Query("currency") currency: String,
+        @Query("state") state: String,
+        @Query("uuids") uuids: List<String>,
+        @Query("txids") txids: List<String>,
+        @Query("page") page: Int = 1,
+        @Query("limit") limit: Int = 100,
+        @Query("order_by") orderBy: String = "desc"
+    ): Call<List<UpbitDepositResponse>>
 }
