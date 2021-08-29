@@ -168,7 +168,10 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun getWithdraw(uuid: String, txid: String, currency: String): UpbitWithdraw {
-        TODO("Not yet implemented")
+        val params = mapOf("uuid" to uuid)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.getWithdraw(uuid, txid, currency) }.toDomain()
+        }
     }
 
     override fun getWithdrawsChance(currency: String): UpbitWithdrawsChance {

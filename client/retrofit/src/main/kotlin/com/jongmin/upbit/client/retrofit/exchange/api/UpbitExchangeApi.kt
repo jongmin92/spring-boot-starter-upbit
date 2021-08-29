@@ -17,11 +17,15 @@ import retrofit2.http.Query
 
 interface UpbitExchangeApi {
 
-    // 자산
+    /**
+     * 자산
+     */
     @GET("v1/accounts")
     fun getAccounts(): Call<List<UpbitAccountResponse>>
 
-    // 주문
+    /**
+     * 주문
+     */
     @GET("v1/orders/chance")
     fun getOrdersChance(@Query("market") market: String): Call<UpbitOrdersChanceResponse>
 
@@ -52,7 +56,9 @@ interface UpbitExchangeApi {
     @POST("v1/orders")
     fun postOrders(@Body request: UpbitOrderPostRequest): Call<UpbitOrderPostResponse>
 
-    // 출금
+    /**
+     * 출금
+     */
     @GET("v1/withdraws")
     fun getWithdraws(
         @Query("currency") currency: String,
@@ -63,4 +69,11 @@ interface UpbitExchangeApi {
         @Query("limit") limit: Int = 100,
         @Query("order_by") orderBy: String = "desc"
     ): Call<List<UpbitWithdrawResponse>>
+
+    @GET("v1/withdraw")
+    fun getWithdraw(
+        @Query("uuid") uuid: String,
+        @Query("txid") txid: String,
+        @Query("currency") currency: String
+    ): Call<UpbitWithdrawResponse>
 }
