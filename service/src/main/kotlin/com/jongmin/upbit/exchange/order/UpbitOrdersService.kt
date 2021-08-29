@@ -19,7 +19,7 @@ interface UpbitOrdersService {
      * @param identifier 조회용 사용자 지정 값
      * @return 개별 주문건
      */
-    fun getOrder(uuid: String?, identifier: String?): UpbitOrder
+    fun getOrder(uuid: String?, identifier: String?): UpbitOrderIncludingTrades
 
     /**
      * 주문 리스트 조회
@@ -36,8 +36,8 @@ interface UpbitOrdersService {
      */
     fun getOrders(
         market: String, state: String, states: List<String>, uuids: List<String>, identifiers: List<String>,
-        page: Int, limit: Int, orderBy: String
-    ): UpbitOrders
+        page: Int = 1, limit: Int = 100, orderBy: String = "desc"
+    ): List<UpbitOrder>
 
     /**
      * 주문 취소 접수

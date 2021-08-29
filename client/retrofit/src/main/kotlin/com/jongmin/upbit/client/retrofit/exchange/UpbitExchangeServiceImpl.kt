@@ -19,8 +19,8 @@ import com.jongmin.upbit.exchange.info.UpbitApiKeys
 import com.jongmin.upbit.exchange.info.UpbitWalletStatus
 import com.jongmin.upbit.exchange.order.UpbitOrder
 import com.jongmin.upbit.exchange.order.UpbitOrderDelete
+import com.jongmin.upbit.exchange.order.UpbitOrderIncludingTrades
 import com.jongmin.upbit.exchange.order.UpbitOrderPost
-import com.jongmin.upbit.exchange.order.UpbitOrders
 import com.jongmin.upbit.exchange.order.UpbitOrdersChance
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdraw
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawCoinPost
@@ -66,7 +66,7 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun getOrder(uuid: String?, identifier: String?): UpbitOrder {
+    override fun getOrder(uuid: String?, identifier: String?): UpbitOrderIncludingTrades {
         val params = mutableMapOf<String, Any>()
         uuid?.let { params.put("uuid", it) }
         identifier?.let { params.put("identifier", it) }
@@ -84,8 +84,22 @@ class UpbitExchangeServiceImpl(
         page: Int,
         limit: Int,
         orderBy: String
-    ): UpbitOrders {
-        TODO("Not yet implemented")
+    ): List<UpbitOrder> {
+        val params = mapOf<String, Any>("state" to state, "uuids" to uuids)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.getOrders(
+                    market = market,
+                    state = state,
+                    states = states,
+                    uuids = uuids,
+                    identifier = identifiers,
+                    page = page,
+                    limit = limit,
+                    orderBy = orderBy
+                )
+            }.map { it.toDomain() }
+        }
     }
 
     override fun deleteOrder(uuid: String, identifier: String): UpbitOrderDelete {
