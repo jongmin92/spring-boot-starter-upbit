@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.UpbitExchangeServiceImpl
 import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
+import com.jongmin.upbit.client.retrofit.quotation.UpbitQuotationServiceImpl
 import com.jongmin.upbit.client.retrofit.quotation.api.*
 import com.jongmin.upbit.client.retrofit.spring.boot.UpbitClientSettings
 import com.jongmin.upbit.token.AuthorizationTokenService
@@ -64,5 +65,22 @@ class UpbitExchangeRetrofitClientAutoConfigure {
         authorizationTokenService: AuthorizationTokenService
     ): UpbitExchangeServiceImpl {
         return UpbitExchangeServiceImpl(upbitExchangeApi, authorizationTokenService)
+    }
+
+    @Bean
+    fun upbitQuotationService(
+        upbitCandleApi: UpbitCandleApi,
+        upbitMarketApi: UpbitMarketApi,
+        upbitOrderbookApi: UpbitOrderbookApi,
+        upbitTickerApi: UpbitTickerApi,
+        upbitTradeApi: UpbitTradeApi
+    ): UpbitQuotationServiceImpl {
+        return UpbitQuotationServiceImpl(
+            upbitCandleApi,
+            upbitMarketApi,
+            upbitOrderbookApi,
+            upbitTickerApi,
+            upbitTradeApi
+        )
     }
 }

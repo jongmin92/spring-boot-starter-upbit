@@ -10,7 +10,7 @@ interface UpbitTradeApi {
     @GET("v1/trades/ticks")
     fun getTradeTicks(
         @Query("market") market: String,
-        @Query("to") to: String = "HHmmss",
+        @Query("to") to: String? = "HHmmss",
         @Query("count") count: Int? = null,
         @Query("cursor") cursor: String? = null,
         @Query("daysAgo") daysAgo: Int? = null

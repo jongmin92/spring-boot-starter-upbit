@@ -15,5 +15,11 @@ interface UpbitTradeService {
      *
      * @return 체결 내역 리스트
      */
-    fun getUpbitTicks(market: String, to: String?, count: Int=10, cursor: String, daysAgo: Int=1): UpbitTicks
+    fun getUpbitTicks(
+        market: String,
+        to: String? = "HHmmss",
+        count: Int? = 10,
+        cursor: String?,
+        daysAgo: Int? = 0
+    ): UpbitTicks
 }
