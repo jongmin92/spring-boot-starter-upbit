@@ -105,4 +105,11 @@ interface UpbitExchangeApi {
         @Query("limit") limit: Int = 100,
         @Query("order_by") orderBy: String = "desc"
     ): Call<List<UpbitDepositResponse>>
+
+    @GET("v1/deposit")
+    fun getDeposit(
+        @Query("uuid") uuid: String,
+        @Query("txid") txid: String,
+        @Query("currency") currency: String
+    ): Call<UpbitDepositResponse>
 }
