@@ -16,7 +16,7 @@ class UpbitQuotationServiceImpl(val upbitCandleApi: UpbitCandleApi) : UpbitQuota
         TODO("Not yet implemented")
     }
 
-    override fun getOrder(uuid: String, identifier: String): UpbitOrder {
+    override fun getOrder(uuid: String?, identifier: String?): UpbitOrderIncludingTrades {
         TODO("Not yet implemented")
     }
 
@@ -29,11 +29,11 @@ class UpbitQuotationServiceImpl(val upbitCandleApi: UpbitCandleApi) : UpbitQuota
         page: Int,
         limit: Int,
         orderBy: String
-    ): UpbitOrders {
+    ): List<UpbitOrder> {
         TODO("Not yet implemented")
     }
 
-    override fun deleteOrder(uuid: String, identifier: String): UpbitOrderDelete {
+    override fun deleteOrder(uuid: String?, identifier: String?): UpbitOrderDelete {
         TODO("Not yet implemented")
     }
 
@@ -43,7 +43,7 @@ class UpbitQuotationServiceImpl(val upbitCandleApi: UpbitCandleApi) : UpbitQuota
         volume: String,
         price: String,
         ordType: String,
-        identifier: String
+        identifier: String?
     ): UpbitOrderPost {
         TODO("Not yet implemented")
     }
@@ -69,7 +69,7 @@ class UpbitQuotationServiceImpl(val upbitCandleApi: UpbitCandleApi) : UpbitQuota
         TODO("Not yet implemented")
     }
 
-    override fun getMarketAll(): UpbitMarkets {
+    override fun getMarketAll(isDetails: Boolean): UpbitMarkets {
         TODO("Not yet implemented")
     }
 
