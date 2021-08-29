@@ -8,5 +8,5 @@ interface UpbitAccountsService {
      *
      * @return 자산 리스트
      */
-    fun getAccounts(): UpbitAccounts
+    fun getAccounts(): List<UpbitAccount>
 }

@@ -4,19 +4,42 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.ApiErrorResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomainException
 import com.jongmin.upbit.exchange.UpbitExchangeService
-import com.jongmin.upbit.exchange.account.UpbitAccounts
-import com.jongmin.upbit.exchange.deposit.*
+import com.jongmin.upbit.exchange.account.UpbitAccount
+import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
+import com.jongmin.upbit.exchange.deposit.UpbitCreatedDepositCoinAddress
+import com.jongmin.upbit.exchange.deposit.UpbitDeposit
+import com.jongmin.upbit.exchange.deposit.UpbitDepositKrw
+import com.jongmin.upbit.exchange.deposit.UpbitDeposits
+import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddress
+import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddresses
 import com.jongmin.upbit.exchange.info.UpbitApiKeys
 import com.jongmin.upbit.exchange.info.UpbitWalletStatus
-import com.jongmin.upbit.exchange.order.*
-import com.jongmin.upbit.exchange.withdraw.*
+import com.jongmin.upbit.exchange.order.UpbitOrder
+import com.jongmin.upbit.exchange.order.UpbitOrderDelete
+import com.jongmin.upbit.exchange.order.UpbitOrderIncludingTrades
+import com.jongmin.upbit.exchange.order.UpbitOrderPost
+import com.jongmin.upbit.exchange.order.UpbitOrdersChance
+import com.jongmin.upbit.exchange.withdraw.UpbitWithdraw
+import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawCoinPost
+import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawKrwPost
+import com.jongmin.upbit.exchange.withdraw.UpbitWithdraws
+import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawsChance
+import com.jongmin.upbit.token.AuthorizationTokenService
+import com.linecorp.armeria.client.Clients
 import retrofit2.Call
 
 class UpbitExchangeServiceImpl(
-    private val upbitExchangeApi: UpbitExchangeApi
+    private val upbitExchangeApi: UpbitExchangeApi,
+    private val authorizationTokenService: AuthorizationTokenService
 ) : UpbitExchangeService {
+    companion object {
+        const val AUTHORIZATION_HEADER = "Authorization"
+    }
+
     private val objectMapper = jacksonObjectMapper().apply {
         disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
     }
@@ -31,16 +54,26 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun getAccounts(): UpbitAccounts {
-        return apiExecute { upbitExchangeApi.getAccounts() }.toDomain()
+    override fun getAccounts(): List<UpbitAccount> {
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken()).use {
+            return apiExecute { upbitExchangeApi.getAccounts() }.map { it.toDomain() }
+        }
     }
 
     override fun getOrdersChance(market: String): UpbitOrdersChance {
-        TODO("Not yet implemented")
+        val params = mapOf<String, Any>("market" to market)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.getOrdersChance(market) }.toDomain()
+        }
     }
 
-    override fun getOrder(uuid: String, identifier: String): UpbitOrder {
-        TODO("Not yet implemented")
+    override fun getOrder(uuid: String?, identifier: String?): UpbitOrderIncludingTrades {
+        val params = mutableMapOf<String, Any>()
+        uuid?.let { params.put("uuid", it) }
+        identifier?.let { params.put("identifier", it) }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.getOrder(uuid, identifier) }.toDomain()
+        }
     }
 
     override fun getOrders(
@@ -52,12 +85,31 @@ class UpbitExchangeServiceImpl(
         page: Int,
         limit: Int,
         orderBy: String
-    ): UpbitOrders {
-        TODO("Not yet implemented")
+    ): List<UpbitOrder> {
+        val params = mapOf<String, Any>("state" to state, "uuids" to uuids)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.getOrders(
+                    market = market,
+                    state = state,
+                    states = states,
+                    uuids = uuids,
+                    identifier = identifiers,
+                    page = page,
+                    limit = limit,
+                    orderBy = orderBy
+                )
+            }.map { it.toDomain() }
+        }
     }
 
-    override fun deleteOrder(uuid: String, identifier: String): UpbitOrderDelete {
-        TODO("Not yet implemented")
+    override fun deleteOrder(uuid: String?, identifier: String?): UpbitOrderDelete {
+        val params = mutableMapOf<String, Any>()
+        uuid?.let { params.put("uuid", it) }
+        identifier?.let { params.put("identifier", it) }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.deleteOrder(uuid, identifier) }.toDomain()
+        }
     }
 
     override fun postOrder(
@@ -66,9 +118,29 @@ class UpbitExchangeServiceImpl(
         volume: String,
         price: String,
         ordType: String,
-        identifier: String
+        identifier: String?
     ): UpbitOrderPost {
-        TODO("Not yet implemented")
+        val params = mapOf<String, Any>(
+            "market" to market,
+            "side" to side,
+            "volume" to volume,
+            "price" to price,
+            "ord_type" to ordType
+        )
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute {
+                upbitExchangeApi.postOrders(
+                    UpbitOrderPostRequest(
+                        market,
+                        side,
+                        volume,
+                        price,
+                        ordType,
+                        identifier
+                    )
+                )
+            }.toDomain()
+        }
     }
 
     override fun getWithdraws(
