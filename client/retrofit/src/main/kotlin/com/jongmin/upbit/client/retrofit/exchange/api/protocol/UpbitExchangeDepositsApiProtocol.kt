@@ -87,3 +87,42 @@ fun UpbitDepositResponse.toDomain() = UpbitDeposit(
     fee = fee,
     transactionType = transactionType
 )
+
+data class UpbitCreateDepositCoinAddressResponse(
+    /**
+     * 설명: 요청 성공 여부
+     * 타입: Boolean
+     */
+    @JsonProperty("success")
+    val success: Boolean,
+
+    /**
+     * 설명: 요청 결과에 대한 메세지
+     * 타입: String
+     */
+    @JsonProperty("message")
+    val message: String
+)
+
+data class UpbitCreatedDepositCoinAddressResponse(
+    /**
+     * 설명: 화폐를 의미하는 영문 대문자 코드
+     * 타입: String
+     */
+    @JsonProperty("currency")
+    val currency: String,
+
+    /**
+     * 설명: 입금 주소
+     * 타입: String
+     */
+    @JsonProperty("deposit_address")
+    val depositAddress: String,
+
+    /**
+     * 설명: 2차 입금 주소
+     * 타입: String
+     */
+    @JsonProperty("secondary_address")
+    val secondaryAddress: String
+)
