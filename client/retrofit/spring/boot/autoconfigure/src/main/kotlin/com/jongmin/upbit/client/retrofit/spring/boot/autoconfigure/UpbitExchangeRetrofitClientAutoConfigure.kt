@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.UpbitExchangeServiceImpl
 import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
+import com.jongmin.upbit.client.retrofit.quotation.UpbitQuotationServiceImpl
+import com.jongmin.upbit.client.retrofit.quotation.api.*
 import com.jongmin.upbit.client.retrofit.spring.boot.UpbitClientSettings
 import com.jongmin.upbit.token.AuthorizationTokenService
 import com.jongmin.upbit.token.AuthorizationTokenServiceImpl
@@ -22,14 +24,19 @@ class UpbitExchangeRetrofitClientAutoConfigure {
         const val BASE_URL = "https://api.upbit.com/"
     }
 
-    @Bean
-    fun upbitExchangeApi(): UpbitExchangeApi =
+    private fun <T> makeDefaultRetrofitApi(clazz: Class<T>): T =
         ArmeriaRetrofit.builder(BASE_URL)
             .addConverterFactory(JacksonConverterFactory.create(jacksonObjectMapper().apply {
                 configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             }))
             .build()
-            .create(UpbitExchangeApi::class.java)
+            .create(clazz)
+
+    @Bean
+    fun upbitExchangeApi(): UpbitExchangeApi = makeDefaultRetrofitApi(UpbitExchangeApi::class.java)
+
+    @Bean
+    fun upbitQuotationApi(): UpbitQuotationApi = makeDefaultRetrofitApi(UpbitQuotationApi::class.java)
 
     @Bean
     fun authorizationTokenService(upbitClientSettings: UpbitClientSettings) =
@@ -44,5 +51,14 @@ class UpbitExchangeRetrofitClientAutoConfigure {
         authorizationTokenService: AuthorizationTokenService
     ): UpbitExchangeServiceImpl {
         return UpbitExchangeServiceImpl(upbitExchangeApi, authorizationTokenService)
+    }
+
+    @Bean
+    fun upbitQuotationService(
+        upbitQuotationApi: UpbitQuotationApi
+    ): UpbitQuotationServiceImpl {
+        return UpbitQuotationServiceImpl(
+            upbitQuotationApi
+        )
     }
 }
