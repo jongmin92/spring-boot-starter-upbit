@@ -264,7 +264,10 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun getDepositsCoinAddress(currency: String): UpbitDepositCoinAddress {
-        TODO("Not yet implemented")
+        val params = mapOf("currency" to currency)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.getDepositsCoinAddress(currency) }.toDomain()
+        }
     }
 
     override fun depositKrw(amount: Int): UpbitDepositKrw {

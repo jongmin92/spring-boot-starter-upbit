@@ -120,4 +120,7 @@ interface UpbitExchangeApi {
 
     @GET("v1/deposits/coin_addresses")
     fun getDepositCoinAddresses(): Call<List<UpbitDepositCoinAddressResponse>>
+
+    @GET("v1/deposits/coin_address")
+    fun getDepositsCoinAddress(@Query("currency") currency: String): Call<UpbitDepositCoinAddressResponse>
 }
