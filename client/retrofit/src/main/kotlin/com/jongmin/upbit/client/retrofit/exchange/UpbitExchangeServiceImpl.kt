@@ -279,7 +279,7 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun getWalletStatus(): UpbitWalletStatus {
-        TODO("Not yet implemented")
+        return apiExecute { upbitExchangeApi.getWalletStatus() }.toDomain()
     }
 
     override fun getApiKeys(): UpbitApiKeys {

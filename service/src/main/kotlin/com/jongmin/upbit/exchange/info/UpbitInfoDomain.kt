@@ -29,7 +29,7 @@ data class UpbitWalletStatus(
      * 설명: 블록 갱신 시각
      * 타입: DateString
      */
-    val blockUpdatedAt: String,
+    val blockUpdatedAt: String
 )
 
 data class UpbitApiKeys(

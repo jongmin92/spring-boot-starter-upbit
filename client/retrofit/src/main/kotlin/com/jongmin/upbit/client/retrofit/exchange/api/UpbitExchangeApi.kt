@@ -12,6 +12,7 @@ import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostReq
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrdersChanceResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWalletStatusResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawKrwPostRequest
@@ -128,4 +129,10 @@ interface UpbitExchangeApi {
 
     @POST("v1/deposits/krw")
     fun postDepositsKrw(@Body request: UpbitDepositKrwRequest): Call<UpbitDepositKrwResponse>
+
+    /**
+     * 서비스 정보
+     */
+    @GET("v1/status/wallet")
+    fun getWalletStatus(): Call<UpbitWalletStatusResponse>
 }
