@@ -16,7 +16,7 @@ import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitDeposit
 import com.jongmin.upbit.exchange.deposit.UpbitDepositCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitDepositKrw
-import com.jongmin.upbit.exchange.info.UpbitApiKeys
+import com.jongmin.upbit.exchange.info.UpbitApiKey
 import com.jongmin.upbit.exchange.info.UpbitWalletStatus
 import com.jongmin.upbit.exchange.order.UpbitOrder
 import com.jongmin.upbit.exchange.order.UpbitOrderDelete
@@ -282,7 +282,7 @@ class UpbitExchangeServiceImpl(
         return apiExecute { upbitExchangeApi.getWalletStatus() }.toDomain()
     }
 
-    override fun getApiKeys(): UpbitApiKeys {
-        TODO("Not yet implemented")
+    override fun getApiKeys(): List<UpbitApiKey> {
+        return apiExecute { upbitExchangeApi.getApiKeys() }.map { it.toDomain() }
     }
 }

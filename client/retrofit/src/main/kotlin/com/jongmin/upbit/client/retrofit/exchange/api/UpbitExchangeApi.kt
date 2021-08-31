@@ -1,6 +1,7 @@
 package com.jongmin.upbit.client.retrofit.exchange.api
 
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitAccountResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitApiKeyResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitCreateDepositCoinAddressResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositCoinAddressResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositKrwRequest
@@ -135,4 +136,7 @@ interface UpbitExchangeApi {
      */
     @GET("v1/status/wallet")
     fun getWalletStatus(): Call<UpbitWalletStatusResponse>
+
+    @GET("v1/api_keys")
+    fun getApiKeys(): Call<List<UpbitApiKeyResponse>>
 }

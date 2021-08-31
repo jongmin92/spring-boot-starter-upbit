@@ -1,6 +1,7 @@
 package com.jongmin.upbit.client.retrofit.exchange.api.protocol
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.jongmin.upbit.exchange.info.UpbitApiKey
 import com.jongmin.upbit.exchange.info.UpbitWalletStatus
 
 data class UpbitWalletStatusResponse(
@@ -46,4 +47,24 @@ fun UpbitWalletStatusResponse.toDomain() = UpbitWalletStatus(
     blockState = blockState,
     blockHeight = blockHeight,
     blockUpdatedAt = blockUpdatedAt
+)
+
+data class UpbitApiKeyResponse(
+    /**
+     * 설명: access key
+     * 타입: String
+     */
+    @JsonProperty("access_key")
+    val accessKey: String,
+
+    /**
+     * 설명: 만료 시간
+     * 타입: String
+     */
+    @JsonProperty("expire_at")
+    val expireAt: String
+)
+
+fun UpbitApiKeyResponse.toDomain() = UpbitApiKey(
+    accessKey, expireAt
 )

@@ -32,20 +32,16 @@ data class UpbitWalletStatus(
     val blockUpdatedAt: String
 )
 
-data class UpbitApiKeys(
-    val apiKeys: List<ApiKey>
-) {
-    data class ApiKey(
-        /**
-         * 설명: access key
-         * 타입: String
-         */
-        val accessKey: String,
+data class UpbitApiKey(
+    /**
+     * 설명: access key
+     * 타입: String
+     */
+    val accessKey: String,
 
-        /**
-         * 설명: 만료 시간
-         * 타입: String
-         */
-        val expireAt: String,
-    )
-}
+    /**
+     * 설명: 만료 시간
+     * 타입: String
+     */
+    val expireAt: String
+)

@@ -16,5 +16,5 @@ interface UpbitInfoService {
      *
      * @return API 키 목록 및 만료 일자
      */
-    fun getApiKeys(): UpbitApiKeys
+    fun getApiKeys(): List<UpbitApiKey>
 }
