@@ -36,20 +36,7 @@ class UpbitExchangeRetrofitClientAutoConfigure {
     fun upbitExchangeApi(): UpbitExchangeApi = makeDefaultRetrofitApi(UpbitExchangeApi::class.java)
 
     @Bean
-    fun upbitCandleApi(): UpbitCandleApi = makeDefaultRetrofitApi(UpbitCandleApi::class.java)
-
-    @Bean
-    fun upbitMarketApi(): UpbitMarketApi = makeDefaultRetrofitApi(UpbitMarketApi::class.java)
-
-    @Bean
-    fun upbitOrderbookApi(): UpbitOrderbookApi =
-        makeDefaultRetrofitApi(UpbitOrderbookApi::class.java)
-
-    @Bean
-    fun upbitTickerApi(): UpbitTickerApi = makeDefaultRetrofitApi(UpbitTickerApi::class.java)
-
-    @Bean
-    fun upbitTradeApi(): UpbitTradeApi = makeDefaultRetrofitApi(UpbitTradeApi::class.java)
+    fun upbitQuotationApi(): UpbitQuotationApi = makeDefaultRetrofitApi(UpbitQuotationApi::class.java)
 
     @Bean
     fun authorizationTokenService(upbitClientSettings: UpbitClientSettings) =
@@ -68,18 +55,10 @@ class UpbitExchangeRetrofitClientAutoConfigure {
 
     @Bean
     fun upbitQuotationService(
-        upbitCandleApi: UpbitCandleApi,
-        upbitMarketApi: UpbitMarketApi,
-        upbitOrderbookApi: UpbitOrderbookApi,
-        upbitTickerApi: UpbitTickerApi,
-        upbitTradeApi: UpbitTradeApi
+        upbitQuotationApi: UpbitQuotationApi
     ): UpbitQuotationServiceImpl {
         return UpbitQuotationServiceImpl(
-            upbitCandleApi,
-            upbitMarketApi,
-            upbitOrderbookApi,
-            upbitTickerApi,
-            upbitTradeApi
+            upbitQuotationApi
         )
     }
 }
