@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.jongmin.upbit.quotation.trades.UpbitTick
 
 class UpbitTickResponse(
-
     /**
      * 설명: 마켓명
      * 타입: String
@@ -89,4 +88,3 @@ fun UpbitTickResponse.toDomain(): UpbitTick =
         askBid,
         sequentialId
     )
-

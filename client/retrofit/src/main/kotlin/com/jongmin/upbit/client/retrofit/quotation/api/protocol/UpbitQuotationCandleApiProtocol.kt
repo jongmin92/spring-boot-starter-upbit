@@ -409,4 +409,3 @@ fun MonthCandleResponse.toDomain(): MonthCandle =
         candleAccTradeVolume,
         firstDayOfPeriod
     )
-

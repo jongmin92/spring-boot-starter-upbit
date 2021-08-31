@@ -5,7 +5,6 @@ import com.jongmin.upbit.quotation.ticker.UpbitChange
 import com.jongmin.upbit.quotation.ticker.UpbitTicker
 
 data class UpbitTickerResponse(
-
     /**
      * 설명: 마켓명 (종목 구분코드)
      * 타입: String
@@ -214,4 +213,3 @@ fun UpbitTickerResponse.toDomain(): UpbitTicker =
         lowest52WeekDate,
         timestamp
     )
-

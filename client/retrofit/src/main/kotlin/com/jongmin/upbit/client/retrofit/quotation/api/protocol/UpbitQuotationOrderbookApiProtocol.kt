@@ -81,4 +81,3 @@ fun UpbitOrderbookResponse.toDomain(): UpbitOrderbook =
         totalAskSize = totalAskSize,
         totalBidSize = totalBidSize,
         orderbookUnits = orderbookUnits.map { it.toDomain() })
-
