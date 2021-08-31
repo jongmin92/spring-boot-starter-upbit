@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.ApiErrorResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositKrwRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawKrwPostRequest
@@ -270,8 +271,11 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun depositKrw(amount: Int): UpbitDepositKrw {
-        TODO("Not yet implemented")
+    override fun depositKrw(amount: String): UpbitDepositKrw {
+        val params = mapOf("amount" to amount)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.postDepositsKrw(UpbitDepositKrwRequest(amount)) }.toDomain()
+        }
     }
 
     override fun getWalletStatus(): UpbitWalletStatus {
