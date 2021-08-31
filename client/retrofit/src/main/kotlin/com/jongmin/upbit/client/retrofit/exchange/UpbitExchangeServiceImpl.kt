@@ -13,9 +13,8 @@ import com.jongmin.upbit.exchange.UpbitExchangeService
 import com.jongmin.upbit.exchange.account.UpbitAccount
 import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitDeposit
+import com.jongmin.upbit.exchange.deposit.UpbitDepositCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitDepositKrw
-import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddress
-import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddresses
 import com.jongmin.upbit.exchange.info.UpbitApiKeys
 import com.jongmin.upbit.exchange.info.UpbitWalletStatus
 import com.jongmin.upbit.exchange.order.UpbitOrder
@@ -258,11 +257,13 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun getDepositsCoinAddresses(): UpbitDepositsCoinAddresses {
-        TODO("Not yet implemented")
+    override fun getDepositsCoinAddresses(): List<UpbitDepositCoinAddress> {
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken()).use {
+            return apiExecute { upbitExchangeApi.getDepositCoinAddresses() }.map { it.toDomain() }
+        }
     }
 
-    override fun getDepositsCoinAddress(currency: String): UpbitDepositsCoinAddress {
+    override fun getDepositsCoinAddress(currency: String): UpbitDepositCoinAddress {
         TODO("Not yet implemented")
     }
 

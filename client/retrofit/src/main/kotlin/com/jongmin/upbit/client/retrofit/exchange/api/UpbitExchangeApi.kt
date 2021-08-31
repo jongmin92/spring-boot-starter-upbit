@@ -2,6 +2,7 @@ package com.jongmin.upbit.client.retrofit.exchange.api
 
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitAccountResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitCreateDepositCoinAddressResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositCoinAddressResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderDeleteResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderIncludingTradesResponse
@@ -116,4 +117,7 @@ interface UpbitExchangeApi {
 
     @POST("v1/deposits/generate_coin_address")
     fun createDepositCoinAddress(@Query("currency") currency: String): Call<UpbitCreateDepositCoinAddressResponse>
+
+    @GET("v1/deposits/coin_addresses")
+    fun getDepositCoinAddresses(): Call<List<UpbitDepositCoinAddressResponse>>
 }

@@ -44,7 +44,7 @@ interface UpbitDepositsService {
      *
      * @return 보유한 입금 주소 리스트
      */
-    fun getDepositsCoinAddresses(): UpbitDepositsCoinAddresses
+    fun getDepositsCoinAddresses(): List<UpbitDepositCoinAddress>
 
     /**
      * 개별 입금 주소 조회
@@ -52,7 +52,7 @@ interface UpbitDepositsService {
      * @param currency Currency 코드
      * @return 보유한 입금 주소
      */
-    fun getDepositsCoinAddress(currency: String): UpbitDepositsCoinAddress
+    fun getDepositsCoinAddress(currency: String): UpbitDepositCoinAddress
 
     /**
      * 원화 입금하기
