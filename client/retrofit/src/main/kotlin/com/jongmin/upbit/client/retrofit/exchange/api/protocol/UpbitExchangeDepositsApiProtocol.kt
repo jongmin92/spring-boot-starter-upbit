@@ -1,6 +1,7 @@
 package com.jongmin.upbit.client.retrofit.exchange.api.protocol
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitDeposit
 
 data class UpbitDepositResponse(
@@ -94,17 +95,15 @@ data class UpbitCreateDepositCoinAddressResponse(
      * 타입: Boolean
      */
     @JsonProperty("success")
-    val success: Boolean,
+    val success: Boolean?,
 
     /**
      * 설명: 요청 결과에 대한 메세지
      * 타입: String
      */
     @JsonProperty("message")
-    val message: String
-)
+    val message: String?,
 
-data class UpbitCreatedDepositCoinAddressResponse(
     /**
      * 설명: 화폐를 의미하는 영문 대문자 코드
      * 타입: String
@@ -125,4 +124,12 @@ data class UpbitCreatedDepositCoinAddressResponse(
      */
     @JsonProperty("secondary_address")
     val secondaryAddress: String
+)
+
+fun UpbitCreateDepositCoinAddressResponse.toDomain() = UpbitCreateDepositCoinAddress(
+    success = success,
+    message = message,
+    currency = currency,
+    depositAddress = depositAddress,
+    secondaryAddress = secondaryAddress
 )

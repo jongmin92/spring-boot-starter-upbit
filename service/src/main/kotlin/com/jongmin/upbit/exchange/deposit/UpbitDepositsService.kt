@@ -34,18 +34,9 @@ interface UpbitDepositsService {
      * 입금 주소 생성을 요청한다.
      *
      * @param currency Currency 코드
-     * @return 입금 주소 생성 요청 결과 (주소 발급 이전)
+     * @return 입금 주소 생성 요청 결과 (주소 발급 이전) 또는 생성 결과 (주소 발급 완료)
      */
     fun createDepositCoinAddress(currency: String): UpbitCreateDepositCoinAddress
-
-    /**
-     * 입금 주소 생성 결과 확인
-     * 입금 주소 생성 결과를 확인한다.
-     *
-     * @param currency Currency 코드
-     * @return 입금 주소 생성 결과 (주소 발급 완료)
-     */
-    fun verifyToCreateDepositCoinAddress(currency: String): UpbitCreatedDepositCoinAddress
 
     /**
      * 전체 입금 주소 조회

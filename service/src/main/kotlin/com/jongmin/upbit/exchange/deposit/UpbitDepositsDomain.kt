@@ -67,33 +67,31 @@ data class UpbitCreateDepositCoinAddress(
      * 설명: 요청 성공 여부
      * 타입: Boolean
      */
-    val success: Boolean,
+    val success: Boolean?,
 
     /**
      * 설명: 요청 결과에 대한 메세지
      * 타입: String
      */
-    val message: String
-)
+    val message: String?,
 
-data class UpbitCreatedDepositCoinAddress(
     /**
      * 설명: 화폐를 의미하는 영문 대문자 코드
      * 타입: String
      */
-    val currency: String,
+    val currency: String?,
 
     /**
      * 설명: 입금 주소
      * 타입: String
      */
-    val depositAddress: String,
+    val depositAddress: String?,
 
     /**
      * 설명: 2차 입금 주소
      * 타입: String
      */
-    val secondaryAddress: String
+    val secondaryAddress: String?
 )
 
 data class UpbitDepositsCoinAddresses(

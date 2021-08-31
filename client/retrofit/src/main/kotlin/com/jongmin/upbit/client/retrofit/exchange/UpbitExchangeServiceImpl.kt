@@ -12,7 +12,6 @@ import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomainException
 import com.jongmin.upbit.exchange.UpbitExchangeService
 import com.jongmin.upbit.exchange.account.UpbitAccount
 import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
-import com.jongmin.upbit.exchange.deposit.UpbitCreatedDepositCoinAddress
 import com.jongmin.upbit.exchange.deposit.UpbitDeposit
 import com.jongmin.upbit.exchange.deposit.UpbitDepositKrw
 import com.jongmin.upbit.exchange.deposit.UpbitDepositsCoinAddress
@@ -253,11 +252,10 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun createDepositCoinAddress(currency: String): UpbitCreateDepositCoinAddress {
-        TODO("Not yet implemented")
-    }
-
-    override fun verifyToCreateDepositCoinAddress(currency: String): UpbitCreatedDepositCoinAddress {
-        TODO("Not yet implemented")
+        val params = mapOf("currency" to currency)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return apiExecute { upbitExchangeApi.createDepositCoinAddress(currency) }.toDomain()
+        }
     }
 
     override fun getDepositsCoinAddresses(): UpbitDepositsCoinAddresses {
