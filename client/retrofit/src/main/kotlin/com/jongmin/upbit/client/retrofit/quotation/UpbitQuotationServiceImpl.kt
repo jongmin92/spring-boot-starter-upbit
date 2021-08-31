@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.ApiErrorResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomainException
-import com.jongmin.upbit.client.retrofit.quotation.api.*
+import com.jongmin.upbit.client.retrofit.quotation.api.UpbitQuotationApi
 import com.jongmin.upbit.client.retrofit.quotation.api.protocol.toDomain
 import com.jongmin.upbit.quotation.UpbitQuotationService
 import com.jongmin.upbit.quotation.candles.DayCandle

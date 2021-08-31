@@ -1,6 +1,13 @@
 package com.jongmin.upbit.client.retrofit.quotation.api
 
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.*
+import com.jongmin.upbit.client.retrofit.quotation.api.protocol.DayCandleResponse
+import com.jongmin.upbit.client.retrofit.quotation.api.protocol.MinuteCandleResponse
+import com.jongmin.upbit.client.retrofit.quotation.api.protocol.MonthCandleResponse
+import com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitMarketResponse
+import com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitOrderbookResponse
+import com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitTickResponse
+import com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitTickerResponse
+import com.jongmin.upbit.client.retrofit.quotation.api.protocol.WeekCandleResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.UpbitExchangeServiceImpl
 import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
 import com.jongmin.upbit.client.retrofit.quotation.UpbitQuotationServiceImpl
-import com.jongmin.upbit.client.retrofit.quotation.api.*
+import com.jongmin.upbit.client.retrofit.quotation.api.UpbitQuotationApi
 import com.jongmin.upbit.client.retrofit.spring.boot.UpbitClientSettings
 import com.jongmin.upbit.token.AuthorizationTokenService
 import com.jongmin.upbit.token.AuthorizationTokenServiceImpl
@@ -15,7 +15,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import retrofit2.converter.jackson.JacksonConverterFactory
-import java.util.*
+import java.util.UUID
 
 @EnableConfigurationProperties(UpbitClientSettings::class)
 @Configuration

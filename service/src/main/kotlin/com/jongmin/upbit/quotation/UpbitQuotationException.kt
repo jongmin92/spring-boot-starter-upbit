@@ -4,4 +4,4 @@ data class UpbitQuotationException(
     val name: String,
     override val message: String,
     override val cause: Throwable?
-): RuntimeException()
+): RuntimeException(message, cause)
