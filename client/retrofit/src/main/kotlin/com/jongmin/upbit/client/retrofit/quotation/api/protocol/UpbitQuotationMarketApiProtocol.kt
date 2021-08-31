@@ -34,7 +34,6 @@ data class UpbitMarketResponse(
     val marketWarning: MarketWarningProtocol
 )
 
-
 enum class MarketWarningProtocol(val str: String) {
     NONE("NONE"), CAUTION("CAUTION")
 }

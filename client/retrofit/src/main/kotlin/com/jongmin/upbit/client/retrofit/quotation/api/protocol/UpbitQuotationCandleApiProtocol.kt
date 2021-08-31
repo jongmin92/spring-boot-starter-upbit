@@ -264,7 +264,6 @@ data class WeekCandleResponse(
     val firstDayOfPeriod: String
 )
 
-
 data class MonthCandleResponse(
     /**
      * 설명: 마켓명
@@ -359,7 +358,6 @@ fun MinuteCandleResponse.toDomain(): MinuteCandle =
         unit
     )
 
-
 fun DayCandleResponse.toDomain(): DayCandle =
     DayCandle(
         market,
@@ -378,7 +376,6 @@ fun DayCandleResponse.toDomain(): DayCandle =
         convertedTradePrice
     )
 
-
 fun WeekCandleResponse.toDomain(): WeekCandle =
     WeekCandle(
         market,
@@ -393,7 +390,6 @@ fun WeekCandleResponse.toDomain(): WeekCandle =
         candleAccTradeVolume,
         firstDayOfPeriod
     )
-
 
 fun MonthCandleResponse.toDomain(): MonthCandle =
     MonthCandle(
