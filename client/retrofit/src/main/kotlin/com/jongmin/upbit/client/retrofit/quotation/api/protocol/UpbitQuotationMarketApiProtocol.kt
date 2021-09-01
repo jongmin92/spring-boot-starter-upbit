@@ -38,10 +38,9 @@ enum class MarketWarningProtocol(val str: String) {
     NONE("NONE"), CAUTION("CAUTION")
 }
 
-fun UpbitMarketResponse.toDomain(): UpbitMarket =
-    UpbitMarket(
-        market,
-        koreanName,
-        englishName,
-        marketWarning = MarketWarning.valueOf(marketWarning.name)
-    )
+fun UpbitMarketResponse.toDomain() = UpbitMarket(
+    market = market,
+    koreanName = koreanName,
+    englishName = englishName,
+    marketWarning = MarketWarning.valueOf(marketWarning.name)
+)

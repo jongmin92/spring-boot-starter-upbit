@@ -75,16 +75,15 @@ class UpbitTickResponse(
     val sequentialId: Long
 )
 
-fun UpbitTickResponse.toDomain(): UpbitTick =
-    UpbitTick(
-        market,
-        tradeDateUtc,
-        tradeTimeUtc,
-        timestamp,
-        tradePrice,
-        tradeVolume,
-        prevClosingPrice,
-        changePrice,
-        askBid,
-        sequentialId
-    )
+fun UpbitTickResponse.toDomain() = UpbitTick(
+    market = market,
+    tradeDateUtc = tradeDateUtc,
+    tradeTimeUtc = tradeTimeUtc,
+    timestamp = timestamp,
+    tradePrice = tradePrice,
+    tradeVolume = tradeVolume,
+    prevClosingPrice = prevClosingPrice,
+    changePrice = changePrice,
+    askBid = askBid,
+    sequentialId = sequentialId
+)

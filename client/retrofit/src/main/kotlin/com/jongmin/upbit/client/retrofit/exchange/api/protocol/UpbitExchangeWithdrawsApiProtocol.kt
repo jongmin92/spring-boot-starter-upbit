@@ -78,19 +78,6 @@ data class UpbitWithdrawResponse(
     val transactionType: String
 )
 
-fun UpbitWithdrawResponse.toDomain() = UpbitWithdraw(
-    type = type,
-    uuid = uuid,
-    currency = currency,
-    txid = txid,
-    state = state,
-    createdAt = createdAt,
-    doneAt = doneAt,
-    amount = amount,
-    fee = fee,
-    transactionType = transactionType
-)
-
 data class UpbitWithdrawsChanceResponse(
     /**
      * 설명: 사용자의 보안등급 정보
@@ -313,56 +300,10 @@ data class UpbitWithdrawsChanceResponse(
          * 설명: 출금 지원 여부
          * 타입: Boolean
          */
-        @JsonProperty("can_withdrawy")
+        @JsonProperty("can_withdraw")
         val canWithdraw: Boolean
     )
 }
-
-fun UpbitWithdrawsChanceResponse.toDomain() = UpbitWithdrawsChance(
-    memberLevel = memberLevel.toDomain(),
-    currency = currency.toDomain(),
-    account = account.toDomain(),
-    withdrawLimit = withdrawLimit.toDomain()
-)
-
-fun UpbitWithdrawsChanceResponse.MemberLevelResponse.toDomain() = UpbitWithdrawsChance.MemberLevel(
-    securityLevel = securityLevel,
-    feeLevel = feeLevel,
-    emailVerified = emailVerified,
-    identityAuthVerified = identityAuthVerified,
-    bankAccountVerified = bankAccountVerified,
-    kakaoPayAuthVerified = kakaoPayAuthVerified,
-    locked = locked,
-    walletLocked = walletLocked
-)
-
-fun UpbitWithdrawsChanceResponse.CurrencyResponse.toDomain() = UpbitWithdrawsChance.Currency(
-    code = code,
-    withdrawFee = withdrawFee,
-    isCoin = isCoin,
-    walletState = walletState,
-    walletSupport = walletSupport
-)
-
-fun UpbitWithdrawsChanceResponse.AccountResponse.toDomain() = UpbitWithdrawsChance.Account(
-    currency = currency,
-    balance = balance,
-    locked = locked,
-    avgBuyPrice = avgBuyPrice,
-    avgBuyPriceModified = avgBuyPriceModified,
-    unitCurrency = unitCurrency
-)
-
-fun UpbitWithdrawsChanceResponse.WithdrawLimitResponse.toDomain() = UpbitWithdrawsChance.WithdrawLimit(
-    currency = currency,
-    minimum = minimum,
-    onetime = onetime,
-    daily = daily,
-    remainingDaily = remainingDaily,
-    remainingDailyKrw = remainingDailyKrw,
-    fixed = fixed,
-    canWithdraw = canWithdraw
-)
 
 data class UpbitWithdrawCoinPostRequest(
     /**
@@ -480,20 +421,6 @@ data class UpbitWithdrawCoinPostResponse(
     val transactionType: String
 )
 
-fun UpbitWithdrawCoinPostResponse.toDomain() = UpbitWithdrawCoinPost(
-    type = type,
-    uuid = uuid,
-    currency = currency,
-    txid = txid,
-    state = state,
-    createdAt = createdAt,
-    doneAt = doneAt,
-    amount = amount,
-    fee = fee,
-    krwAmount = krwAmount,
-    transactionType = transactionType
-)
-
 data class UpbitWithdrawKrwPostRequest(
     /**
      * 설명: 출금 원화 수량
@@ -573,6 +500,79 @@ data class UpbitWithdrawKrwPostResponse(
      */
     @JsonProperty("transaction_type")
     val transactionType: String
+)
+
+fun UpbitWithdrawResponse.toDomain() = UpbitWithdraw(
+    type = type,
+    uuid = uuid,
+    currency = currency,
+    txid = txid,
+    state = state,
+    createdAt = createdAt,
+    doneAt = doneAt,
+    amount = amount,
+    fee = fee,
+    transactionType = transactionType
+)
+
+fun UpbitWithdrawsChanceResponse.toDomain() = UpbitWithdrawsChance(
+    memberLevel = memberLevel.toDomain(),
+    currency = currency.toDomain(),
+    account = account.toDomain(),
+    withdrawLimit = withdrawLimit.toDomain()
+)
+
+fun UpbitWithdrawsChanceResponse.MemberLevelResponse.toDomain() = UpbitWithdrawsChance.MemberLevel(
+    securityLevel = securityLevel,
+    feeLevel = feeLevel,
+    emailVerified = emailVerified,
+    identityAuthVerified = identityAuthVerified,
+    bankAccountVerified = bankAccountVerified,
+    kakaoPayAuthVerified = kakaoPayAuthVerified,
+    locked = locked,
+    walletLocked = walletLocked
+)
+
+fun UpbitWithdrawsChanceResponse.CurrencyResponse.toDomain() = UpbitWithdrawsChance.Currency(
+    code = code,
+    withdrawFee = withdrawFee,
+    isCoin = isCoin,
+    walletState = walletState,
+    walletSupport = walletSupport
+)
+
+fun UpbitWithdrawsChanceResponse.AccountResponse.toDomain() = UpbitWithdrawsChance.Account(
+    currency = currency,
+    balance = balance,
+    locked = locked,
+    avgBuyPrice = avgBuyPrice,
+    avgBuyPriceModified = avgBuyPriceModified,
+    unitCurrency = unitCurrency
+)
+
+fun UpbitWithdrawsChanceResponse.WithdrawLimitResponse.toDomain() = UpbitWithdrawsChance.WithdrawLimit(
+    currency = currency,
+    minimum = minimum,
+    onetime = onetime,
+    daily = daily,
+    remainingDaily = remainingDaily,
+    remainingDailyKrw = remainingDailyKrw,
+    fixed = fixed,
+    canWithdraw = canWithdraw
+)
+
+fun UpbitWithdrawCoinPostResponse.toDomain() = UpbitWithdrawCoinPost(
+    type = type,
+    uuid = uuid,
+    currency = currency,
+    txid = txid,
+    state = state,
+    createdAt = createdAt,
+    doneAt = doneAt,
+    amount = amount,
+    fee = fee,
+    krwAmount = krwAmount,
+    transactionType = transactionType
 )
 
 fun UpbitWithdrawKrwPostResponse.toDomain() = UpbitWithdrawKrwPost(

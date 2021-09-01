@@ -30,10 +30,7 @@ class UpbitQuotationServiceImpl(
         if (response.isSuccessful) {
             return response.body()!!
         } else {
-            throw objectMapper.readValue(
-                response.errorBody()!!.bytes(),
-                ApiErrorResponse::class.java
-            )
+            throw objectMapper.readValue(response.errorBody()!!.bytes(), ApiErrorResponse::class.java)
                 .toDomainException(null)
         }
     }
@@ -59,7 +56,7 @@ class UpbitQuotationServiceImpl(
         to: String?,
         count: Int?,
         convertingPriceUnit: String?
-    ): List<DayCandle>{
+    ): List<DayCandle> {
         return apiExecute {
             upbitQuotationApi.getUpbitDayCandles(
                 market = market,
@@ -71,35 +68,23 @@ class UpbitQuotationServiceImpl(
     }
 
     override fun getWeekCandles(market: String, to: String?, count: Int?): List<WeekCandle> {
-        return apiExecute {
-            upbitQuotationApi.getUpbitWeekCandles(
-                market = market,
-                to = to,
-                count = count
-            )
-        }.map { it.toDomain() }
+        return apiExecute { upbitQuotationApi.getUpbitWeekCandles(market, to, count) }.map { it.toDomain() }
     }
 
     override fun getMonthCandles(market: String, to: String?, count: Int?): List<MonthCandle> {
-        return apiExecute {
-            upbitQuotationApi.getUpbitMonthCandles(
-                market = market,
-                to = to,
-                count = count
-            )
-        }.map { it.toDomain() }
+        return apiExecute { upbitQuotationApi.getUpbitMonthCandles(market, to, count) }.map { it.toDomain() }
     }
 
     override fun getMarkets(isDetails: Boolean?): List<UpbitMarket> {
-        return apiExecute { upbitQuotationApi.getMarkets(isDetails = isDetails) }.map { it.toDomain() }
+        return apiExecute { upbitQuotationApi.getMarkets(isDetails) }.map { it.toDomain() }
     }
 
     override fun getOrderbooks(markets: String): List<UpbitOrderbook> {
-        return apiExecute { upbitQuotationApi.getOrderbooks(markets = markets) }.map { it.toDomain() }
+        return apiExecute { upbitQuotationApi.getOrderbooks(markets) }.map { it.toDomain() }
     }
 
     override fun getUpbitTicker(markets: String): List<UpbitTicker> {
-        return apiExecute { upbitQuotationApi.getCurrentTicker(markets = markets) }.map { it.toDomain() }
+        return apiExecute { upbitQuotationApi.getCurrentTicker(markets) }.map { it.toDomain() }
     }
 
     override fun getUpbitTicks(

@@ -78,19 +78,6 @@ data class UpbitDepositResponse(
     val transactionType: String
 )
 
-fun UpbitDepositResponse.toDomain() = UpbitDeposit(
-    type = type,
-    uuid = uuid,
-    currency = currency,
-    txid = txid,
-    state = state,
-    createdAt = createdAt,
-    doneAt = doneAt,
-    amount = amount,
-    fee = fee,
-    transactionType = transactionType
-)
-
 data class UpbitCreateDepositCoinAddressResponse(
     /**
      * 설명: 요청 성공 여부
@@ -128,14 +115,6 @@ data class UpbitCreateDepositCoinAddressResponse(
     val secondaryAddress: String
 )
 
-fun UpbitCreateDepositCoinAddressResponse.toDomain() = UpbitCreateDepositCoinAddress(
-    success = success,
-    message = message,
-    currency = currency,
-    depositAddress = depositAddress,
-    secondaryAddress = secondaryAddress
-)
-
 data class UpbitDepositCoinAddressResponse(
     /**
      * 설명: 화폐를 의미하는 영문 대문자 코드
@@ -157,10 +136,6 @@ data class UpbitDepositCoinAddressResponse(
      */
     @JsonProperty("secondary_address")
     val secondaryAddress: String?
-)
-
-fun UpbitDepositCoinAddressResponse.toDomain() = UpbitDepositCoinAddress(
-    currency, depositAddress, secondaryAddress
 )
 
 data class UpbitDepositKrwRequest(
@@ -242,6 +217,31 @@ data class UpbitDepositKrwResponse(
      */
     @JsonProperty("transaction_type")
     val transactionType: String
+)
+
+fun UpbitDepositResponse.toDomain() = UpbitDeposit(
+    type = type,
+    uuid = uuid,
+    currency = currency,
+    txid = txid,
+    state = state,
+    createdAt = createdAt,
+    doneAt = doneAt,
+    amount = amount,
+    fee = fee,
+    transactionType = transactionType
+)
+
+fun UpbitCreateDepositCoinAddressResponse.toDomain() = UpbitCreateDepositCoinAddress(
+    success = success,
+    message = message,
+    currency = currency,
+    depositAddress = depositAddress,
+    secondaryAddress = secondaryAddress
+)
+
+fun UpbitDepositCoinAddressResponse.toDomain() = UpbitDepositCoinAddress(
+    currency, depositAddress, secondaryAddress
 )
 
 fun UpbitDepositKrwResponse.toDomain() = UpbitDepositKrw(

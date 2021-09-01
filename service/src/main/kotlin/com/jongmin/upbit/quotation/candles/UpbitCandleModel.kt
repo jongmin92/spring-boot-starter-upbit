@@ -68,7 +68,6 @@ data class MinuteCandle(
     val unit: Int
 )
 
-
 data class DayCandle(
     /**
      * 설명: 마켓명

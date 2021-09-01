@@ -7,5 +7,4 @@ import com.jongmin.upbit.quotation.ticker.UpbitTickerService
 import com.jongmin.upbit.quotation.trades.UpbitTradeService
 
 interface UpbitQuotationService : UpbitCandleService, UpbitMarketService, UpbitOrderbookService,
-    UpbitTickerService, UpbitTradeService {
-}
+    UpbitTickerService, UpbitTradeService

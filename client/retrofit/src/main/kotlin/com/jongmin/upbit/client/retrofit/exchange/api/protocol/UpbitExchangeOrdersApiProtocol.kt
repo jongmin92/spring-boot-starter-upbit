@@ -6,7 +6,7 @@ import com.jongmin.upbit.exchange.order.UpbitOrderDelete
 import com.jongmin.upbit.exchange.order.UpbitOrderIncludingTrades
 import com.jongmin.upbit.exchange.order.UpbitOrderPost
 import com.jongmin.upbit.exchange.order.UpbitOrdersChance
-import java.util.*
+import java.util.UUID
 
 data class UpbitOrdersChanceResponse(
     /**
@@ -121,7 +121,7 @@ data class UpbitOrdersChanceResponse(
              * 타입: Number
              */
             @JsonProperty("min_total")
-            val minTotal: Int,
+            val minTotal: Int
         )
 
         data class Ask(
@@ -144,7 +144,7 @@ data class UpbitOrdersChanceResponse(
              * 타입: Number
              */
             @JsonProperty("min_total")
-            val minTotal: Int,
+            val minTotal: Int
         )
     }
 
@@ -236,55 +236,6 @@ data class UpbitOrdersChanceResponse(
         val unitCurrency: String
     )
 }
-
-fun UpbitOrdersChanceResponse.toDomain() = UpbitOrdersChance(
-    bidFee = bidFee,
-    askFee = askFee,
-    market = market.toDomain(),
-    bidAccount = bidAccount.toDomain(),
-    askAccount = askAccount.toDomain()
-)
-
-fun UpbitOrdersChanceResponse.MarketResponse.toDomain() = UpbitOrdersChance.Market(
-    id = id,
-    name = name,
-    orderTypes = orderTypes,
-    orderSides = orderSides,
-    bid = bid.toDomain(),
-    ask = ask.toDomain(),
-    maxTotal = maxTotal,
-    state = state
-)
-
-fun UpbitOrdersChanceResponse.MarketResponse.Bid.toDomain() = UpbitOrdersChance.Market.Bid(
-    currency = currency,
-    priceUnit = priceUnit,
-    minTotal = minTotal
-)
-
-fun UpbitOrdersChanceResponse.MarketResponse.Ask.toDomain() = UpbitOrdersChance.Market.Ask(
-    currency = currency,
-    priceUnit = priceUnit,
-    minTotal = minTotal
-)
-
-fun UpbitOrdersChanceResponse.BidAccountResponse.toDomain() = UpbitOrdersChance.BidAccount(
-    currency = currency,
-    balance = balance,
-    locked = locked,
-    avgBuyPrice = avgBuyPrice,
-    avgBuyPriceModified = avgBuyPriceModified,
-    unitCurrency = unitCurrency
-)
-
-fun UpbitOrdersChanceResponse.AskAccountResponse.toDomain() = UpbitOrdersChance.AskAccount(
-    currency = currency,
-    balance = balance,
-    locked = locked,
-    avgBuyPrice = avgBuyPrice,
-    avgBuyPriceModified = avgBuyPriceModified,
-    unitCurrency = unitCurrency
-)
 
 data class UpbitOrderIncludingTradesResponse(
     /**
@@ -451,35 +402,6 @@ data class UpbitOrderIncludingTradesResponse(
     )
 }
 
-fun UpbitOrderIncludingTradesResponse.toDomain() = UpbitOrderIncludingTrades(
-    uuid = uuid,
-    side = side,
-    ordType = ordType,
-    price = price,
-    state = state,
-    market = market,
-    createdAt = createdAt,
-    volume = volume,
-    remainingVolume = remainingVolume,
-    reservedFee = reservedFee,
-    remainingFee = remainingFee,
-    paidFee = paidFee,
-    locked = locked,
-    executedVolume = executedVolume,
-    tradeCount = tradeCount,
-    trades = trades.map { it.toDomain() }
-)
-
-fun UpbitOrderIncludingTradesResponse.TradeResponse.toDomain() = UpbitOrderIncludingTrades.Trade(
-    market = market,
-    uuid = uuid,
-    price = price,
-    volume = volume,
-    funds = funds,
-    side = side,
-    createdAt = createdAt
-)
-
 data class UpbitOrderResponse(
     /**
      * 설명: 주문의 고유 아이디
@@ -585,24 +507,6 @@ data class UpbitOrderResponse(
      */
     @JsonProperty("trade_count")
     val tradeCount: Int
-)
-
-fun UpbitOrderResponse.toDomain() = UpbitOrder(
-    uuid = uuid,
-    side = side,
-    ordType = ordType,
-    price = price,
-    state = state,
-    market = market,
-    createdAt = createdAt,
-    volume = volume,
-    remainingVolume = remainingVolume,
-    reservedFee = reservedFee,
-    remainingFee = remainingFee,
-    paidFee = paidFee,
-    locked = locked,
-    executedVolume = executedVolume,
-    tradeCount = tradeCount
 )
 
 data class UpbitOrderDeleteResponse(
@@ -712,24 +616,6 @@ data class UpbitOrderDeleteResponse(
     val tradeCount: Int
 )
 
-fun UpbitOrderDeleteResponse.toDomain() = UpbitOrderDelete(
-    uuid = uuid,
-    side = side,
-    ordType = ordType,
-    price = price,
-    state = state,
-    market = market,
-    createdAt = createdAt,
-    volume = volume,
-    remainingVolume = remainingVolume,
-    reservedFee = reservedFee,
-    remainingFee = remainingFee,
-    paidFee = paidFee,
-    locked = locked,
-    executedVolume = executedVolume,
-    tradeCount = tradeCount
-)
-
 data class UpbitOrderPostRequest(
     /**
      * 설명: Market ID
@@ -770,6 +656,7 @@ data class UpbitOrderPostRequest(
      * 설명: 조회용 사용자 지정값
      * 타입: String
      */
+    @JsonProperty("identifier")
     val identifier: String? = UUID.randomUUID().toString()
 )
 
@@ -885,6 +772,120 @@ data class UpbitOrderPostResponse(
      */
     @JsonProperty("trade_count")
     val tradeCount: Int
+)
+
+fun UpbitOrdersChanceResponse.toDomain() = UpbitOrdersChance(
+    bidFee = bidFee,
+    askFee = askFee,
+    market = market.toDomain(),
+    bidAccount = bidAccount.toDomain(),
+    askAccount = askAccount.toDomain()
+)
+
+fun UpbitOrdersChanceResponse.MarketResponse.toDomain() = UpbitOrdersChance.Market(
+    id = id,
+    name = name,
+    orderTypes = orderTypes,
+    orderSides = orderSides,
+    bid = bid.toDomain(),
+    ask = ask.toDomain(),
+    maxTotal = maxTotal,
+    state = state
+)
+
+fun UpbitOrdersChanceResponse.MarketResponse.Bid.toDomain() = UpbitOrdersChance.Market.Bid(
+    currency = currency,
+    priceUnit = priceUnit,
+    minTotal = minTotal
+)
+
+fun UpbitOrdersChanceResponse.MarketResponse.Ask.toDomain() = UpbitOrdersChance.Market.Ask(
+    currency = currency,
+    priceUnit = priceUnit,
+    minTotal = minTotal
+)
+
+fun UpbitOrdersChanceResponse.BidAccountResponse.toDomain() = UpbitOrdersChance.BidAccount(
+    currency = currency,
+    balance = balance,
+    locked = locked,
+    avgBuyPrice = avgBuyPrice,
+    avgBuyPriceModified = avgBuyPriceModified,
+    unitCurrency = unitCurrency
+)
+
+fun UpbitOrdersChanceResponse.AskAccountResponse.toDomain() = UpbitOrdersChance.AskAccount(
+    currency = currency,
+    balance = balance,
+    locked = locked,
+    avgBuyPrice = avgBuyPrice,
+    avgBuyPriceModified = avgBuyPriceModified,
+    unitCurrency = unitCurrency
+)
+
+fun UpbitOrderIncludingTradesResponse.toDomain() = UpbitOrderIncludingTrades(
+    uuid = uuid,
+    side = side,
+    ordType = ordType,
+    price = price,
+    state = state,
+    market = market,
+    createdAt = createdAt,
+    volume = volume,
+    remainingVolume = remainingVolume,
+    reservedFee = reservedFee,
+    remainingFee = remainingFee,
+    paidFee = paidFee,
+    locked = locked,
+    executedVolume = executedVolume,
+    tradeCount = tradeCount,
+    trades = trades.map { it.toDomain() }
+)
+
+fun UpbitOrderIncludingTradesResponse.TradeResponse.toDomain() = UpbitOrderIncludingTrades.Trade(
+    market = market,
+    uuid = uuid,
+    price = price,
+    volume = volume,
+    funds = funds,
+    side = side,
+    createdAt = createdAt
+)
+
+fun UpbitOrderResponse.toDomain() = UpbitOrder(
+    uuid = uuid,
+    side = side,
+    ordType = ordType,
+    price = price,
+    state = state,
+    market = market,
+    createdAt = createdAt,
+    volume = volume,
+    remainingVolume = remainingVolume,
+    reservedFee = reservedFee,
+    remainingFee = remainingFee,
+    paidFee = paidFee,
+    locked = locked,
+    executedVolume = executedVolume,
+    tradeCount = tradeCount
+)
+
+fun UpbitOrderDeleteResponse.toDomain() = UpbitOrderDelete(
+    uuid = uuid,
+    side = side,
+    ordType = ordType,
+    price = price,
+    state = state,
+    market = market,
+    createdAt = createdAt,
+    volume = volume,
+    remainingVolume = remainingVolume,
+    reservedFee = reservedFee,
+    remainingFee = remainingFee,
+    paidFee = paidFee,
+    locked = locked,
+    executedVolume = executedVolume,
+    tradeCount = tradeCount
 )
 
 fun UpbitOrderPostResponse.toDomain() = UpbitOrderPost(

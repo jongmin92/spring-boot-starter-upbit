@@ -41,14 +41,6 @@ data class UpbitWalletStatusResponse(
     val blockUpdatedAt: String
 )
 
-fun UpbitWalletStatusResponse.toDomain() = UpbitWalletStatus(
-    currency = currency,
-    walletState = walletState,
-    blockState = blockState,
-    blockHeight = blockHeight,
-    blockUpdatedAt = blockUpdatedAt
-)
-
 data class UpbitApiKeyResponse(
     /**
      * 설명: access key
@@ -63,6 +55,14 @@ data class UpbitApiKeyResponse(
      */
     @JsonProperty("expire_at")
     val expireAt: String
+)
+
+fun UpbitWalletStatusResponse.toDomain() = UpbitWalletStatus(
+    currency = currency,
+    walletState = walletState,
+    blockState = blockState,
+    blockHeight = blockHeight,
+    blockUpdatedAt = blockUpdatedAt
 )
 
 fun UpbitApiKeyResponse.toDomain() = UpbitApiKey(

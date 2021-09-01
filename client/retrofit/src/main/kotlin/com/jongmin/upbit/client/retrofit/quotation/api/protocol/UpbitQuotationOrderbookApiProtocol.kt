@@ -71,13 +71,14 @@ data class UpbitOrderbookResponseUnit(
     val bidSize: Double
 )
 
-fun UpbitOrderbookResponseUnit.toDomain(): UpbitOrderbookUnit =
-    UpbitOrderbookUnit(askPrice, bidPrice, askSize, bidSize)
+fun UpbitOrderbookResponseUnit.toDomain() = UpbitOrderbookUnit(
+    askPrice, bidPrice, askSize, bidSize
+)
 
-fun UpbitOrderbookResponse.toDomain(): UpbitOrderbook =
-    UpbitOrderbook(
-        market = market,
-        timestamp = timestamp,
-        totalAskSize = totalAskSize,
-        totalBidSize = totalBidSize,
-        orderbookUnits = orderbookUnits.map { it.toDomain() })
+fun UpbitOrderbookResponse.toDomain() = UpbitOrderbook(
+    market = market,
+    timestamp = timestamp,
+    totalAskSize = totalAskSize,
+    totalBidSize = totalBidSize,
+    orderbookUnits = orderbookUnits.map { it.toDomain() }
+)

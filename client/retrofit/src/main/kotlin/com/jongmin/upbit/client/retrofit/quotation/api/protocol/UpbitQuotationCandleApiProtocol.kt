@@ -343,65 +343,61 @@ data class MonthCandleResponse(
     val firstDayOfPeriod: String
 )
 
-fun MinuteCandleResponse.toDomain(): MinuteCandle =
-    MinuteCandle(
-        market,
-        candleDateTimeUtc,
-        candleDateTimeKst,
-        openingPrice,
-        highPrice,
-        lowPrice,
-        tradePrice,
-        timestamp,
-        candleAccTradePrice,
-        candleAccTradeVolume,
-        unit
-    )
+fun MinuteCandleResponse.toDomain() = MinuteCandle(
+    market = market,
+    candleDateTimeUtc = candleDateTimeUtc,
+    candleDateTimeKst = candleDateTimeKst,
+    openingPrice = openingPrice,
+    highPrice = highPrice,
+    lowPrice = lowPrice,
+    tradePrice = tradePrice,
+    timestamp = timestamp,
+    candleAccTradePrice = candleAccTradePrice,
+    candleAccTradeVolume = candleAccTradeVolume,
+    unit = unit
+)
 
-fun DayCandleResponse.toDomain(): DayCandle =
-    DayCandle(
-        market,
-        candleDateTimeUtc,
-        candleDateTimeKst,
-        openingPrice,
-        highPrice,
-        lowPrice,
-        tradePrice,
-        timestamp,
-        candleAccTradePrice,
-        candleAccTradeVolume,
-        prevClosingPrice,
-        changePrice,
-        changeRate,
-        convertedTradePrice
-    )
+fun DayCandleResponse.toDomain() = DayCandle(
+    market = market,
+    candleDateTimeUtc = candleDateTimeUtc,
+    candleDateTimeKst = candleDateTimeKst,
+    openingPrice = openingPrice,
+    highPrice = highPrice,
+    lowPrice = lowPrice,
+    tradePrice = tradePrice,
+    timestamp = timestamp,
+    candleAccTradePrice = candleAccTradePrice,
+    candleAccTradeVolume = candleAccTradeVolume,
+    prevClosingPrice = prevClosingPrice,
+    changePrice = changePrice,
+    changeRate = changeRate,
+    convertedTradePrice = convertedTradePrice
+)
 
-fun WeekCandleResponse.toDomain(): WeekCandle =
-    WeekCandle(
-        market,
-        candleDateTimeUtc,
-        candleDateTimeKst,
-        openingPrice,
-        highPrice,
-        lowPrice,
-        tradePrice,
-        timestamp,
-        candleAccTradePrice,
-        candleAccTradeVolume,
-        firstDayOfPeriod
-    )
+fun WeekCandleResponse.toDomain() = WeekCandle(
+    market = market,
+    candleDateTimeUtc = candleDateTimeUtc,
+    candleDateTimeKst = candleDateTimeKst,
+    openingPrice = openingPrice,
+    highPrice = highPrice,
+    lowPrice = lowPrice,
+    tradePrice = tradePrice,
+    timestamp = timestamp,
+    candleAccTradePrice = candleAccTradePrice,
+    candleAccTradeVolume = candleAccTradeVolume,
+    firstDayOfPeriod = firstDayOfPeriod
+)
 
-fun MonthCandleResponse.toDomain(): MonthCandle =
-    MonthCandle(
-        market,
-        candleDateTimeUtc,
-        candleDateTimeKst,
-        openingPrice,
-        highPrice,
-        lowPrice,
-        tradePrice,
-        timestamp,
-        candleAccTradePrice,
-        candleAccTradeVolume,
-        firstDayOfPeriod
-    )
+fun MonthCandleResponse.toDomain() = MonthCandle(
+    market = market,
+    candleDateTimeUtc = candleDateTimeUtc,
+    candleDateTimeKst = candleDateTimeKst,
+    openingPrice = openingPrice,
+    highPrice = highPrice,
+    lowPrice = lowPrice,
+    tradePrice = tradePrice,
+    timestamp = timestamp,
+    candleAccTradePrice = candleAccTradePrice,
+    candleAccTradeVolume = candleAccTradeVolume,
+    firstDayOfPeriod = firstDayOfPeriod
+)

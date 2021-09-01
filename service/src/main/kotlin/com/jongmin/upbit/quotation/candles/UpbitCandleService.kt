@@ -5,12 +5,11 @@ interface UpbitCandleService {
     /**
      * 분봉 캔들 조회
      *
-     * @param
-     * market: 마켓 코드
-     * to: 마지막 캔들시각 (yyyy-MM-dd'T'HH;mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
-     * count: 캔들 개수
-     *
-     * @return 분봉 캔들
+     * @param unit 분 단위
+     * @param market 마켓 코드
+     * @param to 마지막 캔들시각 (yyyy-MM-dd'T'HH:mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
+     * @param count 캔들 개수
+     * @return 분(Minute) 캔들
      */
     fun getUpbitMinuteCandle(
         unit: Int = 1,
@@ -22,12 +21,11 @@ interface UpbitCandleService {
     /**
      * 일별 캔들을 조회
      *
-     * @param
-     * market: 마켓 코드
-     * to: 마지막 캔들시각 (yyyy-MM-dd'T'HH;mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
-     * count: 캔들 개수
-     *
-     * @return Day 캔들
+     * @param market 마켓 코드
+     * @param to 마지막 캔들시각 (yyyy-MM-dd'T'HH:mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
+     * @param count 캔들 개수
+     * @param convertingPriceUnit 종가 환산 화폐 단위
+     * @return 일(Day) 캔들
      */
     fun getDayCandles(
         market: String,
@@ -39,13 +37,10 @@ interface UpbitCandleService {
     /**
      * 주별 캔들 조회
      *
-     * @param
-     * market: 마켓 코드
-     * to: 마지막 캔들시각 (yyyy-MM-dd'T'HH;mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
-     * count: 캔들 개수
-     * unit: 분 단위 (유닛)
-     *
-     * @return week 캔들
+     * @param market 마켓 코드
+     * @param to 마지막 캔들시각 (yyyy-MM-dd'T'HH:mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
+     * @param count 캔들 개수
+     * @return 주(Week) 캔들
      */
     fun getWeekCandles(
         market: String,
@@ -56,12 +51,10 @@ interface UpbitCandleService {
     /**
      * 월별 캔들 조회
      *
-     *  @param
-     * market: 마켓 코드
-     * to: 마지막 캔들시각 (yyyy-MM-dd'T'HH;mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
-     * count: 캔들 개수
-     *
-     * @return Month 캔들
+     * @param market 마켓 코드
+     * @param to 마지막 캔들시각 (yyyy-MM-dd'T'HH:mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
+     * @param count 캔들 개수
+     * @return 월(Month) 캔들
      */
     fun getMonthCandles(
         market: String,

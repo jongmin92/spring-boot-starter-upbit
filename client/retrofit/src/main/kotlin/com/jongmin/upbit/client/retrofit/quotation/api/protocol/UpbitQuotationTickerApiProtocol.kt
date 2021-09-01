@@ -185,31 +185,30 @@ enum class UpbitChangeProtocol(val change: String) {
     EVEN("EVEN"), RISE("RISE"), FALL("FALL")
 }
 
-fun UpbitTickerResponse.toDomain(): UpbitTicker =
-    UpbitTicker(
-        market,
-        tradeDate,
-        tradeTime,
-        tradeDateKst,
-        tradeTimeKst,
-        openingPrice,
-        highPrice,
-        lowPrice,
-        tradePrice,
-        prevClosingPrice,
-        change = UpbitChange.valueOf(change.name),
-        changePrice,
-        changeRate,
-        signedChangePrice,
-        signedChangeRate,
-        tradeVolume,
-        accTradePrice,
-        accTradePrice24h,
-        accTradeVolume,
-        accTradeVolume24h,
-        highest52WeekPrice,
-        highest52WeekDate,
-        lowest52WeekPrice,
-        lowest52WeekDate,
-        timestamp
-    )
+fun UpbitTickerResponse.toDomain() = UpbitTicker(
+    market = market,
+    tradeDate = tradeDate,
+    tradeTime = tradeTime,
+    tradeDateKst = tradeDateKst,
+    tradeTimeKst = tradeTimeKst,
+    openingPrice = openingPrice,
+    highPrice = highPrice,
+    lowPrice = lowPrice,
+    tradePrice = tradePrice,
+    prevClosingPrice = prevClosingPrice,
+    change = UpbitChange.valueOf(change.name),
+    changePrice = changePrice,
+    changeRate = changeRate,
+    signedChangePrice = signedChangePrice,
+    signedChangeRate = signedChangeRate,
+    tradeVolume = tradeVolume,
+    accTradePrice = accTradePrice,
+    accTradePrice24h = accTradePrice24h,
+    accTradeVolume = accTradeVolume,
+    accTradeVolume24h = accTradeVolume24h,
+    highest52WeekPrice = highest52WeekPrice,
+    highest52WeekDate = highest52WeekDate,
+    lowest52WeekPrice = lowest52WeekPrice,
+    lowest52WeekDate = lowest52WeekDate,
+    timestamp = timestamp
+)
