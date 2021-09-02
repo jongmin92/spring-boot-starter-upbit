@@ -9,19 +9,19 @@ class UpbitExchangeAccountsApiProtocolTest {
     @Test
     fun `upbitAccountResponse toDomain`() {
         // given
-        val account = upbitAccountResponseFixture()
+        val accountResponse = upbitAccountResponseFixture()
 
         // when
-        val result = account.toDomain()
+        val result = accountResponse.toDomain()
 
         // then
         assertAll("account",
-            { assertThat(result.currency).isEqualTo(account.currency) },
-            { assertThat(result.balance).isEqualTo(account.balance) },
-            { assertThat(result.locked).isEqualTo(account.locked) },
-            { assertThat(result.avgBuyPrice).isEqualTo(account.avgBuyPrice) },
-            { assertThat(result.avgBuyPriceModified).isEqualTo(account.avgBuyPriceModified) },
-            { assertThat(result.unitCurrency).isEqualTo(account.unitCurrency) }
+            { assertThat(result.currency).isEqualTo(accountResponse.currency) },
+            { assertThat(result.balance).isEqualTo(accountResponse.balance) },
+            { assertThat(result.locked).isEqualTo(accountResponse.locked) },
+            { assertThat(result.avgBuyPrice).isEqualTo(accountResponse.avgBuyPrice) },
+            { assertThat(result.avgBuyPriceModified).isEqualTo(accountResponse.avgBuyPriceModified) },
+            { assertThat(result.unitCurrency).isEqualTo(accountResponse.unitCurrency) }
         )
     }
 }
