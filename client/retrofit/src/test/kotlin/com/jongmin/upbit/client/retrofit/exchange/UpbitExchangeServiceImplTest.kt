@@ -7,6 +7,7 @@ import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersApi
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrdersChanceResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsApi
+import com.jongmin.upbit.client.retrofit.utils.success
 import com.jongmin.upbit.token.AuthorizationTokenService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,8 +16,6 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import retrofit2.Call
-import retrofit2.Response
 
 class UpbitExchangeServiceImplTest {
     private val accountsApi = mock<UpbitExchangeAccountsApi>()
@@ -141,11 +140,5 @@ class UpbitExchangeServiceImplTest {
             { assertThat(result.askAccount.avgBuyPriceModified).isEqualTo(ordersChance.askAccount.avgBuyPriceModified) },
             { assertThat(result.askAccount.unitCurrency).isEqualTo(ordersChance.askAccount.unitCurrency) }
         )
-    }
-
-    private fun <T> success(response: T): Call<T> {
-        return mock {
-            on { execute() } doReturn Response.success(response)
-        }
     }
 }
