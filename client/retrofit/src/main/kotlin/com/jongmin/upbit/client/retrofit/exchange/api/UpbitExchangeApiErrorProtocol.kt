@@ -1,4 +1,4 @@
-package com.jongmin.upbit.client.retrofit.exchange.api.protocol
+package com.jongmin.upbit.client.retrofit.exchange.api
 
 import com.jongmin.upbit.exchange.UpbitExchangeException
 
@@ -11,5 +11,5 @@ data class ApiErrorResponse(
     )
 }
 
-fun ApiErrorResponse.toDomainException(cause: Throwable?): UpbitExchangeException =
+fun ApiErrorResponse.toDomainException(cause: Throwable?) =
     UpbitExchangeException(error.name, error.message, cause)

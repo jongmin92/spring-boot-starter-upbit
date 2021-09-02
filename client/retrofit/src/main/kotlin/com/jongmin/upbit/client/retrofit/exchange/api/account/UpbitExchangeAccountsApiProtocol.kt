@@ -1,4 +1,4 @@
-package com.jongmin.upbit.client.retrofit.exchange.api.protocol
+package com.jongmin.upbit.client.retrofit.exchange.api.account
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.jongmin.upbit.exchange.account.UpbitAccount

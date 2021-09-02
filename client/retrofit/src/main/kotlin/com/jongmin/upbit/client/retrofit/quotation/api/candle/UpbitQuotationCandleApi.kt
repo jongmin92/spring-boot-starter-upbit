@@ -1,19 +1,15 @@
-package com.jongmin.upbit.client.retrofit.quotation.api
+package com.jongmin.upbit.client.retrofit.quotation.api.candle
 
 import com.jongmin.upbit.client.retrofit.quotation.api.protocol.DayCandleResponse
 import com.jongmin.upbit.client.retrofit.quotation.api.protocol.MinuteCandleResponse
 import com.jongmin.upbit.client.retrofit.quotation.api.protocol.MonthCandleResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitMarketResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitOrderbookResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitTickResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.UpbitTickerResponse
 import com.jongmin.upbit.client.retrofit.quotation.api.protocol.WeekCandleResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface UpbitQuotationApi {
+interface UpbitQuotationCandleApi {
 
     @GET("v1/candles/minutes/{unit}")
     fun getUpbitMinuteCandles(
@@ -44,22 +40,4 @@ interface UpbitQuotationApi {
         @Query("to") to: String? = "yyyy-MM-dd HH:mm:ss",
         @Query("count") count: Int?
     ): Call<List<MonthCandleResponse>>
-
-    @GET("v1/market/all")
-    fun getMarkets(@Query("isDetails") isDetails: Boolean? = false): Call<List<UpbitMarketResponse>>
-
-    @GET("v1/orderbook")
-    fun getOrderbooks(@Query("markets") markets: String): Call<List<UpbitOrderbookResponse>>
-
-    @GET("v1/ticker")
-    fun getCurrentTicker(@Query("markets") markets: String): Call<List<UpbitTickerResponse>>
-
-    @GET("v1/trades/ticks")
-    fun getTradeTicks(
-        @Query("market") market: String,
-        @Query("to") to: String? = "HHmmss",
-        @Query("count") count: Int? = null,
-        @Query("cursor") cursor: String? = null,
-        @Query("daysAgo") daysAgo: Int? = null
-    ): Call<List<UpbitTickResponse>>
 }
