@@ -35,21 +35,6 @@ class UpbitExchangeRetrofitClientAutoConfigure {
             .create(clazz)
 
     @Bean
-    fun accountsApi(): UpbitExchangeAccountsApi = makeDefaultRetrofitApi(UpbitExchangeAccountsApi::class.java)
-
-    @Bean
-    fun ordersApi(): UpbitExchangeOrdersApi = makeDefaultRetrofitApi(UpbitExchangeOrdersApi::class.java)
-
-    @Bean
-    fun withdrawsApi(): UpbitExchangeWithdrawsApi = makeDefaultRetrofitApi(UpbitExchangeWithdrawsApi::class.java)
-
-    @Bean
-    fun depositsApi(): UpbitExchangeDepositsApi = makeDefaultRetrofitApi(UpbitExchangeDepositsApi::class.java)
-
-    @Bean
-    fun infoApi(): UpbitExchangeInfoApi = makeDefaultRetrofitApi(UpbitExchangeInfoApi::class.java)
-
-    @Bean
     fun authorizationTokenService(upbitClientSettings: UpbitClientSettings) =
         AuthorizationTokenServiceImpl(
             TokenProperties(upbitClientSettings.accessKey, upbitClientSettings.secretKey),
@@ -58,19 +43,14 @@ class UpbitExchangeRetrofitClientAutoConfigure {
 
     @Bean
     fun upbitExchangeService(
-        accountsApi: UpbitExchangeAccountsApi,
-        ordersApi: UpbitExchangeOrdersApi,
-        withdrawsApi: UpbitExchangeWithdrawsApi,
-        depositsApi: UpbitExchangeDepositsApi,
-        infoApi: UpbitExchangeInfoApi,
         authorizationTokenService: AuthorizationTokenService
     ): UpbitExchangeServiceImpl {
         return UpbitExchangeServiceImpl(
-            accountsApi = accountsApi,
-            ordersApi = ordersApi,
-            withdrawsApi = withdrawsApi,
-            depositsApi = depositsApi,
-            infoApi = infoApi,
+            accountsApi = makeDefaultRetrofitApi(UpbitExchangeAccountsApi::class.java),
+            ordersApi = makeDefaultRetrofitApi(UpbitExchangeOrdersApi::class.java),
+            withdrawsApi = makeDefaultRetrofitApi(UpbitExchangeWithdrawsApi::class.java),
+            depositsApi = makeDefaultRetrofitApi(UpbitExchangeDepositsApi::class.java),
+            infoApi = makeDefaultRetrofitApi(UpbitExchangeInfoApi::class.java),
             authorizationTokenService = authorizationTokenService
         )
     }

@@ -28,34 +28,18 @@ class UpbitQuotationRetrofitClientAutoConfigure {
             .create(clazz)
 
     @Bean
-    fun candleApi(): UpbitQuotationCandleApi = makeDefaultRetrofitApi(UpbitQuotationCandleApi::class.java)
-
-    @Bean
-    fun marketApi(): UpbitQuotationMarketApi = makeDefaultRetrofitApi(UpbitQuotationMarketApi::class.java)
-
-    @Bean
-    fun orderbookApi(): UpbitQuotationOrderbookApi = makeDefaultRetrofitApi(UpbitQuotationOrderbookApi::class.java)
-
-    @Bean
-    fun tickerApi(): UpbitQuotationTickerApi = makeDefaultRetrofitApi(UpbitQuotationTickerApi::class.java)
-
-    @Bean
-    fun tradeApi(): UpbitQuotationTradeApi = makeDefaultRetrofitApi(UpbitQuotationTradeApi::class.java)
-
-    @Bean
     fun upbitQuotationService(
-        candleApi: UpbitQuotationCandleApi,
         marketApi: UpbitQuotationMarketApi,
         orderbookApi: UpbitQuotationOrderbookApi,
         tickerApi: UpbitQuotationTickerApi,
         tradeApi: UpbitQuotationTradeApi
     ): UpbitQuotationServiceImpl {
         return UpbitQuotationServiceImpl(
-            candleApi = candleApi,
-            marketApi = marketApi,
-            orderbookApi = orderbookApi,
-            tickerApi = tickerApi,
-            tradeApi = tradeApi
+            candleApi = makeDefaultRetrofitApi(UpbitQuotationCandleApi::class.java),
+            marketApi = makeDefaultRetrofitApi(UpbitQuotationMarketApi::class.java),
+            orderbookApi = makeDefaultRetrofitApi(UpbitQuotationOrderbookApi::class.java),
+            tickerApi = makeDefaultRetrofitApi(UpbitQuotationTickerApi::class.java),
+            tradeApi = makeDefaultRetrofitApi(UpbitQuotationTradeApi::class.java)
         )
     }
 }
