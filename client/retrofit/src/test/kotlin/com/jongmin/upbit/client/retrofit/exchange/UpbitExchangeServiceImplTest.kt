@@ -8,7 +8,7 @@ import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.upbitOrderIncludingTradesResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.order.upbitOrdersChanceResponseFixture
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
+import com.jongmin.upbit.client.retrofit.exchange.api.order.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsApi
 import com.jongmin.upbit.client.retrofit.utils.success
 import com.jongmin.upbit.token.AuthorizationTokenService

@@ -1,4 +1,4 @@
-package com.jongmin.upbit.client.retrofit.quotation.api.protocol
+package com.jongmin.upbit.client.retrofit.quotation.api.candle
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.jongmin.upbit.quotation.candles.DayCandle

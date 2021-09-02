@@ -5,11 +5,14 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.ApiErrorResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccountsApi
 import com.jongmin.upbit.client.retrofit.exchange.api.account.toDomain
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitDepositKrwRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsApi
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoApi
+import com.jongmin.upbit.client.retrofit.exchange.api.info.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersApi
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositKrwRequest
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitOrderPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.order.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawKrwPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain

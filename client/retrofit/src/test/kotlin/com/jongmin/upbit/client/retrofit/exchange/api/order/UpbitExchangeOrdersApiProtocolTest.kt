@@ -1,11 +1,5 @@
 package com.jongmin.upbit.client.retrofit.exchange.api.order
 
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderDeleteResponse
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderIncludingTradesResponse
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostResponse
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderResponse
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrdersChanceResponse
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll

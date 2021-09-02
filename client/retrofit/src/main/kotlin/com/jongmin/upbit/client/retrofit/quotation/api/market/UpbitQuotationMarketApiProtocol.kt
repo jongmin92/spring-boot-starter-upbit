@@ -1,4 +1,4 @@
-package com.jongmin.upbit.client.retrofit.quotation.api.protocol
+package com.jongmin.upbit.client.retrofit.quotation.api.market
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.jongmin.upbit.quotation.market.MarketWarning

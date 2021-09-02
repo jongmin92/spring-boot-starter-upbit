@@ -1,7 +1,5 @@
 package com.jongmin.upbit.client.retrofit.exchange.api.info
 
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitApiKeyResponse
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWalletStatusResponse
 import retrofit2.Call
 import retrofit2.http.GET
 

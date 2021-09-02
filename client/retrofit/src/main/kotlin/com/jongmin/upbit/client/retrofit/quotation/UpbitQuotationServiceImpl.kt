@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.quotation.api.ApiErrorResponse
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.UpbitQuotationCandleApi
+import com.jongmin.upbit.client.retrofit.quotation.api.candle.toDomain
 import com.jongmin.upbit.client.retrofit.quotation.api.market.UpbitQuotationMarketApi
+import com.jongmin.upbit.client.retrofit.quotation.api.market.toDomain
 import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.UpbitQuotationOrderbookApi
-import com.jongmin.upbit.client.retrofit.quotation.api.protocol.toDomain
+import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.toDomain
 import com.jongmin.upbit.client.retrofit.quotation.api.ticker.UpbitQuotationTickerApi
+import com.jongmin.upbit.client.retrofit.quotation.api.ticker.toDomain
 import com.jongmin.upbit.client.retrofit.quotation.api.toDomainException
 import com.jongmin.upbit.client.retrofit.quotation.api.trade.UpbitQuotationTradeApi
 import com.jongmin.upbit.client.retrofit.quotation.api.trade.toDomain

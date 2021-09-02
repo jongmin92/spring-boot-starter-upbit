@@ -1,10 +1,5 @@
 package com.jongmin.upbit.client.retrofit.exchange.api.deposit
 
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitCreateDepositCoinAddressResponse
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositCoinAddressResponse
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositKrwRequest
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositKrwResponse
-import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitDepositResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
