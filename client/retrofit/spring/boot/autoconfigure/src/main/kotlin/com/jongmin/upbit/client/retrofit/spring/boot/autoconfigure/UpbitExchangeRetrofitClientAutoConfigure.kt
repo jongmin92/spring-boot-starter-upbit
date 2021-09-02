@@ -7,7 +7,7 @@ import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccou
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsApi
 import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersApi
-import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawApi
+import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsApi
 import com.jongmin.upbit.client.retrofit.spring.boot.UpbitClientSettings
 import com.jongmin.upbit.token.AuthorizationTokenService
 import com.jongmin.upbit.token.AuthorizationTokenServiceImpl
@@ -41,7 +41,7 @@ class UpbitExchangeRetrofitClientAutoConfigure {
     fun ordersApi(): UpbitExchangeOrdersApi = makeDefaultRetrofitApi(UpbitExchangeOrdersApi::class.java)
 
     @Bean
-    fun withdrawsApi(): UpbitExchangeWithdrawApi = makeDefaultRetrofitApi(UpbitExchangeWithdrawApi::class.java)
+    fun withdrawsApi(): UpbitExchangeWithdrawsApi = makeDefaultRetrofitApi(UpbitExchangeWithdrawsApi::class.java)
 
     @Bean
     fun depositsApi(): UpbitExchangeDepositsApi = makeDefaultRetrofitApi(UpbitExchangeDepositsApi::class.java)
@@ -60,7 +60,7 @@ class UpbitExchangeRetrofitClientAutoConfigure {
     fun upbitExchangeService(
         accountsApi: UpbitExchangeAccountsApi,
         ordersApi: UpbitExchangeOrdersApi,
-        withdrawApi: UpbitExchangeWithdrawApi,
+        withdrawsApi: UpbitExchangeWithdrawsApi,
         depositsApi: UpbitExchangeDepositsApi,
         infoApi: UpbitExchangeInfoApi,
         authorizationTokenService: AuthorizationTokenService
@@ -68,7 +68,7 @@ class UpbitExchangeRetrofitClientAutoConfigure {
         return UpbitExchangeServiceImpl(
             accountsApi = accountsApi,
             ordersApi = ordersApi,
-            withdrawsApi = withdrawApi,
+            withdrawsApi = withdrawsApi,
             depositsApi = depositsApi,
             infoApi = infoApi,
             authorizationTokenService = authorizationTokenService

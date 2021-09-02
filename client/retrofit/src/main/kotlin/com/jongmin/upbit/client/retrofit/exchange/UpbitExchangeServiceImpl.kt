@@ -14,7 +14,7 @@ import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoin
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawKrwPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.toDomainException
-import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawApi
+import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsApi
 import com.jongmin.upbit.exchange.UpbitExchangeService
 import com.jongmin.upbit.exchange.account.UpbitAccount
 import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
@@ -39,7 +39,7 @@ import retrofit2.Call
 class UpbitExchangeServiceImpl(
     private val accountsApi: UpbitExchangeAccountsApi,
     private val ordersApi: UpbitExchangeOrdersApi,
-    private val withdrawsApi: UpbitExchangeWithdrawApi,
+    private val withdrawsApi: UpbitExchangeWithdrawsApi,
     private val depositsApi: UpbitExchangeDepositsApi,
     private val infoApi: UpbitExchangeInfoApi,
     private val authorizationTokenService: AuthorizationTokenService

@@ -12,7 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-interface UpbitExchangeWithdrawApi {
+interface UpbitExchangeWithdrawsApi {
 
     @GET("v1/withdraws")
     fun getWithdraws(

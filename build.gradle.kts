@@ -33,10 +33,6 @@ allprojects {
     }
 }
 
-dependencies {
-    testImplementation(kotlin("test"))
-}
-
 configureByTypePrefix("kotlin") {
     apply(plugin = "kotlin")
 
@@ -47,6 +43,10 @@ configureByTypePrefix("kotlin") {
     dependencies {
         api("org.jetbrains.kotlin:kotlin-reflect")
         api("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+        testImplementation(kotlin("test"))
+        testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
+        testImplementation("org.assertj:assertj-core:3.20.2")
     }
 }
 
