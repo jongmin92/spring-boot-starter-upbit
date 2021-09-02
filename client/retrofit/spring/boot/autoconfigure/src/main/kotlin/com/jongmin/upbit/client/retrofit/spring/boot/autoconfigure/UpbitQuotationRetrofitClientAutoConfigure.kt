@@ -28,18 +28,12 @@ class UpbitQuotationRetrofitClientAutoConfigure {
             .create(clazz)
 
     @Bean
-    fun upbitQuotationService(
-        marketApi: UpbitQuotationMarketApi,
-        orderbookApi: UpbitQuotationOrderbookApi,
-        tickerApi: UpbitQuotationTickerApi,
-        tradeApi: UpbitQuotationTradeApi
-    ): UpbitQuotationServiceImpl {
-        return UpbitQuotationServiceImpl(
+    fun upbitQuotationService() =
+        UpbitQuotationServiceImpl(
             candleApi = makeDefaultRetrofitApi(UpbitQuotationCandleApi::class.java),
             marketApi = makeDefaultRetrofitApi(UpbitQuotationMarketApi::class.java),
             orderbookApi = makeDefaultRetrofitApi(UpbitQuotationOrderbookApi::class.java),
             tickerApi = makeDefaultRetrofitApi(UpbitQuotationTickerApi::class.java),
             tradeApi = makeDefaultRetrofitApi(UpbitQuotationTradeApi::class.java)
         )
-    }
 }

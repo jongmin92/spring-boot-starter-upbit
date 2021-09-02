@@ -42,10 +42,8 @@ class UpbitExchangeRetrofitClientAutoConfigure {
         )
 
     @Bean
-    fun upbitExchangeService(
-        authorizationTokenService: AuthorizationTokenService
-    ): UpbitExchangeServiceImpl {
-        return UpbitExchangeServiceImpl(
+    fun upbitExchangeService(authorizationTokenService: AuthorizationTokenService) =
+        UpbitExchangeServiceImpl(
             accountsApi = makeDefaultRetrofitApi(UpbitExchangeAccountsApi::class.java),
             ordersApi = makeDefaultRetrofitApi(UpbitExchangeOrdersApi::class.java),
             withdrawsApi = makeDefaultRetrofitApi(UpbitExchangeWithdrawsApi::class.java),
@@ -53,5 +51,4 @@ class UpbitExchangeRetrofitClientAutoConfigure {
             infoApi = makeDefaultRetrofitApi(UpbitExchangeInfoApi::class.java),
             authorizationTokenService = authorizationTokenService
         )
-    }
 }
