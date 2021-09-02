@@ -3,9 +3,11 @@ package com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.UpbitExchangeServiceImpl
-import com.jongmin.upbit.client.retrofit.exchange.api.UpbitExchangeApi
-import com.jongmin.upbit.client.retrofit.quotation.UpbitQuotationServiceImpl
-import com.jongmin.upbit.client.retrofit.quotation.api.UpbitQuotationApi
+import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccountsApi
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsApi
+import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoApi
+import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersApi
+import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawApi
 import com.jongmin.upbit.client.retrofit.spring.boot.UpbitClientSettings
 import com.jongmin.upbit.token.AuthorizationTokenService
 import com.jongmin.upbit.token.AuthorizationTokenServiceImpl
@@ -33,10 +35,19 @@ class UpbitExchangeRetrofitClientAutoConfigure {
             .create(clazz)
 
     @Bean
-    fun upbitExchangeApi(): UpbitExchangeApi = makeDefaultRetrofitApi(UpbitExchangeApi::class.java)
+    fun accountsApi(): UpbitExchangeAccountsApi = makeDefaultRetrofitApi(UpbitExchangeAccountsApi::class.java)
 
     @Bean
-    fun upbitQuotationApi(): UpbitQuotationApi = makeDefaultRetrofitApi(UpbitQuotationApi::class.java)
+    fun ordersApi(): UpbitExchangeOrdersApi = makeDefaultRetrofitApi(UpbitExchangeOrdersApi::class.java)
+
+    @Bean
+    fun withdrawsApi(): UpbitExchangeWithdrawApi = makeDefaultRetrofitApi(UpbitExchangeWithdrawApi::class.java)
+
+    @Bean
+    fun depositsApi(): UpbitExchangeDepositsApi = makeDefaultRetrofitApi(UpbitExchangeDepositsApi::class.java)
+
+    @Bean
+    fun infoApi(): UpbitExchangeInfoApi = makeDefaultRetrofitApi(UpbitExchangeInfoApi::class.java)
 
     @Bean
     fun authorizationTokenService(upbitClientSettings: UpbitClientSettings) =
@@ -47,18 +58,20 @@ class UpbitExchangeRetrofitClientAutoConfigure {
 
     @Bean
     fun upbitExchangeService(
-        upbitExchangeApi: UpbitExchangeApi,
+        accountsApi: UpbitExchangeAccountsApi,
+        ordersApi: UpbitExchangeOrdersApi,
+        withdrawApi: UpbitExchangeWithdrawApi,
+        depositsApi: UpbitExchangeDepositsApi,
+        infoApi: UpbitExchangeInfoApi,
         authorizationTokenService: AuthorizationTokenService
     ): UpbitExchangeServiceImpl {
-        return UpbitExchangeServiceImpl(upbitExchangeApi, authorizationTokenService)
-    }
-
-    @Bean
-    fun upbitQuotationService(
-        upbitQuotationApi: UpbitQuotationApi
-    ): UpbitQuotationServiceImpl {
-        return UpbitQuotationServiceImpl(
-            upbitQuotationApi
+        return UpbitExchangeServiceImpl(
+            accountsApi = accountsApi,
+            ordersApi = ordersApi,
+            withdrawsApi = withdrawApi,
+            depositsApi = depositsApi,
+            infoApi = infoApi,
+            authorizationTokenService = authorizationTokenService
         )
     }
 }

@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
 
-@SpringBootTest(classes = [UpbitExchangeRetrofitClientAutoConfigure::class])
+@SpringBootTest(classes = [
+    UpbitExchangeRetrofitClientAutoConfigure::class,
+    UpbitQuotationRetrofitClientAutoConfigure::class,
+])
 class UpbitExchangeRetrofitClientAutoConfigureTest {
     @Autowired
     lateinit var upbitExchangeService: UpbitExchangeService
