@@ -1,6 +1,9 @@
 package com.jongmin.upbit.client.retrofit.exchange.api.order
 
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderDeleteResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderIncludingTradesResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderPostResponse
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrderResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitOrdersChanceResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import org.assertj.core.api.Assertions.assertThat
@@ -12,81 +15,163 @@ class UpbitExchangeOrdersApiProtocolTest {
     @Test
     fun `upbitOrdersChanceResponse toDomain`() {
         // given
-        val ordersChance = upbitOrdersChanceResponseFixture()
+        val ordersChanceResponse = upbitOrdersChanceResponseFixture()
 
         // when
-        val result = ordersChance.toDomain()
+        val result = ordersChanceResponse.toDomain()
 
         // then
         assertAll("ordersChance",
-            { assertThat(result.bidFee).isEqualTo(ordersChance.bidFee) },
-            { assertThat(result.askFee).isEqualTo(ordersChance.askFee) },
+            { assertThat(result.bidFee).isEqualTo(ordersChanceResponse.bidFee) },
+            { assertThat(result.askFee).isEqualTo(ordersChanceResponse.askFee) },
             { assertThat(result.market).isNotNull },
-            { assertThat(result.market.id).isEqualTo(ordersChance.market.id) },
-            { assertThat(result.market.name).isEqualTo(ordersChance.market.name) },
+            { assertThat(result.market.id).isEqualTo(ordersChanceResponse.market.id) },
+            { assertThat(result.market.name).isEqualTo(ordersChanceResponse.market.name) },
             { assertThat(result.market.orderTypes).hasSize(1) },
-            { assertThat(result.market.orderTypes.first()).isEqualTo(ordersChance.market.orderTypes.first()) },
+            { assertThat(result.market.orderTypes.first()).isEqualTo(ordersChanceResponse.market.orderTypes.first()) },
             { assertThat(result.market.orderSides).hasSize(1) },
-            { assertThat(result.market.orderSides.first()).isEqualTo(ordersChance.market.orderSides.first()) },
+            { assertThat(result.market.orderSides.first()).isEqualTo(ordersChanceResponse.market.orderSides.first()) },
             { assertThat(result.market.bid).isNotNull },
-            { assertThat(result.market.bid.currency).isEqualTo(ordersChance.market.bid.currency) },
-            { assertThat(result.market.bid.priceUnit).isEqualTo(ordersChance.market.bid.priceUnit) },
-            { assertThat(result.market.bid.minTotal).isEqualTo(ordersChance.market.bid.minTotal) },
+            { assertThat(result.market.bid.currency).isEqualTo(ordersChanceResponse.market.bid.currency) },
+            { assertThat(result.market.bid.priceUnit).isEqualTo(ordersChanceResponse.market.bid.priceUnit) },
+            { assertThat(result.market.bid.minTotal).isEqualTo(ordersChanceResponse.market.bid.minTotal) },
             { assertThat(result.market.ask).isNotNull },
-            { assertThat(result.market.ask.currency).isEqualTo(ordersChance.market.ask.currency) },
-            { assertThat(result.market.ask.priceUnit).isEqualTo(ordersChance.market.ask.priceUnit) },
-            { assertThat(result.market.ask.minTotal).isEqualTo(ordersChance.market.ask.minTotal) },
-            { assertThat(result.market.maxTotal).isEqualTo(ordersChance.market.maxTotal) },
-            { assertThat(result.market.state).isEqualTo(ordersChance.market.state) },
+            { assertThat(result.market.ask.currency).isEqualTo(ordersChanceResponse.market.ask.currency) },
+            { assertThat(result.market.ask.priceUnit).isEqualTo(ordersChanceResponse.market.ask.priceUnit) },
+            { assertThat(result.market.ask.minTotal).isEqualTo(ordersChanceResponse.market.ask.minTotal) },
+            { assertThat(result.market.maxTotal).isEqualTo(ordersChanceResponse.market.maxTotal) },
+            { assertThat(result.market.state).isEqualTo(ordersChanceResponse.market.state) },
             { assertThat(result.bidAccount).isNotNull },
-            { assertThat(result.bidAccount.currency).isEqualTo(ordersChance.bidAccount.currency) },
-            { assertThat(result.bidAccount.balance).isEqualTo(ordersChance.bidAccount.balance) },
-            { assertThat(result.bidAccount.locked).isEqualTo(ordersChance.bidAccount.locked) },
-            { assertThat(result.bidAccount.avgBuyPrice).isEqualTo(ordersChance.bidAccount.avgBuyPrice) },
-            { assertThat(result.bidAccount.avgBuyPriceModified).isEqualTo(ordersChance.bidAccount.avgBuyPriceModified) },
-            { assertThat(result.bidAccount.unitCurrency).isEqualTo(ordersChance.bidAccount.unitCurrency) },
+            { assertThat(result.bidAccount.currency).isEqualTo(ordersChanceResponse.bidAccount.currency) },
+            { assertThat(result.bidAccount.balance).isEqualTo(ordersChanceResponse.bidAccount.balance) },
+            { assertThat(result.bidAccount.locked).isEqualTo(ordersChanceResponse.bidAccount.locked) },
+            { assertThat(result.bidAccount.avgBuyPrice).isEqualTo(ordersChanceResponse.bidAccount.avgBuyPrice) },
+            { assertThat(result.bidAccount.avgBuyPriceModified).isEqualTo(ordersChanceResponse.bidAccount.avgBuyPriceModified) },
+            { assertThat(result.bidAccount.unitCurrency).isEqualTo(ordersChanceResponse.bidAccount.unitCurrency) },
             { assertThat(result.askAccount).isNotNull },
-            { assertThat(result.askAccount.currency).isEqualTo(ordersChance.askAccount.currency) },
-            { assertThat(result.askAccount.balance).isEqualTo(ordersChance.askAccount.balance) },
-            { assertThat(result.askAccount.locked).isEqualTo(ordersChance.askAccount.locked) },
-            { assertThat(result.askAccount.avgBuyPrice).isEqualTo(ordersChance.askAccount.avgBuyPrice) },
-            { assertThat(result.askAccount.avgBuyPriceModified).isEqualTo(ordersChance.askAccount.avgBuyPriceModified) },
-            { assertThat(result.askAccount.unitCurrency).isEqualTo(ordersChance.askAccount.unitCurrency) }
+            { assertThat(result.askAccount.currency).isEqualTo(ordersChanceResponse.askAccount.currency) },
+            { assertThat(result.askAccount.balance).isEqualTo(ordersChanceResponse.askAccount.balance) },
+            { assertThat(result.askAccount.locked).isEqualTo(ordersChanceResponse.askAccount.locked) },
+            { assertThat(result.askAccount.avgBuyPrice).isEqualTo(ordersChanceResponse.askAccount.avgBuyPrice) },
+            { assertThat(result.askAccount.avgBuyPriceModified).isEqualTo(ordersChanceResponse.askAccount.avgBuyPriceModified) },
+            { assertThat(result.askAccount.unitCurrency).isEqualTo(ordersChanceResponse.askAccount.unitCurrency) }
         )
     }
 
     @Test
     fun `upbitOrderIncludingTradesResponse toDomain`() {
         // given
-        val order = upbitOrderIncludingTradesResponseFixture()
+        val orderResponse = upbitOrderIncludingTradesResponseFixture()
 
         // when
-        val result = order.toDomain()
+        val result = orderResponse.toDomain()
 
         // then
         assertAll("order",
-            { assertThat(result.uuid).isEqualTo(order.uuid) },
-            { assertThat(result.side).isEqualTo(order.side) },
-            { assertThat(result.ordType).isEqualTo(order.ordType) },
-            { assertThat(result.price).isEqualTo(order.price) },
-            { assertThat(result.state).isEqualTo(order.state) },
-            { assertThat(result.createdAt).isEqualTo(order.createdAt) },
-            { assertThat(result.volume).isEqualTo(order.volume) },
-            { assertThat(result.remainingVolume).isEqualTo(order.remainingVolume) },
-            { assertThat(result.reservedFee).isEqualTo(order.reservedFee) },
-            { assertThat(result.remainingFee).isEqualTo(order.remainingFee) },
-            { assertThat(result.paidFee).isEqualTo(order.paidFee) },
-            { assertThat(result.locked).isEqualTo(order.locked) },
-            { assertThat(result.executedVolume).isEqualTo(order.executedVolume) },
-            { assertThat(result.tradeCount).isEqualTo(order.tradeCount) },
+            { assertThat(result.uuid).isEqualTo(orderResponse.uuid) },
+            { assertThat(result.side).isEqualTo(orderResponse.side) },
+            { assertThat(result.ordType).isEqualTo(orderResponse.ordType) },
+            { assertThat(result.price).isEqualTo(orderResponse.price) },
+            { assertThat(result.state).isEqualTo(orderResponse.state) },
+            { assertThat(result.createdAt).isEqualTo(orderResponse.createdAt) },
+            { assertThat(result.volume).isEqualTo(orderResponse.volume) },
+            { assertThat(result.remainingVolume).isEqualTo(orderResponse.remainingVolume) },
+            { assertThat(result.reservedFee).isEqualTo(orderResponse.reservedFee) },
+            { assertThat(result.remainingFee).isEqualTo(orderResponse.remainingFee) },
+            { assertThat(result.paidFee).isEqualTo(orderResponse.paidFee) },
+            { assertThat(result.locked).isEqualTo(orderResponse.locked) },
+            { assertThat(result.executedVolume).isEqualTo(orderResponse.executedVolume) },
+            { assertThat(result.tradeCount).isEqualTo(orderResponse.tradeCount) },
             { assertThat(result.trades).hasSize(1) },
-            { assertThat(result.trades.first().market).isEqualTo(order.trades.first().market) },
-            { assertThat(result.trades.first().uuid).isEqualTo(order.trades.first().uuid) },
-            { assertThat(result.trades.first().price).isEqualTo(order.trades.first().price) },
-            { assertThat(result.trades.first().volume).isEqualTo(order.trades.first().volume) },
-            { assertThat(result.trades.first().funds).isEqualTo(order.trades.first().funds) },
-            { assertThat(result.trades.first().side).isEqualTo(order.trades.first().side) },
-            { assertThat(result.trades.first().createdAt).isEqualTo(order.trades.first().createdAt) }
+            { assertThat(result.trades.first().market).isEqualTo(orderResponse.trades.first().market) },
+            { assertThat(result.trades.first().uuid).isEqualTo(orderResponse.trades.first().uuid) },
+            { assertThat(result.trades.first().price).isEqualTo(orderResponse.trades.first().price) },
+            { assertThat(result.trades.first().volume).isEqualTo(orderResponse.trades.first().volume) },
+            { assertThat(result.trades.first().funds).isEqualTo(orderResponse.trades.first().funds) },
+            { assertThat(result.trades.first().side).isEqualTo(orderResponse.trades.first().side) },
+            { assertThat(result.trades.first().createdAt).isEqualTo(orderResponse.trades.first().createdAt) }
+        )
+    }
+
+    @Test
+    fun `upbitOrderResponse toDomain`() {
+        // given
+        val orderResponse = upbitOrderResponseFixture()
+
+        // when
+        val result = orderResponse.toDomain()
+
+        // then
+        assertAll("order",
+            { assertThat(result.uuid).isEqualTo(orderResponse.uuid) },
+            { assertThat(result.side).isEqualTo(orderResponse.side) },
+            { assertThat(result.ordType).isEqualTo(orderResponse.ordType) },
+            { assertThat(result.price).isEqualTo(orderResponse.price) },
+            { assertThat(result.state).isEqualTo(orderResponse.state) },
+            { assertThat(result.createdAt).isEqualTo(orderResponse.createdAt) },
+            { assertThat(result.volume).isEqualTo(orderResponse.volume) },
+            { assertThat(result.remainingVolume).isEqualTo(orderResponse.remainingVolume) },
+            { assertThat(result.reservedFee).isEqualTo(orderResponse.reservedFee) },
+            { assertThat(result.remainingFee).isEqualTo(orderResponse.remainingFee) },
+            { assertThat(result.paidFee).isEqualTo(orderResponse.paidFee) },
+            { assertThat(result.locked).isEqualTo(orderResponse.locked) },
+            { assertThat(result.executedVolume).isEqualTo(orderResponse.executedVolume) },
+            { assertThat(result.tradeCount).isEqualTo(orderResponse.tradeCount) }
+        )
+    }
+
+    @Test
+    fun `upbitOrderDeleteResponse toDomain`() {
+        // given
+        val orderDeleteResponse = upbitOrderDeleteResponseFixture()
+
+        // when
+        val result = orderDeleteResponse.toDomain()
+
+        // then
+        assertAll("orderDelete",
+            { assertThat(result.uuid).isEqualTo(orderDeleteResponse.uuid) },
+            { assertThat(result.side).isEqualTo(orderDeleteResponse.side) },
+            { assertThat(result.ordType).isEqualTo(orderDeleteResponse.ordType) },
+            { assertThat(result.price).isEqualTo(orderDeleteResponse.price) },
+            { assertThat(result.state).isEqualTo(orderDeleteResponse.state) },
+            { assertThat(result.createdAt).isEqualTo(orderDeleteResponse.createdAt) },
+            { assertThat(result.volume).isEqualTo(orderDeleteResponse.volume) },
+            { assertThat(result.remainingVolume).isEqualTo(orderDeleteResponse.remainingVolume) },
+            { assertThat(result.reservedFee).isEqualTo(orderDeleteResponse.reservedFee) },
+            { assertThat(result.remainingFee).isEqualTo(orderDeleteResponse.remainingFee) },
+            { assertThat(result.paidFee).isEqualTo(orderDeleteResponse.paidFee) },
+            { assertThat(result.locked).isEqualTo(orderDeleteResponse.locked) },
+            { assertThat(result.executedVolume).isEqualTo(orderDeleteResponse.executedVolume) },
+            { assertThat(result.tradeCount).isEqualTo(orderDeleteResponse.tradeCount) }
+        )
+    }
+
+    @Test
+    fun `upbitOrderPostResponse toDomain`() {
+        // given
+        val orderPostResponse = upbitOrderPostResponseFixture()
+
+        // when
+        val result = orderPostResponse.toDomain()
+
+        // then
+        assertAll("orderPost",
+            { assertThat(result.uuid).isEqualTo(orderPostResponse.uuid) },
+            { assertThat(result.side).isEqualTo(orderPostResponse.side) },
+            { assertThat(result.ordType).isEqualTo(orderPostResponse.ordType) },
+            { assertThat(result.price).isEqualTo(orderPostResponse.price) },
+            { assertThat(result.state).isEqualTo(orderPostResponse.state) },
+            { assertThat(result.createdAt).isEqualTo(orderPostResponse.createdAt) },
+            { assertThat(result.volume).isEqualTo(orderPostResponse.volume) },
+            { assertThat(result.remainingVolume).isEqualTo(orderPostResponse.remainingVolume) },
+            { assertThat(result.reservedFee).isEqualTo(orderPostResponse.reservedFee) },
+            { assertThat(result.remainingFee).isEqualTo(orderPostResponse.remainingFee) },
+            { assertThat(result.paidFee).isEqualTo(orderPostResponse.paidFee) },
+            { assertThat(result.locked).isEqualTo(orderPostResponse.locked) },
+            { assertThat(result.executedVolume).isEqualTo(orderPostResponse.executedVolume) },
+            { assertThat(result.tradeCount).isEqualTo(orderPostResponse.tradeCount) },
+            { assertThat(result.avgPrice).isEqualTo(orderPostResponse.avgPrice) }
         )
     }
 }
@@ -149,4 +234,59 @@ internal fun upbitOrderIncludingTradesResponseFixture() = UpbitOrderIncludingTra
             createdAt = "createdAt"
         )
     )
+)
+
+internal fun upbitOrderResponseFixture() = UpbitOrderResponse(
+    uuid = "uuid",
+    side = "side",
+    ordType = "ordType",
+    price = "price",
+    state = "state",
+    market = "market",
+    createdAt = "createdAt",
+    volume = "volume",
+    remainingVolume = "remainingVolume",
+    reservedFee = "reservedFee",
+    remainingFee = "remainingFee",
+    paidFee = "paidFee",
+    locked = "locked",
+    executedVolume = "executedVolume",
+    tradeCount = 0
+)
+
+internal fun upbitOrderDeleteResponseFixture() = UpbitOrderDeleteResponse(
+    uuid = "uuid",
+    side = "side",
+    ordType = "ordType",
+    price = "price",
+    state = "state",
+    market = "market",
+    createdAt = "createdAt",
+    volume = "volume",
+    remainingVolume = "remainingVolume",
+    reservedFee = "reservedFee",
+    remainingFee = "remainingFee",
+    paidFee = "paidFee",
+    locked = "locked",
+    executedVolume = "executedVolume",
+    tradeCount = 0
+)
+
+internal fun upbitOrderPostResponseFixture() = UpbitOrderPostResponse(
+    uuid = "uuid",
+    side = "side",
+    ordType = "ordType",
+    price = "price",
+    state = "state",
+    market = "market",
+    createdAt = "createdAt",
+    volume = "volume",
+    remainingVolume = "remainingVolume",
+    reservedFee = "reservedFee",
+    remainingFee = "remainingFee",
+    paidFee = "paidFee",
+    locked = "locked",
+    executedVolume = "executedVolume",
+    tradeCount = 0,
+    avgPrice = "avgPrice"
 )
