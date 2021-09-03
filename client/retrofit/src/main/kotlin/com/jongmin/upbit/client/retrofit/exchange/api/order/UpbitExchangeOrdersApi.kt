@@ -24,7 +24,7 @@ interface UpbitExchangeOrdersApi {
         @Query("state") state: String = "wait",
         @Query("states") states: List<String>,
         @Query("uuids") uuids: List<String>,
-        @Query("identifier") identifier: List<String>,
+        @Query("identifiers") identifiers: List<String>,
         @Query("page") page: Int = 1,
         @Query("limit") limit: Int = 100,
         @Query("order_by") orderBy: String = "desc"

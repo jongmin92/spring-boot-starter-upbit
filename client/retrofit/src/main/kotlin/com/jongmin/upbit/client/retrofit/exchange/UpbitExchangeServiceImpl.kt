@@ -105,7 +105,7 @@ class UpbitExchangeServiceImpl(
                     state = state,
                     states = states,
                     uuids = uuids,
-                    identifier = identifiers,
+                    identifiers = identifiers,
                     page = page,
                     limit = limit,
                     orderBy = orderBy
