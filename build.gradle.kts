@@ -57,6 +57,7 @@ configureByTypeHaving("boot") {
 
     dependencies {
         implementation("org.springframework.boot:spring-boot")
+        implementation("org.springframework.boot:spring-boot-autoconfigure")
         annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
