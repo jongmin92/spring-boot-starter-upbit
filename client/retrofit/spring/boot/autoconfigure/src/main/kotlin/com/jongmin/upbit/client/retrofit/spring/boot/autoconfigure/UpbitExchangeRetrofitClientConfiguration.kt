@@ -13,15 +13,13 @@ import com.jongmin.upbit.token.AuthorizationTokenService
 import com.jongmin.upbit.token.AuthorizationTokenServiceImpl
 import com.jongmin.upbit.token.TokenProperties
 import com.linecorp.armeria.client.retrofit2.ArmeriaRetrofit
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import retrofit2.converter.jackson.JacksonConverterFactory
 import java.util.UUID
 
-@EnableConfigurationProperties(UpbitClientSettings::class)
 @Configuration
-class UpbitExchangeRetrofitClientAutoConfigure {
+class UpbitExchangeRetrofitClientConfiguration {
     companion object {
         const val BASE_URL = "https://api.upbit.com/"
     }

@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration
 import retrofit2.converter.jackson.JacksonConverterFactory
 
 @Configuration
-class UpbitQuotationRetrofitClientAutoConfigure {
+class UpbitQuotationRetrofitClientConfiguration {
     companion object {
         const val BASE_URL = "https://api.upbit.com/"
     }

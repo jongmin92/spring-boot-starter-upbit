@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure.UpbitExchangeRetrofitClientAutoConfigure, \
-  com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure.UpbitQuotationRetrofitClientAutoConfigure
+  com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure.UpbitClientAutoConfigure
