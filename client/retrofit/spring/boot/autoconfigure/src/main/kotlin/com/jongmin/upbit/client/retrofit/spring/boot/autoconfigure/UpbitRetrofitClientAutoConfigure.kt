@@ -13,4 +13,4 @@ import org.springframework.context.annotation.Import
     ]
 )
 @Configuration
-class UpbitClientAutoConfigure
+class UpbitRetrofitClientAutoConfigure
