@@ -1,0 +1,4 @@
+upbit:
+  client:
+    accessKey: "dummy_access_key"
+    secretKey: "dummy_secret_key"
