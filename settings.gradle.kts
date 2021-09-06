@@ -6,3 +6,5 @@ include("token")
 
 include("client:retrofit")
 include("client:retrofit:spring:boot:autoconfigure")
+
+include("server:mock")
