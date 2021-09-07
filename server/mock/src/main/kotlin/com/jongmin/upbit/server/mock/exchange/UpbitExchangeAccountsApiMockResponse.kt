@@ -1,4 +1,4 @@
-package com.jongming.upbit.server.mock.exchange
+package com.jongmin.upbit.server.mock.exchange
 
 val getAccountsResponse = """
     [
@@ -8,7 +8,7 @@ val getAccountsResponse = """
         "locked":"0.0",
         "avg_buy_price":"0",
         "avg_buy_price_modified":false,
-        "unit_currency": "KRW",
+        "unit_currency": "KRW"
       },
       {
         "currency":"BTC",
@@ -16,7 +16,7 @@ val getAccountsResponse = """
         "locked":"0.0",
         "avg_buy_price":"101000",
         "avg_buy_price_modified":false,
-        "unit_currency": "KRW",
+        "unit_currency": "KRW"
       }
     ]
 """.trimIndent()

@@ -1,3 +1,3 @@
 dependencies {
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.9.1")
+    implementation("com.squareup.okhttp3:mockwebserver:4.9.1")
 }

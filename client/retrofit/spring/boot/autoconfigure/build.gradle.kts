@@ -4,20 +4,6 @@ plugins {
     id("org.unbroken-dome.test-sets").version("4.0.0")
 }
 
-dependencies {
-    implementation(project(":client:retrofit"))
-
-    // retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-
-    // jackson
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.4")
-
-    // armeria
-    implementation(platform("com.linecorp.armeria:armeria-bom:1.10.0"))
-    implementation("com.linecorp.armeria:armeria-retrofit2")
-}
-
 testSets {
     val springBootTest by creating
     val integrationTest by creating
@@ -36,4 +22,24 @@ tasks {
     val check by getting {
         dependsOn(springBootTest, integrationTest)
     }
+}
+
+val mockServerProject = project(":server:mock")
+val mockServerProjectTestSet = mockServerProject.sourceSets["test"].output
+
+dependencies {
+    implementation(project(":client:retrofit"))
+
+    // retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // jackson
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.4")
+
+    // armeria
+    implementation(platform("com.linecorp.armeria:armeria-bom:1.10.0"))
+    implementation("com.linecorp.armeria:armeria-retrofit2")
+
+    "integrationTestImplementation"(mockServerProject)
+    "integrationTestImplementation"(mockServerProjectTestSet)
 }

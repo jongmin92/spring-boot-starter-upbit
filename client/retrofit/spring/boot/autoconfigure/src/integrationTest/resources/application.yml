@@ -1,4 +1,6 @@
 upbit:
   client:
-    accessKey: "dummy_access_key"
-    secretKey: "dummy_secret_key"
+    # Random Key
+    access-key: d83dfdb4c7800f0fdf23e659932fca28f09c7dd2
+    # Random Key
+    secret-key: d3d0c8659f69c6608278cbaf4bb9718237178198
