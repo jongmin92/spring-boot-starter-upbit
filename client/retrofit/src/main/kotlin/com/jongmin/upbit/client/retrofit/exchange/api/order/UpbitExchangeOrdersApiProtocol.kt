@@ -114,7 +114,7 @@ data class UpbitOrdersChanceResponse(
              * 타입: String
              */
             @JsonProperty("price_unit")
-            val priceUnit: String,
+            val priceUnit: String?,
 
             /**
              * 설명: 최소 매도/매수 금액
@@ -137,7 +137,7 @@ data class UpbitOrdersChanceResponse(
              * 타입: String
              */
             @JsonProperty("price_unit")
-            val priceUnit: String,
+            val priceUnit: String?,
 
             /**
              * 설명: 최소 매도/매수 금액

@@ -91,7 +91,7 @@ data class UpbitOrdersChance(
              * 설명: 주문금액 단위
              * 타입: String
              */
-            val priceUnit: String,
+            val priceUnit: String?,
 
             /**
              * 설명: 최소 매도/매수 금액
@@ -111,7 +111,7 @@ data class UpbitOrdersChance(
              * 설명: 주문금액 단위
              * 타입: String
              */
-            val priceUnit: String,
+            val priceUnit: String?,
 
             /**
              * 설명: 최소 매도/매수 금액

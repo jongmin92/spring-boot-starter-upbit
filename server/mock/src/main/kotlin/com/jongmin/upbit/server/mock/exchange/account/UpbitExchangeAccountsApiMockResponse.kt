@@ -1,4 +1,4 @@
-package com.jongmin.upbit.server.mock.exchange
+package com.jongmin.upbit.server.mock.exchange.account
 
 object GetAccountsResponse {
     const val currency1 = "KRW"
