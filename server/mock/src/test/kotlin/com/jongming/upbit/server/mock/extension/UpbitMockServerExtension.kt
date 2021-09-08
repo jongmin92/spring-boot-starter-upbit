@@ -9,6 +9,7 @@ class UpbitMockServerExtension : BeforeAllCallback, AfterAllCallback  {
     private val mockServer = UpbitMockServer()
 
     fun getUrl() = mockServer.getUrl()
+    fun getAuthorizationToken() = mockServer.getAuthorizationToken()
 
     override fun beforeAll(context: ExtensionContext?) {
         mockServer.start()

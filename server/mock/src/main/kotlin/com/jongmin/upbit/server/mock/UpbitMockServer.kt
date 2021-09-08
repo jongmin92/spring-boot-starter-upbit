@@ -1,6 +1,6 @@
 package com.jongmin.upbit.server.mock
 
-import com.jongmin.upbit.server.mock.exchange.getAccountsResponse
+import com.jongmin.upbit.server.mock.exchange.GetAccountsResponse
 import okhttp3.Protocol
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -16,7 +16,8 @@ class UpbitMockServer {
             dispatcher = object : Dispatcher() {
                 override fun dispatch(request: RecordedRequest): MockResponse {
                     when (request.path) {
-                        "/v1/accounts" -> return ok(getAccountsResponse)
+                        // accounts
+                        "/v1/accounts" -> return ok(GetAccountsResponse.fixture)
                     }
                     return notFound()
                 }
@@ -27,6 +28,7 @@ class UpbitMockServer {
     fun start() = server.start(0)
     fun shutdown() = server.shutdown()
     fun getUrl() = server.url("/")
+    fun getAuthorizationToken() = server.takeRequest().getHeader("Authorization")
 }
 
 fun ok(body: String) = MockResponse().setResponseCode(200).setBody(body)
