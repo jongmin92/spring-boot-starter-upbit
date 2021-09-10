@@ -287,7 +287,7 @@ data class UpbitOrderIncludingTrades(
      * 설명: 해당 주문에 걸린 체결 수
      * 타입: NumberString
      */
-    val tradeCount: Int,
+    val tradesCount: Int,
 
     /**
      * 설명: 체결
@@ -330,13 +330,7 @@ data class UpbitOrderIncludingTrades(
          * 설명: 체결 종류
          * 타입: String
          */
-        val side: String,
-
-        /**
-         * 설명: 체결 시각
-         * 타입: DateString
-         */
-        val createdAt: String
+        val side: String
     )
 }
 

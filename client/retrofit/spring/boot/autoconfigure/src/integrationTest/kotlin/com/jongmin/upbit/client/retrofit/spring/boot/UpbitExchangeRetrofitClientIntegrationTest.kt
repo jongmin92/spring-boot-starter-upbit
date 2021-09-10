@@ -3,6 +3,7 @@ package com.jongmin.upbit.client.retrofit.spring.boot
 import com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure.UpbitRetrofitClientAutoConfigure
 import com.jongmin.upbit.exchange.UpbitExchangeService
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
+import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
@@ -86,6 +87,42 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result.askAccount.avgBuyPrice).isEqualTo(GetOrdersChanceResponse.askAccountAvgBuyPrice) },
             { assertThat(result.askAccount.avgBuyPriceModified).isEqualTo(GetOrdersChanceResponse.askAccountAvgBuyPriceModified) },
             { assertThat(result.askAccount.unitCurrency).isEqualTo(GetOrdersChanceResponse.askAccountUnitCurrency) },
+        )
+    }
+
+    @Test
+    fun getOrder() {
+        // given
+        /**
+         * @see GetOrderResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.getOrder("uuid")
+
+        // then
+        assertAll("UpbitOrderIncludingTrades",
+            { assertThat(result.uuid).isEqualTo(GetOrderResponse.uuid) },
+            { assertThat(result.side).isEqualTo(GetOrderResponse.side) },
+            { assertThat(result.ordType).isEqualTo(GetOrderResponse.ordType) },
+            { assertThat(result.price).isEqualTo(GetOrderResponse.price) },
+            { assertThat(result.state).isEqualTo(GetOrderResponse.state) },
+            { assertThat(result.market).isEqualTo(GetOrderResponse.market) },
+            { assertThat(result.createdAt).isEqualTo(GetOrderResponse.createdAt) },
+            { assertThat(result.volume).isEqualTo(GetOrderResponse.volume) },
+            { assertThat(result.remainingVolume).isEqualTo(GetOrderResponse.remainingVolume) },
+            { assertThat(result.reservedFee).isEqualTo(GetOrderResponse.reservedFee) },
+            { assertThat(result.remainingFee).isEqualTo(GetOrderResponse.remainingFee) },
+            { assertThat(result.paidFee).isEqualTo(GetOrderResponse.paidFee) },
+            { assertThat(result.locked).isEqualTo(GetOrderResponse.locked) },
+            { assertThat(result.executedVolume).isEqualTo(GetOrderResponse.executedVolume) },
+            { assertThat(result.tradesCount).isEqualTo(GetOrderResponse.tradesCount) },
+            { assertThat(result.trades[0].market).isEqualTo(GetOrderResponse.tradeMarket) },
+            { assertThat(result.trades[0].uuid).isEqualTo(GetOrderResponse.tradeUuid) },
+            { assertThat(result.trades[0].price).isEqualTo(GetOrderResponse.tradePrice) },
+            { assertThat(result.trades[0].volume).isEqualTo(GetOrderResponse.tradeVolume) },
+            { assertThat(result.trades[0].funds).isEqualTo(GetOrderResponse.tradeFunds) },
+            { assertThat(result.trades[0].side).isEqualTo(GetOrderResponse.tradeSide) }
         )
     }
 

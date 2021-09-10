@@ -1,6 +1,7 @@
 package com.jongmin.upbit.server.mock
 
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
+import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
 import okhttp3.Protocol
 import okhttp3.mockwebserver.Dispatcher
@@ -21,6 +22,7 @@ class UpbitMockServer {
                         "/v1/accounts" -> return ok(GetAccountsResponse.fixture)
                         // orders
                         "/v1/orders/chance?market=market" -> return ok(GetOrdersChanceResponse.fixture)
+                        "/v1/order?uuid=uuid" -> return ok(GetOrderResponse.fixture)
                     }
                     return notFound()
                 }

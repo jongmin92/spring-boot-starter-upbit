@@ -75,15 +75,14 @@ class UpbitExchangeOrdersApiProtocolTest {
             { assertThat(result.paidFee).isEqualTo(orderResponse.paidFee) },
             { assertThat(result.locked).isEqualTo(orderResponse.locked) },
             { assertThat(result.executedVolume).isEqualTo(orderResponse.executedVolume) },
-            { assertThat(result.tradeCount).isEqualTo(orderResponse.tradeCount) },
+            { assertThat(result.tradesCount).isEqualTo(orderResponse.tradesCount) },
             { assertThat(result.trades).hasSize(1) },
             { assertThat(result.trades.first().market).isEqualTo(orderResponse.trades.first().market) },
             { assertThat(result.trades.first().uuid).isEqualTo(orderResponse.trades.first().uuid) },
             { assertThat(result.trades.first().price).isEqualTo(orderResponse.trades.first().price) },
             { assertThat(result.trades.first().volume).isEqualTo(orderResponse.trades.first().volume) },
             { assertThat(result.trades.first().funds).isEqualTo(orderResponse.trades.first().funds) },
-            { assertThat(result.trades.first().side).isEqualTo(orderResponse.trades.first().side) },
-            { assertThat(result.trades.first().createdAt).isEqualTo(orderResponse.trades.first().createdAt) }
+            { assertThat(result.trades.first().side).isEqualTo(orderResponse.trades.first().side) }
         )
     }
 
@@ -216,7 +215,7 @@ internal fun upbitOrderIncludingTradesResponseFixture() = UpbitOrderIncludingTra
     paidFee = "paidFee",
     locked = "locked",
     executedVolume = "executedVolume",
-    tradeCount = 0,
+    tradesCount = 0,
     trades = listOf(
         UpbitOrderIncludingTradesResponse.TradeResponse(
             market = "market",
@@ -224,8 +223,7 @@ internal fun upbitOrderIncludingTradesResponseFixture() = UpbitOrderIncludingTra
             price = "price",
             volume = "volume",
             funds = "funds",
-            side = "side",
-            createdAt = "createdAt"
+            side = "side"
         )
     )
 )

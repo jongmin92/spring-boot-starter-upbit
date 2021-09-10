@@ -340,8 +340,8 @@ data class UpbitOrderIncludingTradesResponse(
      * 설명: 해당 주문에 걸린 체결 수
      * 타입: NumberString
      */
-    @JsonProperty("trade_count")
-    val tradeCount: Int,
+    @JsonProperty("trades_count")
+    val tradesCount: Int,
 
     /**
      * 설명: 체결
@@ -391,14 +391,7 @@ data class UpbitOrderIncludingTradesResponse(
          * 타입: String
          */
         @JsonProperty("side")
-        val side: String,
-
-        /**
-         * 설명: 체결 시각
-         * 타입: DateString
-         */
-        @JsonProperty("created_at")
-        val createdAt: String
+        val side: String
     )
 }
 
@@ -838,7 +831,7 @@ fun UpbitOrderIncludingTradesResponse.toDomain() = UpbitOrderIncludingTrades(
     paidFee = paidFee,
     locked = locked,
     executedVolume = executedVolume,
-    tradeCount = tradeCount,
+    tradesCount = tradesCount,
     trades = trades.map { it.toDomain() }
 )
 
@@ -848,8 +841,7 @@ fun UpbitOrderIncludingTradesResponse.TradeResponse.toDomain() = UpbitOrderInclu
     price = price,
     volume = volume,
     funds = funds,
-    side = side,
-    createdAt = createdAt
+    side = side
 )
 
 fun UpbitOrderResponse.toDomain() = UpbitOrder(
