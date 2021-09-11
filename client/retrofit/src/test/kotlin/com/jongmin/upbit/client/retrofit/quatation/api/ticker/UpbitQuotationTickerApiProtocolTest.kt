@@ -21,75 +21,27 @@ class UpbitQuotationTickerApiProtocolTest {
             { Assertions.assertThat(result.market).isEqualTo(upbitTickerResponse.market) },
             { Assertions.assertThat(result.tradeDate).isEqualTo(upbitTickerResponse.tradeDate) },
             { Assertions.assertThat(result.tradeTime).isEqualTo(upbitTickerResponse.tradeTime) },
-            {
-                Assertions.assertThat(result.tradeDateKst)
-                    .isEqualTo(upbitTickerResponse.tradeDateKst)
-            },
-            {
-                Assertions.assertThat(result.tradeTimeKst)
-                    .isEqualTo(upbitTickerResponse.tradeTimeKst)
-            },
-            {
-                Assertions.assertThat(result.openingPrice)
-                    .isEqualTo(upbitTickerResponse.openingPrice)
-            },
+            { Assertions.assertThat(result.tradeDateKst).isEqualTo(upbitTickerResponse.tradeDateKst) },
+            { Assertions.assertThat(result.tradeTimeKst).isEqualTo(upbitTickerResponse.tradeTimeKst) },
+            { Assertions.assertThat(result.openingPrice).isEqualTo(upbitTickerResponse.openingPrice) },
             { Assertions.assertThat(result.highPrice).isEqualTo(upbitTickerResponse.highPrice) },
             { Assertions.assertThat(result.lowPrice).isEqualTo(upbitTickerResponse.lowPrice) },
             { Assertions.assertThat(result.tradePrice).isEqualTo(upbitTickerResponse.tradePrice) },
-            {
-                Assertions.assertThat(result.prevClosingPrice)
-                    .isEqualTo(upbitTickerResponse.prevClosingPrice)
-            },
-            {
-                Assertions.assertThat(result.changePrice).isEqualTo(upbitTickerResponse.changePrice)
-            },
+            { Assertions.assertThat(result.prevClosingPrice).isEqualTo(upbitTickerResponse.prevClosingPrice) },
+            { Assertions.assertThat(result.changePrice).isEqualTo(upbitTickerResponse.changePrice) },
             { Assertions.assertThat(result.changeRate).isEqualTo(upbitTickerResponse.changeRate) },
-            {
-                Assertions.assertThat(result.signedChangePrice)
-                    .isEqualTo(upbitTickerResponse.signedChangePrice)
-            },
-            {
-                Assertions.assertThat(result.signedChangeRate)
-                    .isEqualTo(upbitTickerResponse.signedChangeRate)
-            },
-            {
-                Assertions.assertThat(result.tradeVolume).isEqualTo(upbitTickerResponse.tradeVolume)
-            },
-            {
-                Assertions.assertThat(result.accTradePrice)
-                    .isEqualTo(upbitTickerResponse.accTradePrice)
-            },
-            {
-                Assertions.assertThat(result.accTradePrice24h)
-                    .isEqualTo(upbitTickerResponse.accTradePrice24h)
-            },
-            {
-                Assertions.assertThat(result.accTradeVolume)
-                    .isEqualTo(upbitTickerResponse.accTradeVolume)
-            },
-            {
-                Assertions.assertThat(result.accTradeVolume24h)
-                    .isEqualTo(upbitTickerResponse.accTradeVolume24h)
-            },
-            {
-                Assertions.assertThat(result.highest52WeekPrice)
-                    .isEqualTo(upbitTickerResponse.highest52WeekPrice)
-            },
-            {
-                Assertions.assertThat(result.highest52WeekDate)
-                    .isEqualTo(upbitTickerResponse.highest52WeekDate)
-            },
-            {
-                Assertions.assertThat(result.lowest52WeekPrice)
-                    .isEqualTo(upbitTickerResponse.lowest52WeekPrice)
-            },
-            {
-                Assertions.assertThat(result.lowest52WeekDate)
-                    .isEqualTo(upbitTickerResponse.lowest52WeekDate)
-            },
+            { Assertions.assertThat(result.signedChangePrice).isEqualTo(upbitTickerResponse.signedChangePrice) },
+            { Assertions.assertThat(result.signedChangeRate).isEqualTo(upbitTickerResponse.signedChangeRate) },
+            { Assertions.assertThat(result.tradeVolume).isEqualTo(upbitTickerResponse.tradeVolume) },
+            { Assertions.assertThat(result.accTradePrice).isEqualTo(upbitTickerResponse.accTradePrice) },
+            { Assertions.assertThat(result.accTradePrice24h).isEqualTo(upbitTickerResponse.accTradePrice24h) },
+            { Assertions.assertThat(result.accTradeVolume).isEqualTo(upbitTickerResponse.accTradeVolume) },
+            { Assertions.assertThat(result.accTradeVolume24h).isEqualTo(upbitTickerResponse.accTradeVolume24h) },
+            { Assertions.assertThat(result.highest52WeekPrice).isEqualTo(upbitTickerResponse.highest52WeekPrice) },
+            { Assertions.assertThat(result.highest52WeekDate).isEqualTo(upbitTickerResponse.highest52WeekDate) },
+            { Assertions.assertThat(result.lowest52WeekPrice).isEqualTo(upbitTickerResponse.lowest52WeekPrice) },
+            { Assertions.assertThat(result.lowest52WeekDate).isEqualTo(upbitTickerResponse.lowest52WeekDate) },
             { Assertions.assertThat(result.timestamp).isEqualTo(upbitTickerResponse.timestamp) },
-
-
             )
     }
 }
