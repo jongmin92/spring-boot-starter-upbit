@@ -5,6 +5,7 @@ import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersResponse
+import com.jongmin.upbit.server.mock.exchange.order.PostOrdersResponse
 import okhttp3.Protocol
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -30,6 +31,7 @@ class UpbitMockServer {
                             "GET" -> return ok(GetOrderResponse.fixture)
                             "DELETE" -> return ok(DeleteOrderResponse.fixture)
                         }
+                        "/v1/orders" -> return ok(PostOrdersResponse.fixture)
                         "/v1/orders/chance?market=market" -> return ok(GetOrdersChanceResponse.fixture)
                         "/v1/orders?state=done&uuids=uuid" -> return ok(GetOrdersResponse.fixture)
                     }

@@ -171,21 +171,22 @@ object GetOrdersResponse {
 }
 
 object DeleteOrderResponse {
-    const val uuid = "9ca023a5-851b-4fec-9f0a-48cd83c2eaae"
-    const val side = "ask"
+    const val uuid = "cdd92199-2897-4e14-9448-f923320408ad"
+    const val side = "bid"
     const val ordType = "limit"
-    const val price = "4280000.0"
-    const val state = "done"
+    const val price = "100.0"
+    const val avgPrice = "0.0"
+    const val state = "wait"
     const val market = "KRW-BTC"
-    const val createdAt = "2019-01-04T13:48:09+09:00"
-    const val volume = "1.0"
-    const val remainingVolume = "0.0"
-    const val reservedFee = "0.0"
-    const val remainingFee = "0.0"
-    const val paidFee = "2140.0"
-    const val locked = "0.0"
-    const val executedVolume = "1.0"
-    const val tradesCount = 1
+    const val createdAt = "2018-04-10T15:42:23+09:00"
+    const val volume = "0.01"
+    const val remainingVolume = "0.01"
+    const val reservedFee = "0.0015"
+    const val remainingFee = "0.0015"
+    const val paidFee = "0.0"
+    const val locked = "1.0015"
+    const val executedVolume = "0.0"
+    const val tradesCount = 0
 
     val fixture = """
         {
@@ -193,6 +194,47 @@ object DeleteOrderResponse {
           "side": "$side",
           "ord_type": "$ordType",
           "price": "$price",
+          "avg_price": "$avgPrice",
+          "state": "$state",
+          "market": "$market",
+          "created_at": "$createdAt",
+          "volume": "$volume",
+          "remaining_volume": "$remainingVolume",
+          "reserved_fee": "$reservedFee",
+          "remaining_fee": "$remainingFee",
+          "paid_fee": "$paidFee",
+          "locked": "$locked",
+          "executed_volume": "$executedVolume",
+          "trades_count": $tradesCount
+        }
+    """.trimIndent()
+}
+
+object PostOrdersResponse {
+    const val uuid = "cdd92199-2897-4e14-9448-f923320408ad"
+    const val side = "bid"
+    const val ordType = "limit"
+    const val price = "100.0"
+    const val avgPrice = "0.0"
+    const val state = "wait"
+    const val market = "KRW-BTC"
+    const val createdAt = "2018-04-10T15:42:23+09:00"
+    const val volume = "0.01"
+    const val remainingVolume = "0.01"
+    const val reservedFee = "0.0015"
+    const val remainingFee = "0.0015"
+    const val paidFee = "0.0"
+    const val locked = "1.0015"
+    const val executedVolume = "0.0"
+    const val tradesCount = 0
+
+    val fixture = """
+        {
+          "uuid": "$uuid",
+          "side": "$side",
+          "ord_type": "$ordType",
+          "price": "$price",
+          "avg_price": "$avgPrice",
           "state": "$state",
           "market": "$market",
           "created_at": "$createdAt",

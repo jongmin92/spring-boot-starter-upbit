@@ -69,6 +69,6 @@ interface UpbitOrdersService {
      *
      */
     fun postOrder(
-        market: String, side: String, volume: String, price: String, ordType: String, identifier: String?
+        market: String, side: String, volume: String, price: String, ordType: String, identifier: String? = null
     ): UpbitOrderPost
 }

@@ -7,6 +7,7 @@ import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersResponse
+import com.jongmin.upbit.server.mock.exchange.order.PostOrdersResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -177,6 +178,43 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result.side).isEqualTo(DeleteOrderResponse.side) },
             { assertThat(result.ordType).isEqualTo(DeleteOrderResponse.ordType) },
             { assertThat(result.price).isEqualTo(DeleteOrderResponse.price) },
+            { assertThat(result.state).isEqualTo(DeleteOrderResponse.state) },
+            { assertThat(result.market).isEqualTo(DeleteOrderResponse.market) },
+            { assertThat(result.createdAt).isEqualTo(DeleteOrderResponse.createdAt) },
+            { assertThat(result.volume).isEqualTo(DeleteOrderResponse.volume) },
+            { assertThat(result.remainingVolume).isEqualTo(DeleteOrderResponse.remainingVolume) },
+            { assertThat(result.reservedFee).isEqualTo(DeleteOrderResponse.reservedFee) },
+            { assertThat(result.remainingFee).isEqualTo(DeleteOrderResponse.remainingFee) },
+            { assertThat(result.paidFee).isEqualTo(DeleteOrderResponse.paidFee) },
+            { assertThat(result.locked).isEqualTo(DeleteOrderResponse.locked) },
+            { assertThat(result.executedVolume).isEqualTo(DeleteOrderResponse.executedVolume) },
+            { assertThat(result.tradesCount).isEqualTo(DeleteOrderResponse.tradesCount) }
+        )
+    }
+
+    @Test
+    fun postOrders() {
+        // given
+        /**
+         * @see PostOrdersResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.postOrder(
+            PostOrdersResponse.market,
+            PostOrdersResponse.side,
+            PostOrdersResponse.volume,
+            PostOrdersResponse.price,
+            PostOrdersResponse.ordType
+        )
+
+        // then
+        assertAll("UpbitOrderPost",
+            { assertThat(result.uuid).isEqualTo(DeleteOrderResponse.uuid) },
+            { assertThat(result.side).isEqualTo(DeleteOrderResponse.side) },
+            { assertThat(result.ordType).isEqualTo(DeleteOrderResponse.ordType) },
+            { assertThat(result.price).isEqualTo(DeleteOrderResponse.price) },
+            { assertThat(result.avgPrice).isEqualTo(DeleteOrderResponse.avgPrice) },
             { assertThat(result.state).isEqualTo(DeleteOrderResponse.state) },
             { assertThat(result.market).isEqualTo(DeleteOrderResponse.market) },
             { assertThat(result.createdAt).isEqualTo(DeleteOrderResponse.createdAt) },

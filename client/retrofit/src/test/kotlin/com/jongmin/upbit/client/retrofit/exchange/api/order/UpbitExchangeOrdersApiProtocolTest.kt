@@ -163,7 +163,7 @@ class UpbitExchangeOrdersApiProtocolTest {
             { assertThat(result.paidFee).isEqualTo(orderPostResponse.paidFee) },
             { assertThat(result.locked).isEqualTo(orderPostResponse.locked) },
             { assertThat(result.executedVolume).isEqualTo(orderPostResponse.executedVolume) },
-            { assertThat(result.tradeCount).isEqualTo(orderPostResponse.tradeCount) },
+            { assertThat(result.tradesCount).isEqualTo(orderPostResponse.tradesCount) },
             { assertThat(result.avgPrice).isEqualTo(orderPostResponse.avgPrice) }
         )
     }
@@ -279,6 +279,6 @@ internal fun upbitOrderPostResponseFixture() = UpbitOrderPostResponse(
     paidFee = "paidFee",
     locked = "locked",
     executedVolume = "executedVolume",
-    tradeCount = 0,
+    tradesCount = 0,
     avgPrice = "avgPrice"
 )

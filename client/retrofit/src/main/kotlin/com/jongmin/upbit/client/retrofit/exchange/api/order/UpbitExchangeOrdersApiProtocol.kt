@@ -763,8 +763,8 @@ data class UpbitOrderPostResponse(
      * 설명: 해당 주문에 걸린 체결 수
      * 타입: NumberString
      */
-    @JsonProperty("trade_count")
-    val tradeCount: Int
+    @JsonProperty("trades_count")
+    val tradesCount: Int
 )
 
 fun UpbitOrdersChanceResponse.toDomain() = UpbitOrdersChance(
@@ -896,5 +896,5 @@ fun UpbitOrderPostResponse.toDomain() = UpbitOrderPost(
     paidFee = paidFee,
     locked = locked,
     executedVolume = executedVolume,
-    tradeCount = tradeCount
+    tradesCount = tradesCount
 )
