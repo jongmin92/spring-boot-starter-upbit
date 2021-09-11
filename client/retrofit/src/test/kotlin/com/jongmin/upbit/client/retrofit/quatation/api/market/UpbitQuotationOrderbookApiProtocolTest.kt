@@ -17,7 +17,7 @@ class UpbitQuotationOrderbookApiProtocolTest {
         // when
         val result = orderbookResponse.toDomain()
 
-        assertAll("minuteCandle",
+        assertAll("orderBookResponse",
             { assertThat(result.market).isEqualTo(orderbookResponse.market)},
             { assertThat(result.timestamp).isEqualTo(orderbookResponse.timestamp)},
             { assertThat(result.totalAskSize).isEqualTo(orderbookResponse.totalAskSize)},

@@ -38,7 +38,7 @@ class UpbitQuotationCandleApiProtocolTest {
         // when
         val result = candleResponse.toDomain()
 
-        assertAll("minuteCandle",
+        assertAll("dayCandle",
             { assertThat(result.market).isEqualTo(candleResponse.market)},
             { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc)},
             { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst)},
@@ -64,7 +64,7 @@ class UpbitQuotationCandleApiProtocolTest {
         // when
         val result = candleResponse.toDomain()
 
-        assertAll("minuteCandle",
+        assertAll("weekCandle",
             { assertThat(result.market).isEqualTo(candleResponse.market)},
             { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc)},
             { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst)},
@@ -87,7 +87,7 @@ class UpbitQuotationCandleApiProtocolTest {
         // when
         val result = candleResponse.toDomain()
 
-        assertAll("minuteCandle",
+        assertAll("monthCandle",
             { assertThat(result.market).isEqualTo(candleResponse.market)},
             { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc)},
             { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst)},
