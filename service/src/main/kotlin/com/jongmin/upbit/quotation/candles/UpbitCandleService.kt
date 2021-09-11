@@ -27,7 +27,7 @@ interface UpbitCandleService {
      * @param convertingPriceUnit 종가 환산 화폐 단위
      * @return 일(Day) 캔들
      */
-    fun getDayCandles(
+    fun getUpbitDayCandles(
         market: String,
         to: String? = "",
         count: Int? = 1,
@@ -42,7 +42,7 @@ interface UpbitCandleService {
      * @param count 캔들 개수
      * @return 주(Week) 캔들
      */
-    fun getWeekCandles(
+    fun getUpbitWeekCandles(
         market: String,
         to: String? = "",
         count: Int? = 1
@@ -56,7 +56,7 @@ interface UpbitCandleService {
      * @param count 캔들 개수
      * @return 월(Month) 캔들
      */
-    fun getMonthCandles(
+    fun getUpbitMonthCandles(
         market: String,
         to: String? = "",
         count: Int? = 1
