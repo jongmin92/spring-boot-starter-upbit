@@ -15,10 +15,10 @@ import com.jongmin.upbit.client.retrofit.quotation.api.toDomainException
 import com.jongmin.upbit.client.retrofit.quotation.api.trade.UpbitQuotationTradeApi
 import com.jongmin.upbit.client.retrofit.quotation.api.trade.toDomain
 import com.jongmin.upbit.quotation.UpbitQuotationService
-import com.jongmin.upbit.quotation.candles.DayCandle
-import com.jongmin.upbit.quotation.candles.MinuteCandle
-import com.jongmin.upbit.quotation.candles.MonthCandle
-import com.jongmin.upbit.quotation.candles.WeekCandle
+import com.jongmin.upbit.quotation.candles.UpbitDayCandle
+import com.jongmin.upbit.quotation.candles.UpbitMinuteCandle
+import com.jongmin.upbit.quotation.candles.UpbitMonthCandle
+import com.jongmin.upbit.quotation.candles.UpbitWeekCandle
 import com.jongmin.upbit.quotation.market.UpbitMarket
 import com.jongmin.upbit.quotation.orderbook.UpbitOrderbook
 import com.jongmin.upbit.quotation.ticker.UpbitTicker
@@ -52,7 +52,7 @@ class UpbitQuotationServiceImpl(
         market: String,
         to: String?,
         count: Int?
-    ): List<MinuteCandle> {
+    ): List<UpbitMinuteCandle> {
         return apiExecute {
             candleApi.getUpbitMinuteCandles(
                 unit = unit,
@@ -68,7 +68,7 @@ class UpbitQuotationServiceImpl(
         to: String?,
         count: Int?,
         convertingPriceUnit: String?
-    ): List<DayCandle> {
+    ): List<UpbitDayCandle> {
         return apiExecute {
             candleApi.getUpbitDayCandles(
                 market = market,
@@ -79,11 +79,11 @@ class UpbitQuotationServiceImpl(
         }.map { it.toDomain() }
     }
 
-    override fun getWeekCandles(market: String, to: String?, count: Int?): List<WeekCandle> {
+    override fun getWeekCandles(market: String, to: String?, count: Int?): List<UpbitWeekCandle> {
         return apiExecute { candleApi.getUpbitWeekCandles(market, to, count) }.map { it.toDomain() }
     }
 
-    override fun getMonthCandles(market: String, to: String?, count: Int?): List<MonthCandle> {
+    override fun getMonthCandles(market: String, to: String?, count: Int?): List<UpbitMonthCandle> {
         return apiExecute { candleApi.getUpbitMonthCandles(market, to, count) }.map { it.toDomain() }
     }
 

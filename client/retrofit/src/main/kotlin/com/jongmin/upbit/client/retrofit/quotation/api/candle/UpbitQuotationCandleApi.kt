@@ -13,7 +13,7 @@ interface UpbitQuotationCandleApi {
         @Query("market") market: String,
         @Query("to") to: String?,
         @Query("count") count: Int?
-    ): Call<List<MinuteCandleResponse>>
+    ): Call<List<UpbitMinuteCandleResponse>>
 
     @GET("v1/candles/days")
     fun getUpbitDayCandles(
@@ -21,19 +21,19 @@ interface UpbitQuotationCandleApi {
         @Query("to") to: String?,
         @Query("count") count: Int?,
         @Query("convertingPriceUnit") convertingPriceUnit: String? = "KRW",
-    ): Call<List<DayCandleResponse>>
+    ): Call<List<UpbitDayCandleResponse>>
 
     @GET("v1/candles/weeks")
     fun getUpbitWeekCandles(
         @Query("market") market: String,
         @Query("to") to: String? = "yyyy-MM-dd HH:mm:ss",
         @Query("count") count: Int?
-    ): Call<List<WeekCandleResponse>>
+    ): Call<List<UpbitWeekCandleResponse>>
 
     @GET("v1/candles/months")
     fun getUpbitMonthCandles(
         @Query("market") market: String,
         @Query("to") to: String? = "yyyy-MM-dd HH:mm:ss",
         @Query("count") count: Int?
-    ): Call<List<MonthCandleResponse>>
+    ): Call<List<UpbitMonthCandleResponse>>
 }
