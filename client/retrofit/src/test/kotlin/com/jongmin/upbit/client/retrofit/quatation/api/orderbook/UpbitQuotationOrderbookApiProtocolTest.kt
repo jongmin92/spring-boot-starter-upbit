@@ -1,4 +1,4 @@
-package com.jongmin.upbit.client.retrofit.quatation.api.market
+package com.jongmin.upbit.client.retrofit.quatation.api.orderbook
 
 import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.UpbitOrderbookResponse
 import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.UpbitOrderbookResponseUnit
