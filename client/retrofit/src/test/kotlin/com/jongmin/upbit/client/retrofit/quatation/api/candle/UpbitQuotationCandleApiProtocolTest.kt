@@ -15,18 +15,19 @@ class UpbitQuotationCandleApiProtocolTest {
         // when
         val result = candleResponse.toDomain()
 
-        assertAll("minuteCandle",
-            { assertThat(result.market).isEqualTo(candleResponse.market)},
-            { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc)},
-            { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst)},
-            { assertThat(result.openingPrice).isEqualTo(candleResponse.openingPrice)},
-            { assertThat(result.highPrice).isEqualTo(candleResponse.highPrice)},
-            { assertThat(result.lowPrice).isEqualTo(candleResponse.lowPrice)},
-            { assertThat(result.tradePrice).isEqualTo(candleResponse.tradePrice)},
-            { assertThat(result.timestamp).isEqualTo(candleResponse.timestamp)},
-            { assertThat(result.candleAccTradePrice).isEqualTo(candleResponse.candleAccTradePrice)},
-            { assertThat(result.candleAccTradeVolume).isEqualTo(candleResponse.candleAccTradeVolume)},
-            { assertThat(result.unit).isEqualTo(candleResponse.unit)},
+        assertAll(
+            "minuteCandle",
+            { assertThat(result.market).isEqualTo(candleResponse.market) },
+            { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc) },
+            { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst) },
+            { assertThat(result.openingPrice).isEqualTo(candleResponse.openingPrice) },
+            { assertThat(result.highPrice).isEqualTo(candleResponse.highPrice) },
+            { assertThat(result.lowPrice).isEqualTo(candleResponse.lowPrice) },
+            { assertThat(result.tradePrice).isEqualTo(candleResponse.tradePrice) },
+            { assertThat(result.timestamp).isEqualTo(candleResponse.timestamp) },
+            { assertThat(result.candleAccTradePrice).isEqualTo(candleResponse.candleAccTradePrice) },
+            { assertThat(result.candleAccTradeVolume).isEqualTo(candleResponse.candleAccTradeVolume) },
+            { assertThat(result.unit).isEqualTo(candleResponse.unit) },
         )
     }
 
@@ -38,21 +39,22 @@ class UpbitQuotationCandleApiProtocolTest {
         // when
         val result = candleResponse.toDomain()
 
-        assertAll("dayCandle",
-            { assertThat(result.market).isEqualTo(candleResponse.market)},
-            { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc)},
-            { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst)},
-            { assertThat(result.openingPrice).isEqualTo(candleResponse.openingPrice)},
-            { assertThat(result.highPrice).isEqualTo(candleResponse.highPrice)},
-            { assertThat(result.lowPrice).isEqualTo(candleResponse.lowPrice)},
-            { assertThat(result.tradePrice).isEqualTo(candleResponse.tradePrice)},
-            { assertThat(result.timestamp).isEqualTo(candleResponse.timestamp)},
-            { assertThat(result.candleAccTradePrice).isEqualTo(candleResponse.candleAccTradePrice)},
-            { assertThat(result.candleAccTradeVolume).isEqualTo(candleResponse.candleAccTradeVolume)},
-            { assertThat(result.prevClosingPrice).isEqualTo(candleResponse.prevClosingPrice)},
-            { assertThat(result.changePrice).isEqualTo(candleResponse.changePrice)},
-            { assertThat(result.changeRate).isEqualTo(candleResponse.changeRate)},
-            { assertThat(result.convertedTradePrice).isEqualTo(candleResponse.convertedTradePrice)},
+        assertAll(
+            "dayCandle",
+            { assertThat(result.market).isEqualTo(candleResponse.market) },
+            { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc) },
+            { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst) },
+            { assertThat(result.openingPrice).isEqualTo(candleResponse.openingPrice) },
+            { assertThat(result.highPrice).isEqualTo(candleResponse.highPrice) },
+            { assertThat(result.lowPrice).isEqualTo(candleResponse.lowPrice) },
+            { assertThat(result.tradePrice).isEqualTo(candleResponse.tradePrice) },
+            { assertThat(result.timestamp).isEqualTo(candleResponse.timestamp) },
+            { assertThat(result.candleAccTradePrice).isEqualTo(candleResponse.candleAccTradePrice) },
+            { assertThat(result.candleAccTradeVolume).isEqualTo(candleResponse.candleAccTradeVolume) },
+            { assertThat(result.prevClosingPrice).isEqualTo(candleResponse.prevClosingPrice) },
+            { assertThat(result.changePrice).isEqualTo(candleResponse.changePrice) },
+            { assertThat(result.changeRate).isEqualTo(candleResponse.changeRate) },
+            { assertThat(result.convertedTradePrice).isEqualTo(candleResponse.convertedTradePrice) },
         )
     }
 
@@ -64,18 +66,19 @@ class UpbitQuotationCandleApiProtocolTest {
         // when
         val result = candleResponse.toDomain()
 
-        assertAll("weekCandle",
-            { assertThat(result.market).isEqualTo(candleResponse.market)},
-            { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc)},
-            { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst)},
-            { assertThat(result.openingPrice).isEqualTo(candleResponse.openingPrice)},
-            { assertThat(result.highPrice).isEqualTo(candleResponse.highPrice)},
-            { assertThat(result.lowPrice).isEqualTo(candleResponse.lowPrice)},
-            { assertThat(result.tradePrice).isEqualTo(candleResponse.tradePrice)},
-            { assertThat(result.timestamp).isEqualTo(candleResponse.timestamp)},
-            { assertThat(result.candleAccTradePrice).isEqualTo(candleResponse.candleAccTradePrice)},
-            { assertThat(result.candleAccTradeVolume).isEqualTo(candleResponse.candleAccTradeVolume)},
-            { assertThat(result.firstDayOfPeriod).isEqualTo(candleResponse.firstDayOfPeriod)},
+        assertAll(
+            "weekCandle",
+            { assertThat(result.market).isEqualTo(candleResponse.market) },
+            { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc) },
+            { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst) },
+            { assertThat(result.openingPrice).isEqualTo(candleResponse.openingPrice) },
+            { assertThat(result.highPrice).isEqualTo(candleResponse.highPrice) },
+            { assertThat(result.lowPrice).isEqualTo(candleResponse.lowPrice) },
+            { assertThat(result.tradePrice).isEqualTo(candleResponse.tradePrice) },
+            { assertThat(result.timestamp).isEqualTo(candleResponse.timestamp) },
+            { assertThat(result.candleAccTradePrice).isEqualTo(candleResponse.candleAccTradePrice) },
+            { assertThat(result.candleAccTradeVolume).isEqualTo(candleResponse.candleAccTradeVolume) },
+            { assertThat(result.firstDayOfPeriod).isEqualTo(candleResponse.firstDayOfPeriod) },
         )
     }
 
@@ -87,18 +90,19 @@ class UpbitQuotationCandleApiProtocolTest {
         // when
         val result = candleResponse.toDomain()
 
-        assertAll("monthCandle",
-            { assertThat(result.market).isEqualTo(candleResponse.market)},
-            { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc)},
-            { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst)},
-            { assertThat(result.openingPrice).isEqualTo(candleResponse.openingPrice)},
-            { assertThat(result.highPrice).isEqualTo(candleResponse.highPrice)},
-            { assertThat(result.lowPrice).isEqualTo(candleResponse.lowPrice)},
-            { assertThat(result.tradePrice).isEqualTo(candleResponse.tradePrice)},
-            { assertThat(result.timestamp).isEqualTo(candleResponse.timestamp)},
-            { assertThat(result.candleAccTradePrice).isEqualTo(candleResponse.candleAccTradePrice)},
-            { assertThat(result.candleAccTradeVolume).isEqualTo(candleResponse.candleAccTradeVolume)},
-            { assertThat(result.firstDayOfPeriod).isEqualTo(candleResponse.firstDayOfPeriod)},
+        assertAll(
+            "monthCandle",
+            { assertThat(result.market).isEqualTo(candleResponse.market) },
+            { assertThat(result.candleDateTimeUtc).isEqualTo(candleResponse.candleDateTimeUtc) },
+            { assertThat(result.candleDateTimeKst).isEqualTo(candleResponse.candleDateTimeKst) },
+            { assertThat(result.openingPrice).isEqualTo(candleResponse.openingPrice) },
+            { assertThat(result.highPrice).isEqualTo(candleResponse.highPrice) },
+            { assertThat(result.lowPrice).isEqualTo(candleResponse.lowPrice) },
+            { assertThat(result.tradePrice).isEqualTo(candleResponse.tradePrice) },
+            { assertThat(result.timestamp).isEqualTo(candleResponse.timestamp) },
+            { assertThat(result.candleAccTradePrice).isEqualTo(candleResponse.candleAccTradePrice) },
+            { assertThat(result.candleAccTradeVolume).isEqualTo(candleResponse.candleAccTradeVolume) },
+            { assertThat(result.firstDayOfPeriod).isEqualTo(candleResponse.firstDayOfPeriod) },
         )
     }
 }

@@ -17,15 +17,16 @@ class UpbitQuotationOrderbookApiProtocolTest {
         // when
         val result = orderbookResponse.toDomain()
 
-        assertAll("orderBookResponse",
-            { assertThat(result.market).isEqualTo(orderbookResponse.market)},
-            { assertThat(result.timestamp).isEqualTo(orderbookResponse.timestamp)},
-            { assertThat(result.totalAskSize).isEqualTo(orderbookResponse.totalAskSize)},
-            { assertThat(result.totalBidSize).isEqualTo(orderbookResponse.totalBidSize)},
-            { assertThat(result.orderbookUnits.first().askPrice).isEqualTo(orderbookResponse.orderbookUnits.first().askPrice)},
-            { assertThat(result.orderbookUnits.first().bidPrice).isEqualTo(orderbookResponse.orderbookUnits.first().bidPrice)},
-            { assertThat(result.orderbookUnits.first().askSize).isEqualTo(orderbookResponse.orderbookUnits.first().askSize)},
-            { assertThat(result.orderbookUnits.first().bidSize).isEqualTo(orderbookResponse.orderbookUnits.first().bidSize)},
+        assertAll(
+            "orderBookResponse",
+            { assertThat(result.market).isEqualTo(orderbookResponse.market) },
+            { assertThat(result.timestamp).isEqualTo(orderbookResponse.timestamp) },
+            { assertThat(result.totalAskSize).isEqualTo(orderbookResponse.totalAskSize) },
+            { assertThat(result.totalBidSize).isEqualTo(orderbookResponse.totalBidSize) },
+            { assertThat(result.orderbookUnits.first().askPrice).isEqualTo(orderbookResponse.orderbookUnits.first().askPrice) },
+            { assertThat(result.orderbookUnits.first().bidPrice).isEqualTo(orderbookResponse.orderbookUnits.first().bidPrice) },
+            { assertThat(result.orderbookUnits.first().askSize).isEqualTo(orderbookResponse.orderbookUnits.first().askSize) },
+            { assertThat(result.orderbookUnits.first().bidSize).isEqualTo(orderbookResponse.orderbookUnits.first().bidSize) },
         )
     }
 }
