@@ -1,6 +1,5 @@
-package com.jongmin.upbit.client.retrofit.quatation.api.candle
+package com.jongmin.upbit.client.retrofit.quotation.api.candle
 
-import com.jongmin.upbit.client.retrofit.quotation.api.candle.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll

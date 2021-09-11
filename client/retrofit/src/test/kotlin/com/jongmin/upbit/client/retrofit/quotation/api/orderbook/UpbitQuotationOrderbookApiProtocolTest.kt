@@ -1,8 +1,5 @@
-package com.jongmin.upbit.client.retrofit.quatation.api.orderbook
+package com.jongmin.upbit.client.retrofit.quotation.api.orderbook
 
-import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.UpbitOrderbookResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.UpbitOrderbookResponseUnit
-import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.toDomain
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll

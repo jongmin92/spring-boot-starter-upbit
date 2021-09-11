@@ -1,14 +1,13 @@
-package com.jongmin.upbit.client.retrofit.quatation
+package com.jongmin.upbit.client.retrofit.quotation
 
-import com.jongmin.upbit.client.retrofit.quatation.api.candle.upbitDayCandleResponseFixture
-import com.jongmin.upbit.client.retrofit.quatation.api.candle.upbitMinuteCandleResponseFixture
-import com.jongmin.upbit.client.retrofit.quatation.api.candle.upbitMonthCandleResponseFixture
-import com.jongmin.upbit.client.retrofit.quatation.api.candle.upbitWeekCandleResponseFixture
-import com.jongmin.upbit.client.retrofit.quatation.api.market.upbitMarketResponseFixture
-import com.jongmin.upbit.client.retrofit.quatation.api.orderbook.upbitOrderbookResponseFixture
-import com.jongmin.upbit.client.retrofit.quatation.api.ticker.upbitTickerResponseFixture
-import com.jongmin.upbit.client.retrofit.quatation.api.trade.upbitTickResponseFixture
-import com.jongmin.upbit.client.retrofit.quotation.UpbitQuotationServiceImpl
+import com.jongmin.upbit.client.retrofit.quotation.api.candle.upbitDayCandleResponseFixture
+import com.jongmin.upbit.client.retrofit.quotation.api.candle.upbitMinuteCandleResponseFixture
+import com.jongmin.upbit.client.retrofit.quotation.api.candle.upbitMonthCandleResponseFixture
+import com.jongmin.upbit.client.retrofit.quotation.api.candle.upbitWeekCandleResponseFixture
+import com.jongmin.upbit.client.retrofit.quotation.api.market.upbitMarketResponseFixture
+import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.upbitOrderbookResponseFixture
+import com.jongmin.upbit.client.retrofit.quotation.api.ticker.upbitTickerResponseFixture
+import com.jongmin.upbit.client.retrofit.quotation.api.trade.upbitTickResponseFixture
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.UpbitQuotationCandleApi
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.toDomain
 import com.jongmin.upbit.client.retrofit.quotation.api.market.UpbitQuotationMarketApi

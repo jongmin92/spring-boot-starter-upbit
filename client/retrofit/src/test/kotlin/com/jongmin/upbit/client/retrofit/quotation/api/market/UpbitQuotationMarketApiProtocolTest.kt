@@ -1,8 +1,5 @@
-package com.jongmin.upbit.client.retrofit.quatation.api.market
+package com.jongmin.upbit.client.retrofit.quotation.api.market
 
-import com.jongmin.upbit.client.retrofit.quotation.api.market.MarketWarningProtocol
-import com.jongmin.upbit.client.retrofit.quotation.api.market.UpbitMarketResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.market.toDomain
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll

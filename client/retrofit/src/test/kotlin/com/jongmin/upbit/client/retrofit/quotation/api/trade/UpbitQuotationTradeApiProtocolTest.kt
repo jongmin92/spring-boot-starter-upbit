@@ -1,7 +1,5 @@
-package com.jongmin.upbit.client.retrofit.quatation.api.trade
+package com.jongmin.upbit.client.retrofit.quotation.api.trade
 
-import com.jongmin.upbit.client.retrofit.quotation.api.trade.UpbitTickResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.trade.toDomain
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll

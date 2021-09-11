@@ -1,8 +1,5 @@
-package com.jongmin.upbit.client.retrofit.quatation.api.ticker
+package com.jongmin.upbit.client.retrofit.quotation.api.ticker
 
-import com.jongmin.upbit.client.retrofit.quotation.api.ticker.UpbitChangeProtocol
-import com.jongmin.upbit.client.retrofit.quotation.api.ticker.UpbitTickerResponse
-import com.jongmin.upbit.client.retrofit.quotation.api.ticker.toDomain
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
