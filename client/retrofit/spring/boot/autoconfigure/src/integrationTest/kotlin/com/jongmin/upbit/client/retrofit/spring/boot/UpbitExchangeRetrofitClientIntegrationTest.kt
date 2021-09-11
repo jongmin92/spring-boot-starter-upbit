@@ -3,6 +3,7 @@ package com.jongmin.upbit.client.retrofit.spring.boot
 import com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure.UpbitRetrofitClientAutoConfigure
 import com.jongmin.upbit.exchange.UpbitExchangeService
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
+import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersResponse
@@ -157,6 +158,36 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result[0].locked).isEqualTo(GetOrdersResponse.locked) },
             { assertThat(result[0].executedVolume).isEqualTo(GetOrdersResponse.executedVolume) },
             { assertThat(result[0].tradesCount).isEqualTo(GetOrdersResponse.tradesCount) }
+        )
+    }
+
+    @Test
+    fun deleteOrder() {
+        // given
+        /**
+         * @see DeleteOrderResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.deleteOrder(uuid = "uuid")
+
+        // then
+        assertAll("UpbitOrderDelete",
+            { assertThat(result.uuid).isEqualTo(DeleteOrderResponse.uuid) },
+            { assertThat(result.side).isEqualTo(DeleteOrderResponse.side) },
+            { assertThat(result.ordType).isEqualTo(DeleteOrderResponse.ordType) },
+            { assertThat(result.price).isEqualTo(DeleteOrderResponse.price) },
+            { assertThat(result.state).isEqualTo(DeleteOrderResponse.state) },
+            { assertThat(result.market).isEqualTo(DeleteOrderResponse.market) },
+            { assertThat(result.createdAt).isEqualTo(DeleteOrderResponse.createdAt) },
+            { assertThat(result.volume).isEqualTo(DeleteOrderResponse.volume) },
+            { assertThat(result.remainingVolume).isEqualTo(DeleteOrderResponse.remainingVolume) },
+            { assertThat(result.reservedFee).isEqualTo(DeleteOrderResponse.reservedFee) },
+            { assertThat(result.remainingFee).isEqualTo(DeleteOrderResponse.remainingFee) },
+            { assertThat(result.paidFee).isEqualTo(DeleteOrderResponse.paidFee) },
+            { assertThat(result.locked).isEqualTo(DeleteOrderResponse.locked) },
+            { assertThat(result.executedVolume).isEqualTo(DeleteOrderResponse.executedVolume) },
+            { assertThat(result.tradesCount).isEqualTo(DeleteOrderResponse.tradesCount) }
         )
     }
 

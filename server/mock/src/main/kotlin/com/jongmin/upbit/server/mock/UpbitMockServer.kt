@@ -1,6 +1,7 @@
 package com.jongmin.upbit.server.mock
 
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
+import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersResponse
@@ -25,8 +26,11 @@ class UpbitMockServer {
                         // accounts
                         "/v1/accounts" -> return ok(GetAccountsResponse.fixture)
                         // orders
+                        "/v1/order?uuid=uuid" -> when (request.method!!) {
+                            "GET" -> return ok(GetOrderResponse.fixture)
+                            "DELETE" -> return ok(DeleteOrderResponse.fixture)
+                        }
                         "/v1/orders/chance?market=market" -> return ok(GetOrdersChanceResponse.fixture)
-                        "/v1/order?uuid=uuid" -> return ok(GetOrderResponse.fixture)
                         "/v1/orders?state=done&uuids=uuid" -> return ok(GetOrdersResponse.fixture)
                     }
                     return notFound()
