@@ -16,7 +16,7 @@ class UpbitQuotationTickerApiProtocolTest {
         // when
         val result = upbitTickerResponse.toDomain()
 
-        assertAll("minuteCandle",
+        assertAll("tickerResponse",
             { Assertions.assertThat(result.market).isEqualTo(upbitTickerResponse.market)},
             { Assertions.assertThat(result.tradeDate).isEqualTo(upbitTickerResponse.tradeDate)},
             { Assertions.assertThat(result.tradeTime).isEqualTo(upbitTickerResponse.tradeTime)},
