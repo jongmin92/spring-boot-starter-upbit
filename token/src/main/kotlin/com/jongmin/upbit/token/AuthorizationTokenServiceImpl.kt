@@ -29,8 +29,8 @@ internal fun Map<String, Any>.toQueryString(): String {
     this.forEach { entry ->
         when (entry.value) {
             is String, Int, Long, Float, Double -> queryElements.add("${entry.key}=${entry.value}")
-            is Array<*> -> {
-                (entry.value as Array<*>).forEach {
+            is List<*> -> {
+                (entry.value as List<*>).forEach {
                     queryElements.add("${entry.key}[]=${it.toString()}")
                 }
             }

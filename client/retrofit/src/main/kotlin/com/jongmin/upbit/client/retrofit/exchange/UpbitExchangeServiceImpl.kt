@@ -88,16 +88,19 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun getOrders(
-        market: String,
-        state: String,
+        market: String?,
+        state: String?,
         states: List<String>,
         uuids: List<String>,
         identifiers: List<String>,
-        page: Int,
-        limit: Int,
-        orderBy: String
+        page: Int?,
+        limit: Int?,
+        orderBy: String?
     ): List<UpbitOrder> {
-        val params = mapOf<String, Any>("state" to state, "uuids" to uuids)
+        val params = mutableMapOf<String, Any>().apply {
+            state?.let { this["state"] = it }
+            if (uuids.isNotEmpty()) this["uuids"] = uuids
+        }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute {
                 ordersApi.getOrders(

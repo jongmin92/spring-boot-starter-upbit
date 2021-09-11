@@ -129,3 +129,43 @@ object GetOrderResponse {
         }
     """.trimIndent()
 }
+
+object GetOrdersResponse {
+    const val uuid = "9ca023a5-851b-4fec-9f0a-48cd83c2eaae"
+    const val side = "ask"
+    const val ordType = "limit"
+    const val price = "4280000.0"
+    const val state = "done"
+    const val market = "KRW-BTC"
+    const val createdAt = "2019-01-04T13:48:09+09:00"
+    const val volume = "1.0"
+    const val remainingVolume = "0.0"
+    const val reservedFee = "0.0"
+    const val remainingFee = "0.0"
+    const val paidFee = "2140.0"
+    const val locked = "0.0"
+    const val executedVolume = "1.0"
+    const val tradesCount = 1
+
+    val fixture = """
+        [
+          {
+            "uuid": "$uuid",
+            "side": "$side",
+            "ord_type": "$ordType",
+            "price": "$price",
+            "state": "$state",
+            "market": "$market",
+            "created_at": "$createdAt",
+            "volume": "$volume",
+            "remaining_volume": "$remainingVolume",
+            "reserved_fee": "$reservedFee",
+            "remaining_fee": "$remainingFee",
+            "paid_fee": "$paidFee",
+            "locked": "$locked",
+            "executed_volume": "$executedVolume",
+            "trades_count": $tradesCount
+          }
+        ]
+    """.trimIndent()
+}

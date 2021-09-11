@@ -20,14 +20,14 @@ interface UpbitExchangeOrdersApi {
 
     @GET("v1/orders")
     fun getOrders(
-        @Query("market") market: String,
-        @Query("state") state: String = "wait",
+        @Query("market") market: String?,
+        @Query("state") state: String?,
         @Query("states") states: List<String>,
         @Query("uuids") uuids: List<String>,
         @Query("identifiers") identifiers: List<String>,
-        @Query("page") page: Int = 1,
-        @Query("limit") limit: Int = 100,
-        @Query("order_by") orderBy: String = "desc"
+        @Query("page") page: Int?,
+        @Query("limit") limit: Int?,
+        @Query("order_by") orderBy: String?
     ): Call<List<UpbitOrderResponse>>
 
     @DELETE("v1/order")

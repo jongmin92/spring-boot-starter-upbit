@@ -423,7 +423,7 @@ data class UpbitOrder(
      * 설명: 해당 주문에 걸린 체결 수
      * 타입: NumberString
      */
-    val tradeCount: Int
+    val tradesCount: Int
 )
 
 data class UpbitOrderDelete(

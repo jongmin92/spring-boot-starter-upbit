@@ -35,8 +35,14 @@ interface UpbitOrdersService {
      * @return 주문 리스트
      */
     fun getOrders(
-        market: String, state: String, states: List<String>, uuids: List<String>, identifiers: List<String>,
-        page: Int = 1, limit: Int = 100, orderBy: String = "desc"
+        market: String? = null,
+        state: String? = null,
+        states: List<String> = emptyList(),
+        uuids: List<String> = emptyList(),
+        identifiers: List<String> = emptyList(),
+        page: Int? = null,
+        limit: Int? = null,
+        orderBy: String? = null
     ): List<UpbitOrder>
 
     /**

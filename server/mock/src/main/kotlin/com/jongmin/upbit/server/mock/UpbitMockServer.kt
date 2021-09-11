@@ -3,6 +3,7 @@ package com.jongmin.upbit.server.mock
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
+import com.jongmin.upbit.server.mock.exchange.order.GetOrdersResponse
 import okhttp3.Protocol
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -18,11 +19,15 @@ class UpbitMockServer {
             dispatcher = object : Dispatcher() {
                 override fun dispatch(request: RecordedRequest): MockResponse {
                     when (request.path) {
+                        /**
+                         * Exchange API
+                         */
                         // accounts
                         "/v1/accounts" -> return ok(GetAccountsResponse.fixture)
                         // orders
                         "/v1/orders/chance?market=market" -> return ok(GetOrdersChanceResponse.fixture)
                         "/v1/order?uuid=uuid" -> return ok(GetOrderResponse.fixture)
+                        "/v1/orders?state=done&uuids=uuid" -> return ok(GetOrdersResponse.fixture)
                     }
                     return notFound()
                 }
