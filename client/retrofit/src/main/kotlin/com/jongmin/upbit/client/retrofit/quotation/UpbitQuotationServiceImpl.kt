@@ -63,7 +63,7 @@ class UpbitQuotationServiceImpl(
         }.map { it.toDomain() }
     }
 
-    override fun getDayCandles(
+    override fun getUpbitDayCandles(
         market: String,
         to: String?,
         count: Int?,
@@ -79,19 +79,19 @@ class UpbitQuotationServiceImpl(
         }.map { it.toDomain() }
     }
 
-    override fun getWeekCandles(market: String, to: String?, count: Int?): List<UpbitWeekCandle> {
+    override fun getUpbitWeekCandles(market: String, to: String?, count: Int?): List<UpbitWeekCandle> {
         return apiExecute { candleApi.getUpbitWeekCandles(market, to, count) }.map { it.toDomain() }
     }
 
-    override fun getMonthCandles(market: String, to: String?, count: Int?): List<UpbitMonthCandle> {
+    override fun getUpbitMonthCandles(market: String, to: String?, count: Int?): List<UpbitMonthCandle> {
         return apiExecute { candleApi.getUpbitMonthCandles(market, to, count) }.map { it.toDomain() }
     }
 
-    override fun getMarkets(isDetails: Boolean?): List<UpbitMarket> {
+    override fun getUpbitMarkets(isDetails: Boolean?): List<UpbitMarket> {
         return apiExecute { marketApi.getMarkets(isDetails) }.map { it.toDomain() }
     }
 
-    override fun getOrderbooks(markets: String): List<UpbitOrderbook> {
+    override fun getUpbitOrderbooks(markets: String): List<UpbitOrderbook> {
         return apiExecute { orderbookApi.getOrderbooks(markets) }.map { it.toDomain() }
     }
 
