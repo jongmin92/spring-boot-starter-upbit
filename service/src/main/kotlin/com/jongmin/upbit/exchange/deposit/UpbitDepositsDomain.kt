@@ -41,7 +41,7 @@ data class UpbitDeposit(
      * 설명: 입금 완료 시간
      * 타입: DateString
      */
-    val doneAt: String,
+    val doneAt: String?,
 
     /**
      * 설명: 입금 수량

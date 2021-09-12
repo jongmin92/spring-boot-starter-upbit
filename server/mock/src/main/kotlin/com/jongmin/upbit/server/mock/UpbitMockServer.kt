@@ -1,6 +1,7 @@
 package com.jongmin.upbit.server.mock
 
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
+import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
 import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
@@ -45,6 +46,8 @@ class UpbitMockServer {
                         "/v1/withdraws/chance?currency=currency" -> return ok(GetWithdrawsChanceResponse.fixture)
                         "/v1/withdraws/coin" -> return ok(PostWithdrawsCoinResponse.fixture)
                         "/v1/withdraws/krw" -> return ok(PostWithdrawsKrwResponse.fixture)
+                        // deposits
+                        "/v1/deposits?currency=currency&txids=txid" -> return ok(GetDepositsResponse.fixture)
                     }
                     return notFound()
                 }
@@ -58,5 +61,5 @@ class UpbitMockServer {
     fun getAuthorizationToken() = server.takeRequest().getHeader("Authorization")
 }
 
-fun ok(body: String) = MockResponse().setResponseCode(200).setBody(body)
-fun notFound() = MockResponse().setResponseCode(404)
+private fun ok(body: String) = MockResponse().setResponseCode(200).setBody(body)
+private fun notFound() = MockResponse().setResponseCode(404)

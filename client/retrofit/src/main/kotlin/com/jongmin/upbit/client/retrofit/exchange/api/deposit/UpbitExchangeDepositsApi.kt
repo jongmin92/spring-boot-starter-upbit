@@ -10,13 +10,13 @@ interface UpbitExchangeDepositsApi {
 
     @GET("v1/deposits")
     fun getDeposits(
-        @Query("currency") currency: String,
-        @Query("state") state: String,
+        @Query("currency") currency: String?,
+        @Query("state") state: String?,
         @Query("uuids") uuids: List<String>,
         @Query("txids") txids: List<String>,
-        @Query("page") page: Int = 1,
-        @Query("limit") limit: Int = 100,
-        @Query("order_by") orderBy: String = "desc"
+        @Query("page") page: Int?,
+        @Query("limit") limit: Int?,
+        @Query("order_by") orderBy: String?
     ): Call<List<UpbitDepositResponse>>
 
     @GET("v1/deposit")

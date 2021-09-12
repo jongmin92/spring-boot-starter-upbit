@@ -46,15 +46,15 @@ data class UpbitDepositResponse(
      * 설명: 입금 생성 시간
      * 타입: DateString
      */
-    @JsonProperty("createdAt")
+    @JsonProperty("created_at")
     val createdAt: String,
 
     /**
      * 설명: 입금 완료 시간
      * 타입: DateString
      */
-    @JsonProperty("doneAt")
-    val doneAt: String,
+    @JsonProperty("done_at")
+    val doneAt: String?,
 
     /**
      * 설명: 입금 수량

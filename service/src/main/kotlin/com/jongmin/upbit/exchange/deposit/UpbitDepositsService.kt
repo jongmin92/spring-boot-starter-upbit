@@ -15,8 +15,13 @@ interface UpbitDepositsService {
      * @return 입금 리스트
      */
     fun getDeposits(
-        currency: String, state: String, uuids: List<String>, txids: List<String>, limit: Int = 1,
-        page: Int = 100, orderBy: String = "desc"
+        currency: String? = null,
+        state: String? = null,
+        uuids: List<String> = emptyList(),
+        txids: List<String> = emptyList(),
+        limit: Int? = null,
+        page: Int? = null,
+        orderBy: String? = null
     ): List<UpbitDeposit>
 
     /**

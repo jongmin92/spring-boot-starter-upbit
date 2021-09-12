@@ -3,6 +3,7 @@ package com.jongmin.upbit.client.retrofit.spring.boot
 import com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure.UpbitRetrofitClientAutoConfigure
 import com.jongmin.upbit.exchange.UpbitExchangeService
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
+import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
 import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
@@ -382,6 +383,34 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result.amount).isEqualTo(PostWithdrawsKrwResponse.amount) },
             { assertThat(result.fee).isEqualTo(PostWithdrawsKrwResponse.fee) },
             { assertThat(result.transactionType).isEqualTo(PostWithdrawsKrwResponse.transactionType) }
+        )
+    }
+
+    @Test
+    fun getDeposits() {
+        // given
+        /**
+         * @see GetDepositsResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.getDeposits(
+            currency = "currency",
+            txids = listOf("txid")
+        )
+
+        // then
+        assertAll("UpbitDeposit[0]",
+            { assertThat(result[0].type).isEqualTo(GetDepositsResponse.type) },
+            { assertThat(result[0].uuid).isEqualTo(GetDepositsResponse.uuid) },
+            { assertThat(result[0].currency).isEqualTo(GetDepositsResponse.currency) },
+            { assertThat(result[0].txid).isEqualTo(GetDepositsResponse.txid) },
+            { assertThat(result[0].state).isEqualTo(GetDepositsResponse.state) },
+            { assertThat(result[0].createdAt).isEqualTo(GetDepositsResponse.createdAt) },
+            { assertThat(result[0].doneAt).isEqualTo(GetDepositsResponse.doneAt) },
+            { assertThat(result[0].amount).isEqualTo(GetDepositsResponse.amount) },
+            { assertThat(result[0].fee).isEqualTo(GetDepositsResponse.fee) },
+            { assertThat(result[0].transactionType).isEqualTo(GetDepositsResponse.transactionType) }
         )
     }
 
