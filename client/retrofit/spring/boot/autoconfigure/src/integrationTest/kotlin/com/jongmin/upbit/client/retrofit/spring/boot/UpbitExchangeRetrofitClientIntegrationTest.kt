@@ -11,6 +11,7 @@ import com.jongmin.upbit.server.mock.exchange.order.PostOrdersResponse
 import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawResponse
 import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawsChanceResponse
 import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawsResponse
+import com.jongmin.upbit.server.mock.exchange.withdraw.PostWithdrawsCoinResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -325,6 +326,36 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result.withdrawLimit.remainingDailyKrw).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.remainingDailyKrw) },
             { assertThat(result.withdrawLimit.fixed).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.fixed) },
             { assertThat(result.withdrawLimit.canWithdraw).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.canWithdraw) }
+        )
+    }
+
+    @Test
+    fun postWithdrawsCoin() {
+        // given
+        /**
+         * @see PostWithdrawsCoinResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.postWithdrawCoin(
+            currency = "currency",
+            amount = "amount",
+            address = "address"
+        )
+
+        // then
+        assertAll("upbitWithdrawCoinPost",
+            { assertThat(result.type).isEqualTo(PostWithdrawsCoinResponse.type) },
+            { assertThat(result.uuid).isEqualTo(PostWithdrawsCoinResponse.uuid) },
+            { assertThat(result.currency).isEqualTo(PostWithdrawsCoinResponse.currency) },
+            { assertThat(result.txid).isEqualTo(PostWithdrawsCoinResponse.txid) },
+            { assertThat(result.state).isEqualTo(PostWithdrawsCoinResponse.state) },
+            { assertThat(result.createdAt).isEqualTo(PostWithdrawsCoinResponse.createdAt) },
+            { assertThat(result.doneAt).isEqualTo(PostWithdrawsCoinResponse.doneAt) },
+            { assertThat(result.amount).isEqualTo(PostWithdrawsCoinResponse.amount) },
+            { assertThat(result.fee).isEqualTo(PostWithdrawsCoinResponse.fee) },
+            { assertThat(result.krwAmount).isEqualTo(PostWithdrawsCoinResponse.krwAmount) },
+            { assertThat(result.transactionType).isEqualTo(PostWithdrawsCoinResponse.transactionType) }
         )
     }
 

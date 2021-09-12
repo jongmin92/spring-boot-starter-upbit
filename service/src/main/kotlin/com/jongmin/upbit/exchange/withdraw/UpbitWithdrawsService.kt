@@ -56,8 +56,8 @@ interface UpbitWithdrawsService {
      * @return 코인 출금 결과
      */
     fun postWithdrawCoin(
-        currency: String, amount: String, address: String, secondaryAddress: String?,
-        transactionType: String?
+        currency: String, amount: String, address: String, secondaryAddress: String? = null,
+        transactionType: String? = null
     ): UpbitWithdrawCoinPost
 
     /**

@@ -332,14 +332,14 @@ data class UpbitWithdrawCoinPostRequest(
      * 타입: String
      */
     @JsonProperty("secondary_address")
-    val secondaryAddress: String?,
+    val secondaryAddress: String? = null,
 
     /**
      * 설명: 출금 유형
      * 타입: String
      */
     @JsonProperty("transaction_type")
-    val transactionType: String? = "default"
+    val transactionType: String? = null
 )
 
 data class UpbitWithdrawCoinPostResponse(
@@ -390,7 +390,7 @@ data class UpbitWithdrawCoinPostResponse(
      * 타입: DateString
      */
     @JsonProperty("done_at")
-    val doneAt: String,
+    val doneAt: String?,
 
     /**
      * 설명: 출금 금액/수량

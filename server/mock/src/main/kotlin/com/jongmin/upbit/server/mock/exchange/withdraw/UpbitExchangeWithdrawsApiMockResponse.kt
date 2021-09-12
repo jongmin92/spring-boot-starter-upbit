@@ -142,3 +142,33 @@ object GetWithdrawsChanceResponse {
         }
     """.trimIndent()
 }
+
+object PostWithdrawsCoinResponse {
+    const val type = "withdraw"
+    const val uuid = "9f432943-54e0-40b7-825f-b6fec8b42b79"
+    const val currency = "BTC"
+    const val txid = "ebe6937b-130e-4066-8ac6-4b0e67f28adc"
+    const val state = "processing"
+    const val createdAt = "2018-04-13T11:24:01+09:00"
+    val doneAt = null
+    const val amount = "0.01"
+    const val fee = "0.0"
+    const val krwAmount = "80420.0"
+    const val transactionType = "default"
+
+    val fixture = """
+        {
+          "type": "$type",
+          "uuid": "$uuid",
+          "currency": "$currency",
+          "txid": "$txid",
+          "state": "$state",
+          "created_at": "$createdAt",
+          "done_at": $doneAt,
+          "amount": "$amount",
+          "fee": "$fee",
+          "krw_amount": "$krwAmount",
+          "transaction_type": "$transactionType"
+        }
+    """.trimIndent()
+}

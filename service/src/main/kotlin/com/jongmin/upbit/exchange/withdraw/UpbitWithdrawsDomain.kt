@@ -299,7 +299,7 @@ data class UpbitWithdrawCoinPost(
      * 설명: 출금 완료 시간
      * 타입: DateString
      */
-    val doneAt: String,
+    val doneAt: String?,
 
     /**
      * 설명: 출금 금액/수량
