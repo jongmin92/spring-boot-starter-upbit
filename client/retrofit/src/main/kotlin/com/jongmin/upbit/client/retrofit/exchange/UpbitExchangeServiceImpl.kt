@@ -305,11 +305,15 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun getWalletStatus(): UpbitWalletStatus {
-        return apiExecute { infoApi.getWalletStatus() }.toDomain()
+    override fun getWalletStatus(): List<UpbitWalletStatus> {
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken()).use {
+            return apiExecute { infoApi.getWalletStatus() }.map { it.toDomain() }
+        }
     }
 
     override fun getApiKeys(): List<UpbitApiKey> {
-        return apiExecute { infoApi.getApiKeys() }.map { it.toDomain() }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken()).use {
+            return apiExecute { infoApi.getApiKeys() }.map { it.toDomain() }
+        }
     }
 }

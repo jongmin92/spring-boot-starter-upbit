@@ -10,6 +10,7 @@ import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse1
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse2
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsKrwResponse
+import com.jongmin.upbit.server.mock.exchange.info.GetWalletStatusResponse
 import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
@@ -223,22 +224,22 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
 
         // then
         assertAll("UpbitOrderPost",
-            { assertThat(result.uuid).isEqualTo(DeleteOrderResponse.uuid) },
-            { assertThat(result.side).isEqualTo(DeleteOrderResponse.side) },
-            { assertThat(result.ordType).isEqualTo(DeleteOrderResponse.ordType) },
-            { assertThat(result.price).isEqualTo(DeleteOrderResponse.price) },
-            { assertThat(result.avgPrice).isEqualTo(DeleteOrderResponse.avgPrice) },
-            { assertThat(result.state).isEqualTo(DeleteOrderResponse.state) },
-            { assertThat(result.market).isEqualTo(DeleteOrderResponse.market) },
-            { assertThat(result.createdAt).isEqualTo(DeleteOrderResponse.createdAt) },
-            { assertThat(result.volume).isEqualTo(DeleteOrderResponse.volume) },
-            { assertThat(result.remainingVolume).isEqualTo(DeleteOrderResponse.remainingVolume) },
-            { assertThat(result.reservedFee).isEqualTo(DeleteOrderResponse.reservedFee) },
-            { assertThat(result.remainingFee).isEqualTo(DeleteOrderResponse.remainingFee) },
-            { assertThat(result.paidFee).isEqualTo(DeleteOrderResponse.paidFee) },
-            { assertThat(result.locked).isEqualTo(DeleteOrderResponse.locked) },
-            { assertThat(result.executedVolume).isEqualTo(DeleteOrderResponse.executedVolume) },
-            { assertThat(result.tradesCount).isEqualTo(DeleteOrderResponse.tradesCount) }
+            { assertThat(result.uuid).isEqualTo(PostOrdersResponse.uuid) },
+            { assertThat(result.side).isEqualTo(PostOrdersResponse.side) },
+            { assertThat(result.ordType).isEqualTo(PostOrdersResponse.ordType) },
+            { assertThat(result.price).isEqualTo(PostOrdersResponse.price) },
+            { assertThat(result.avgPrice).isEqualTo(PostOrdersResponse.avgPrice) },
+            { assertThat(result.state).isEqualTo(PostOrdersResponse.state) },
+            { assertThat(result.market).isEqualTo(PostOrdersResponse.market) },
+            { assertThat(result.createdAt).isEqualTo(PostOrdersResponse.createdAt) },
+            { assertThat(result.volume).isEqualTo(PostOrdersResponse.volume) },
+            { assertThat(result.remainingVolume).isEqualTo(PostOrdersResponse.remainingVolume) },
+            { assertThat(result.reservedFee).isEqualTo(PostOrdersResponse.reservedFee) },
+            { assertThat(result.remainingFee).isEqualTo(PostOrdersResponse.remainingFee) },
+            { assertThat(result.paidFee).isEqualTo(PostOrdersResponse.paidFee) },
+            { assertThat(result.locked).isEqualTo(PostOrdersResponse.locked) },
+            { assertThat(result.executedVolume).isEqualTo(PostOrdersResponse.executedVolume) },
+            { assertThat(result.tradesCount).isEqualTo(PostOrdersResponse.tradesCount) }
         )
     }
 
@@ -551,6 +552,26 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result.amount).isEqualTo(PostDepositsKrwResponse.amount) },
             { assertThat(result.fee).isEqualTo(PostDepositsKrwResponse.fee) },
             { assertThat(result.transactionType).isEqualTo(PostDepositsKrwResponse.transactionType) }
+        )
+    }
+
+    @Test
+    fun getWalletStatus() {
+        // given
+        /**
+         * @see GetWalletStatusResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.getWalletStatus()
+
+        // then
+        assertAll("UpbitWalletStatus",
+            { assertThat(result[0].currency).isEqualTo(GetWalletStatusResponse.currency) },
+            { assertThat(result[0].walletState).isEqualTo(GetWalletStatusResponse.walletState) },
+            { assertThat(result[0].blockState).isEqualTo(GetWalletStatusResponse.blockState) },
+            { assertThat(result[0].blockHeight).isEqualTo(GetWalletStatusResponse.blockHeight) },
+            { assertThat(result[0].blockUpdatedAt).isEqualTo(GetWalletStatusResponse.blockUpdatedAt) }
         )
     }
 

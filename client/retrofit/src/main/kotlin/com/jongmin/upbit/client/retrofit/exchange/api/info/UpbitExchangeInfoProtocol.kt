@@ -31,7 +31,7 @@ data class UpbitWalletStatusResponse(
      * 타입: Integer
      */
     @JsonProperty("block_height")
-    val blockHeight: String,
+    val blockHeight: Int,
 
     /**
      * 설명: 블록 갱신 시각

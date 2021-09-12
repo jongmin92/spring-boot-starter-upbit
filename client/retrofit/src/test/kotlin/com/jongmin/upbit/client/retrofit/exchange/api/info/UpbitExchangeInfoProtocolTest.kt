@@ -44,7 +44,7 @@ internal fun upbitWalletStatusResponseFixture() = UpbitWalletStatusResponse(
     currency = "currency",
     walletState = "walletState",
     blockState = "blockState",
-    blockHeight = "blockHeight",
+    blockHeight = 0,
     blockUpdatedAt = "blockUpdatedAt"
 )
 

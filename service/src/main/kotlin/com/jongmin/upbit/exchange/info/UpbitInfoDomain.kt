@@ -23,7 +23,7 @@ data class UpbitWalletStatus(
      * 설명: 블록 높이
      * 타입: Integer
      */
-    val blockHeight: String,
+    val blockHeight: Int,
 
     /**
      * 설명: 블록 갱신 시각

@@ -8,7 +8,7 @@ interface UpbitInfoService {
      *
      * @return 입출금 현황 및 블록 상태
      */
-    fun getWalletStatus(): UpbitWalletStatus
+    fun getWalletStatus(): List<UpbitWalletStatus>
 
     /**
      * API 키 리스트 조회

@@ -435,13 +435,16 @@ class UpbitExchangeServiceImplTest {
     fun getWalletStatus() {
         // given
         val walletStatusResponse = upbitWalletStatusResponseFixture()
-        doReturn(success(walletStatusResponse)).whenever(infoApi).getWalletStatus()
+        doReturn(success(listOf(walletStatusResponse))).whenever(infoApi).getWalletStatus()
 
         // when
         val result = cut.getWalletStatus()
 
         // then
-        assertThat(result).isEqualTo(walletStatusResponse.toDomain())
+        assertAll("walletStatus",
+            { assertThat(result).hasSize(1) },
+            { assertThat(result.first()).isEqualTo(walletStatusResponse.toDomain()) }
+        )
     }
     
     @Test
