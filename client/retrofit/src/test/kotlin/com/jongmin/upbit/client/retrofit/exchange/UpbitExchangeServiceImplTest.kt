@@ -3,6 +3,7 @@ package com.jongmin.upbit.client.retrofit.exchange
 import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccountsApi
 import com.jongmin.upbit.client.retrofit.exchange.api.account.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.account.upbitAccountResponseFixture
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitCreateDepositCoinAddressRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitDepositKrwRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsApi
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.toDomain
@@ -374,7 +375,9 @@ class UpbitExchangeServiceImplTest {
         // given
         val currency = "currency"
         val depositCoinAddressResponse = upbitCreateDepositCoinAddressResponseFixture()
-        doReturn(success(depositCoinAddressResponse)).whenever(depositsApi).createDepositCoinAddress(currency)
+        doReturn(success(depositCoinAddressResponse)).whenever(depositsApi).createDepositCoinAddress(
+            UpbitCreateDepositCoinAddressRequest(currency)
+        )
 
         // when
         val result = cut.createDepositCoinAddress(currency)

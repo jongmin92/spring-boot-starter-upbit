@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.ApiErrorResponse
 import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccountsApi
 import com.jongmin.upbit.client.retrofit.exchange.api.account.toDomain
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitCreateDepositCoinAddressRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitDepositKrwRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsApi
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.toDomain
@@ -276,7 +277,11 @@ class UpbitExchangeServiceImpl(
     override fun createDepositCoinAddress(currency: String): UpbitCreateDepositCoinAddress {
         val params = mapOf("currency" to currency)
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
-            return apiExecute { depositsApi.createDepositCoinAddress(currency) }.toDomain()
+            return apiExecute {
+                depositsApi.createDepositCoinAddress(
+                    UpbitCreateDepositCoinAddressRequest(currency)
+                )
+            }.toDomain()
         }
     }
 

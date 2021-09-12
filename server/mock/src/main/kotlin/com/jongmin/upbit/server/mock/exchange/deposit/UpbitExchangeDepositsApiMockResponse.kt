@@ -57,3 +57,31 @@ object GetDepositResponse {
         }
     """.trimIndent()
 }
+
+// 주소 발급 완료 이전
+object PostDepositsGenerateCoinAddressResponse1 {
+    const val success = true
+    const val message = "BTC 입금주소를 생성중입니다."
+
+    val fixture = """
+        {
+          "success": $success,
+          "message": "$message"
+        }
+    """.trimIndent()
+}
+
+// 주소 발급 완료 이후
+object PostDepositsGenerateCoinAddressResponse2 {
+    const val currency = "currency"
+    const val depositAddress = "deposit_address"
+    const val secondaryAddress = "secondary_address"
+
+    val fixture = """
+        {
+          "currency": "$currency",
+          "deposit_address": "$depositAddress",
+          "secondary_address": "$secondaryAddress"
+        }
+    """.trimIndent()
+}

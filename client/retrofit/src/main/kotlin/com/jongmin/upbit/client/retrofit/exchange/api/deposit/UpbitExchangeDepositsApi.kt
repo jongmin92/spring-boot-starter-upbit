@@ -27,7 +27,7 @@ interface UpbitExchangeDepositsApi {
     ): Call<UpbitDepositResponse>
 
     @POST("v1/deposits/generate_coin_address")
-    fun createDepositCoinAddress(@Query("currency") currency: String): Call<UpbitCreateDepositCoinAddressResponse>
+    fun createDepositCoinAddress(@Body request: UpbitCreateDepositCoinAddressRequest): Call<UpbitCreateDepositCoinAddressResponse>
 
     @GET("v1/deposits/coin_addresses")
     fun getDepositCoinAddresses(): Call<List<UpbitDepositCoinAddressResponse>>

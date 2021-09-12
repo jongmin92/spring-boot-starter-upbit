@@ -3,7 +3,10 @@ package com.jongmin.upbit.client.retrofit.spring.boot
 import com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure.UpbitRetrofitClientAutoConfigure
 import com.jongmin.upbit.exchange.UpbitExchangeService
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
+import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
+import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse1
+import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse2
 import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
@@ -16,6 +19,7 @@ import com.jongmin.upbit.server.mock.exchange.withdraw.PostWithdrawsCoinResponse
 import com.jongmin.upbit.server.mock.exchange.withdraw.PostWithdrawsKrwResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
@@ -426,16 +430,57 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
 
         // then
         assertAll("UpbitDeposit",
-            { assertThat(result.type).isEqualTo(GetDepositsResponse.type) },
-            { assertThat(result.uuid).isEqualTo(GetDepositsResponse.uuid) },
-            { assertThat(result.currency).isEqualTo(GetDepositsResponse.currency) },
-            { assertThat(result.txid).isEqualTo(GetDepositsResponse.txid) },
-            { assertThat(result.state).isEqualTo(GetDepositsResponse.state) },
-            { assertThat(result.createdAt).isEqualTo(GetDepositsResponse.createdAt) },
-            { assertThat(result.doneAt).isEqualTo(GetDepositsResponse.doneAt) },
-            { assertThat(result.amount).isEqualTo(GetDepositsResponse.amount) },
-            { assertThat(result.fee).isEqualTo(GetDepositsResponse.fee) },
-            { assertThat(result.transactionType).isEqualTo(GetDepositsResponse.transactionType) }
+            { assertThat(result.type).isEqualTo(GetDepositResponse.type) },
+            { assertThat(result.uuid).isEqualTo(GetDepositResponse.uuid) },
+            { assertThat(result.currency).isEqualTo(GetDepositResponse.currency) },
+            { assertThat(result.txid).isEqualTo(GetDepositResponse.txid) },
+            { assertThat(result.state).isEqualTo(GetDepositResponse.state) },
+            { assertThat(result.createdAt).isEqualTo(GetDepositResponse.createdAt) },
+            { assertThat(result.doneAt).isEqualTo(GetDepositResponse.doneAt) },
+            { assertThat(result.amount).isEqualTo(GetDepositResponse.amount) },
+            { assertThat(result.fee).isEqualTo(GetDepositResponse.fee) },
+            { assertThat(result.transactionType).isEqualTo(GetDepositResponse.transactionType) }
+        )
+    }
+
+    @Test
+    fun `postDepositsGenerateCoinAddress before created`() {
+        // given
+        /**
+         * @see PostDepositsGenerateCoinAddressResponse1.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.createDepositCoinAddress("currency")
+
+        // then
+        assertAll("UpbitCreateDepositCoinAddress",
+            { assertThat(result.success).isEqualTo(PostDepositsGenerateCoinAddressResponse1.success) },
+            { assertThat(result.message).isEqualTo(PostDepositsGenerateCoinAddressResponse1.message) },
+            { assertThat(result.currency).isNull() },
+            { assertThat(result.depositAddress).isNull() },
+            { assertThat(result.secondaryAddress).isNull() }
+        )
+    }
+
+    @Disabled
+    @Test
+    fun `postDepositsGenerateCoinAddress after created`() {
+        // given
+        /**
+         * @see PostDepositsGenerateCoinAddressResponse2.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.createDepositCoinAddress("currency")
+
+        // then
+        assertAll("UpbitCreateDepositCoinAddress",
+            { assertThat(result.success).isNull() },
+            { assertThat(result.message).isNull() },
+            { assertThat(result.currency).isEqualTo(PostDepositsGenerateCoinAddressResponse2.currency) },
+            { assertThat(result.depositAddress).isEqualTo(PostDepositsGenerateCoinAddressResponse2.depositAddress) },
+            { assertThat(result.secondaryAddress).isEqualTo(PostDepositsGenerateCoinAddressResponse2.secondaryAddress) }
         )
     }
 

@@ -78,6 +78,15 @@ data class UpbitDepositResponse(
     val transactionType: String
 )
 
+data class UpbitCreateDepositCoinAddressRequest(
+    /**
+     * 설명: Currency symbol
+     * 타입: String
+     */
+    @JsonProperty("currency")
+    val currency: String
+)
+
 data class UpbitCreateDepositCoinAddressResponse(
     /**
      * 설명: 요청 성공 여부
@@ -98,21 +107,21 @@ data class UpbitCreateDepositCoinAddressResponse(
      * 타입: String
      */
     @JsonProperty("currency")
-    val currency: String,
+    val currency: String?,
 
     /**
      * 설명: 입금 주소
      * 타입: String
      */
     @JsonProperty("deposit_address")
-    val depositAddress: String,
+    val depositAddress: String?,
 
     /**
      * 설명: 2차 입금 주소
      * 타입: String
      */
     @JsonProperty("secondary_address")
-    val secondaryAddress: String
+    val secondaryAddress: String?
 )
 
 data class UpbitDepositCoinAddressResponse(
