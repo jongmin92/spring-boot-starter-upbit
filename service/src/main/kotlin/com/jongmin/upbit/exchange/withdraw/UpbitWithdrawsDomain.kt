@@ -218,13 +218,13 @@ data class UpbitWithdrawsChance(
          * 설명: 출금 최소 금액/수량
          * 타입: NumberString
          */
-        val minimum: String,
+        val minimum: String?,
 
         /**
          * 설명: 1회 출금 한도
          * 타입: NumberString
          */
-        val onetime: String,
+        val onetime: String?,
 
         /**
          * 설명: 1일 출금 한도
@@ -248,7 +248,7 @@ data class UpbitWithdrawsChance(
          * 설명: 출금 금액/수량 소수점 자리 수
          * 타입: Integer
          */
-        val fixed: Int,
+        val fixed: Int?,
 
         /**
          * 설명: 출금 지원 여부

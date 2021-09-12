@@ -259,14 +259,14 @@ data class UpbitWithdrawsChanceResponse(
          * 타입: NumberString
          */
         @JsonProperty("minimum")
-        val minimum: String,
+        val minimum: String?,
 
         /**
          * 설명: 1회 출금 한도
          * 타입: NumberString
          */
         @JsonProperty("onetime")
-        val onetime: String,
+        val onetime: String?,
 
         /**
          * 설명: 1일 출금 한도
@@ -294,7 +294,7 @@ data class UpbitWithdrawsChanceResponse(
          * 타입: Integer
          */
         @JsonProperty("fixed")
-        val fixed: Int,
+        val fixed: Int?,
 
         /**
          * 설명: 출금 지원 여부

@@ -9,6 +9,7 @@ import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersResponse
 import com.jongmin.upbit.server.mock.exchange.order.PostOrdersResponse
 import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawResponse
+import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawsChanceResponse
 import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawsResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
@@ -281,6 +282,49 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result.amount).isEqualTo(GetWithdrawResponse.amount) },
             { assertThat(result.fee).isEqualTo(GetWithdrawResponse.fee) },
             { assertThat(result.transactionType).isEqualTo(GetWithdrawResponse.transactionType) }
+        )
+    }
+
+    @Test
+    fun getWithdrawsChance() {
+        // given
+        /**
+         * @see GetWithdrawsChanceResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.getWithdrawsChance("currency")
+
+        // then
+        assertAll("UptibTwithdrawsChance",
+            { assertThat(result.memberLevel.securityLevel).isEqualTo(GetWithdrawsChanceResponse.MemberLevel.securityLevel) },
+            { assertThat(result.memberLevel.feeLevel).isEqualTo(GetWithdrawsChanceResponse.MemberLevel.feeLevel) },
+            { assertThat(result.memberLevel.emailVerified).isEqualTo(GetWithdrawsChanceResponse.MemberLevel.emailVerified) },
+            { assertThat(result.memberLevel.identityAuthVerified).isEqualTo(GetWithdrawsChanceResponse.MemberLevel.identityAuthVerified) },
+            { assertThat(result.memberLevel.bankAccountVerified).isEqualTo(GetWithdrawsChanceResponse.MemberLevel.bankAccountVerified) },
+            { assertThat(result.memberLevel.kakaoPayAuthVerified).isEqualTo(GetWithdrawsChanceResponse.MemberLevel.kakaoPayAuthVerified) },
+            { assertThat(result.memberLevel.locked).isEqualTo(GetWithdrawsChanceResponse.MemberLevel.locked) },
+            { assertThat(result.memberLevel.walletLocked).isEqualTo(GetWithdrawsChanceResponse.MemberLevel.walletLocked) },
+            { assertThat(result.currency.code).isEqualTo(GetWithdrawsChanceResponse.Currency.code) },
+            { assertThat(result.currency.withdrawFee).isEqualTo(GetWithdrawsChanceResponse.Currency.withdrawFee) },
+            { assertThat(result.currency.isCoin).isEqualTo(GetWithdrawsChanceResponse.Currency.isCoin) },
+            { assertThat(result.currency.walletState).isEqualTo(GetWithdrawsChanceResponse.Currency.walletState) },
+            { assertThat(result.currency.walletSupport[0]).isEqualTo(GetWithdrawsChanceResponse.Currency.walletSupport1) },
+            { assertThat(result.currency.walletSupport[1]).isEqualTo(GetWithdrawsChanceResponse.Currency.walletSupport2) },
+            { assertThat(result.account.currency).isEqualTo(GetWithdrawsChanceResponse.Account.currency) },
+            { assertThat(result.account.balance).isEqualTo(GetWithdrawsChanceResponse.Account.balance) },
+            { assertThat(result.account.locked).isEqualTo(GetWithdrawsChanceResponse.Account.locked) },
+            { assertThat(result.account.avgBuyPrice).isEqualTo(GetWithdrawsChanceResponse.Account.avgBuyPrice) },
+            { assertThat(result.account.avgBuyPriceModified).isEqualTo(GetWithdrawsChanceResponse.Account.avgBuyPriceModified) },
+            { assertThat(result.account.unitCurrency).isEqualTo(GetWithdrawsChanceResponse.Account.unitCurrency) },
+            { assertThat(result.withdrawLimit.currency).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.currency) },
+            { assertThat(result.withdrawLimit.minimum).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.minimum) },
+            { assertThat(result.withdrawLimit.onetime).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.onetime) },
+            { assertThat(result.withdrawLimit.daily).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.daily) },
+            { assertThat(result.withdrawLimit.remainingDaily).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.remainingDaily) },
+            { assertThat(result.withdrawLimit.remainingDailyKrw).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.remainingDailyKrw) },
+            { assertThat(result.withdrawLimit.fixed).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.fixed) },
+            { assertThat(result.withdrawLimit.canWithdraw).isEqualTo(GetWithdrawsChanceResponse.WithdrawLimit.canWithdraw) }
         )
     }
 
