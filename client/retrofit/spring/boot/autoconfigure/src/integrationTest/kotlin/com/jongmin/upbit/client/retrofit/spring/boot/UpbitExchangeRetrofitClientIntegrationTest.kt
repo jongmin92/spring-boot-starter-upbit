@@ -12,6 +12,7 @@ import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawResponse
 import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawsChanceResponse
 import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawsResponse
 import com.jongmin.upbit.server.mock.exchange.withdraw.PostWithdrawsCoinResponse
+import com.jongmin.upbit.server.mock.exchange.withdraw.PostWithdrawsKrwResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -356,6 +357,31 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result.fee).isEqualTo(PostWithdrawsCoinResponse.fee) },
             { assertThat(result.krwAmount).isEqualTo(PostWithdrawsCoinResponse.krwAmount) },
             { assertThat(result.transactionType).isEqualTo(PostWithdrawsCoinResponse.transactionType) }
+        )
+    }
+
+    @Test
+    fun postWithdrawsKrw() {
+        // given
+        /**
+         * @see PostWithdrawsKrwResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.postWithdrawKrw("amount")
+
+        // then
+        assertAll("upbitWithdrawKrwPost",
+            { assertThat(result.type).isEqualTo(PostWithdrawsKrwResponse.type) },
+            { assertThat(result.uuid).isEqualTo(PostWithdrawsKrwResponse.uuid) },
+            { assertThat(result.currency).isEqualTo(PostWithdrawsKrwResponse.currency) },
+            { assertThat(result.txid).isEqualTo(PostWithdrawsKrwResponse.txid) },
+            { assertThat(result.state).isEqualTo(PostWithdrawsKrwResponse.state) },
+            { assertThat(result.createdAt).isEqualTo(PostWithdrawsKrwResponse.createdAt) },
+            { assertThat(result.doneAt).isEqualTo(PostWithdrawsKrwResponse.doneAt) },
+            { assertThat(result.amount).isEqualTo(PostWithdrawsKrwResponse.amount) },
+            { assertThat(result.fee).isEqualTo(PostWithdrawsKrwResponse.fee) },
+            { assertThat(result.transactionType).isEqualTo(PostWithdrawsKrwResponse.transactionType) }
         )
     }
 
