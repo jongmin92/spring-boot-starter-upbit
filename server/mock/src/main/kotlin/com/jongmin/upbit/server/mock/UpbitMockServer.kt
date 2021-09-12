@@ -2,6 +2,7 @@ package com.jongmin.upbit.server.mock
 
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositResponse
+import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsCoinAddressResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsCoinAddressesResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse1
@@ -54,6 +55,7 @@ class UpbitMockServer {
                         "/v1/deposits?currency=currency&txids=txid" -> return ok(GetDepositsResponse.fixture)
                         "/v1/deposits/generate_coin_address" -> return ok(PostDepositsGenerateCoinAddressResponse1.fixture)
                         "/v1/deposits/coin_addresses" -> return ok(GetDepositsCoinAddressesResponse.fixture)
+                        "/v1/deposits/coin_address?currency=currency" -> return ok(GetDepositsCoinAddressResponse.fixture)
                     }
                     return notFound()
                 }

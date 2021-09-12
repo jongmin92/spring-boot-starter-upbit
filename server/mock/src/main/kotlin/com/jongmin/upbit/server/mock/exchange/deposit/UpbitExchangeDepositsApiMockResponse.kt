@@ -109,3 +109,17 @@ object GetDepositsCoinAddressesResponse {
         ]
     """.trimIndent()
 }
+
+object GetDepositsCoinAddressResponse {
+    const val currency = "BTC"
+    const val depositAddress = "3EusRwybuZUhVDeHL7gh3HSLmbhLcy7NqD"
+    val secondaryAddress = null
+
+    val fixture = """
+        {
+          "currency": "$currency",
+          "deposit_address": "$depositAddress",
+          "secondary_address": $secondaryAddress
+        }
+    """.trimIndent()
+}

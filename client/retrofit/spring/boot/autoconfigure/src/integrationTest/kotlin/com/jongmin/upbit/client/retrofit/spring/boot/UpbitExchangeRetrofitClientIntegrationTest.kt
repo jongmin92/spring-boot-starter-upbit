@@ -4,6 +4,7 @@ import com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure.UpbitRetrofit
 import com.jongmin.upbit.exchange.UpbitExchangeService
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositResponse
+import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsCoinAddressResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsCoinAddressesResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse1
@@ -505,6 +506,24 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result[1].currency).isEqualTo(GetDepositsCoinAddressesResponse.currency2) },
             { assertThat(result[1].depositAddress).isEqualTo(GetDepositsCoinAddressesResponse.depositAddress2) },
             { assertThat(result[1].secondaryAddress).isEqualTo(GetDepositsCoinAddressesResponse.secondaryAddress2) }
+        )
+    }
+
+    @Test
+    fun getDepositsCoinAddress() {
+        // given
+        /**
+         * @see GetDepositsCoinAddressResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.getDepositsCoinAddress("currency")
+
+        // then
+        assertAll("UpbitDepositCoinAddress",
+            { assertThat(result.currency).isEqualTo(GetDepositsCoinAddressResponse.currency) },
+            { assertThat(result.depositAddress).isEqualTo(GetDepositsCoinAddressResponse.depositAddress) },
+            { assertThat(result.secondaryAddress).isEqualTo(GetDepositsCoinAddressResponse.secondaryAddress) }
         )
     }
 
