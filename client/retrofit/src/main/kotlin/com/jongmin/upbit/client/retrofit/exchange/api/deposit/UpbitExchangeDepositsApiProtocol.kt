@@ -204,7 +204,7 @@ data class UpbitDepositKrwResponse(
      * 타입: DateString
      */
     @JsonProperty("done_at")
-    val doneAt: String,
+    val doneAt: String?,
 
     /**
      * 설명: 입금 금액/수량

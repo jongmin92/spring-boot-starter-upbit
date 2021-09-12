@@ -298,7 +298,7 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun depositKrw(amount: String): UpbitDepositKrw {
+    override fun postDepositKrw(amount: String): UpbitDepositKrw {
         val params = mapOf("amount" to amount)
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute { depositsApi.postDepositsKrw(UpbitDepositKrwRequest(amount)) }.toDomain()

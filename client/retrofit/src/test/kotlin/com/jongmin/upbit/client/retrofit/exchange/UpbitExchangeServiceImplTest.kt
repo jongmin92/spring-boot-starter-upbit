@@ -417,7 +417,7 @@ class UpbitExchangeServiceImplTest {
     }
 
     @Test
-    fun depositKrw() {
+    fun postDepositKrw() {
         // given
         val amount = "amount"
         val depositKrwResponse = upbitDepositKrwResponseFixture()
@@ -425,7 +425,7 @@ class UpbitExchangeServiceImplTest {
             .postDepositsKrw(UpbitDepositKrwRequest(amount))
 
         // when
-        val result = cut.depositKrw(amount)
+        val result = cut.postDepositKrw(amount)
 
         // then
         assertThat(result).isEqualTo(depositKrwResponse.toDomain())

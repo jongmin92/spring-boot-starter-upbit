@@ -123,3 +123,31 @@ object GetDepositsCoinAddressResponse {
         }
     """.trimIndent()
 }
+
+object PostDepositsKrwResponse {
+    const val type = "default"
+    const val uuid = "9f432943-54e0-40b7-825f-b6fec8b42b79"
+    const val currency = "KRW"
+    const val txid = "ebe6937b-130e-4066-8ac6-4b0e67f28adc"
+    const val state = "processing"
+    const val createdAt = "2018-04-13T11:24:01+09:00"
+    val doneAt = null
+    const val amount = "10000"
+    const val fee = "0.0"
+    const val transactionType = "default"
+
+    val fixture = """
+        {
+          "type": "$type",
+          "uuid": "$uuid",
+          "currency": "$currency",
+          "txid": "$txid",
+          "state": "$state",
+          "created_at": "$createdAt",
+          "done_at": $doneAt,
+          "amount": "$amount",
+          "fee": "$fee",
+          "transaction_type": "$transactionType"
+        }
+    """.trimIndent()
+}

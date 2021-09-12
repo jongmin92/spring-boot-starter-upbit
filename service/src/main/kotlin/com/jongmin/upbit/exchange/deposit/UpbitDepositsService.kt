@@ -66,5 +66,5 @@ interface UpbitDepositsService {
      * @param amount 입금액
      * @return 입금 결과
      */
-    fun depositKrw(amount: String): UpbitDepositKrw
+    fun postDepositKrw(amount: String): UpbitDepositKrw
 }

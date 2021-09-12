@@ -9,6 +9,7 @@ import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsCoinAddressesRe
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse1
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse2
+import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsKrwResponse
 import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
@@ -524,6 +525,32 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result.currency).isEqualTo(GetDepositsCoinAddressResponse.currency) },
             { assertThat(result.depositAddress).isEqualTo(GetDepositsCoinAddressResponse.depositAddress) },
             { assertThat(result.secondaryAddress).isEqualTo(GetDepositsCoinAddressResponse.secondaryAddress) }
+        )
+    }
+
+    @Test
+    fun postDepositsKrw() {
+        // given
+        /**
+         * @see PostDepositsKrwResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.postDepositKrw("amount")
+
+        // then
+        assertAll(
+            "UpbitDepositKrw",
+            { assertThat(result.type).isEqualTo(PostDepositsKrwResponse.type) },
+            { assertThat(result.uuid).isEqualTo(PostDepositsKrwResponse.uuid) },
+            { assertThat(result.currency).isEqualTo(PostDepositsKrwResponse.currency) },
+            { assertThat(result.txid).isEqualTo(PostDepositsKrwResponse.txid) },
+            { assertThat(result.state).isEqualTo(PostDepositsKrwResponse.state) },
+            { assertThat(result.createdAt).isEqualTo(PostDepositsKrwResponse.createdAt) },
+            { assertThat(result.doneAt).isEqualTo(PostDepositsKrwResponse.doneAt) },
+            { assertThat(result.amount).isEqualTo(PostDepositsKrwResponse.amount) },
+            { assertThat(result.fee).isEqualTo(PostDepositsKrwResponse.fee) },
+            { assertThat(result.transactionType).isEqualTo(PostDepositsKrwResponse.transactionType) }
         )
     }
 

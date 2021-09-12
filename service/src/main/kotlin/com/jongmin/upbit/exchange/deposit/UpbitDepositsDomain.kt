@@ -155,7 +155,7 @@ data class UpbitDepositKrw(
      * 설명: 입금 완료 시간
      * 타입: DateString
      */
-    val doneAt: String,
+    val doneAt: String?,
 
     /**
      * 설명: 입금 금액/수량
