@@ -85,3 +85,27 @@ object PostDepositsGenerateCoinAddressResponse2 {
         }
     """.trimIndent()
 }
+
+object GetDepositsCoinAddressesResponse {
+    const val currency1 = "BTC"
+    const val depositAddress1 = "3EusRwybuZUhVDeHL7gh3HSLmbhLcy7NqD"
+    val secondaryAddress1 = null
+    const val currency2 = "XRP"
+    const val depositAddress2 = "rN9qNpgnBaZwqCg8CvUZRPqCcPPY7wfWep"
+    const val secondaryAddress2 = "3057887915"
+
+    val fixture = """
+        [
+          {
+            "currency": "$currency1",
+            "deposit_address": "$depositAddress1",
+            "secondary_address": $secondaryAddress1
+          },
+          {
+            "currency": "$currency2",
+            "deposit_address": "$depositAddress2",
+            "secondary_address": "$secondaryAddress2"
+          }
+        ]
+    """.trimIndent()
+}

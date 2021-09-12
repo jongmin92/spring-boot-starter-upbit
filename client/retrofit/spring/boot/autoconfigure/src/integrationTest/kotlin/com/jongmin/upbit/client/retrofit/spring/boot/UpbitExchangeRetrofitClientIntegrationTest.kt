@@ -4,6 +4,7 @@ import com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure.UpbitRetrofit
 import com.jongmin.upbit.exchange.UpbitExchangeService
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositResponse
+import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsCoinAddressesResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse1
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse2
@@ -481,6 +482,29 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result.currency).isEqualTo(PostDepositsGenerateCoinAddressResponse2.currency) },
             { assertThat(result.depositAddress).isEqualTo(PostDepositsGenerateCoinAddressResponse2.depositAddress) },
             { assertThat(result.secondaryAddress).isEqualTo(PostDepositsGenerateCoinAddressResponse2.secondaryAddress) }
+        )
+    }
+
+    @Test
+    fun getDepositsCoinAddresses() {
+        // given
+        /**
+         * @see GetDepositsCoinAddressesResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.getDepositsCoinAddresses()
+
+        // then
+        assertAll("UpbitDepositCoinAddress[0]",
+            { assertThat(result[0].currency).isEqualTo(GetDepositsCoinAddressesResponse.currency1) },
+            { assertThat(result[0].depositAddress).isEqualTo(GetDepositsCoinAddressesResponse.depositAddress1) },
+            { assertThat(result[0].secondaryAddress).isEqualTo(GetDepositsCoinAddressesResponse.secondaryAddress1) }
+        )
+        assertAll("UpbitDepositCoinAddress[1]",
+            { assertThat(result[1].currency).isEqualTo(GetDepositsCoinAddressesResponse.currency2) },
+            { assertThat(result[1].depositAddress).isEqualTo(GetDepositsCoinAddressesResponse.depositAddress2) },
+            { assertThat(result[1].secondaryAddress).isEqualTo(GetDepositsCoinAddressesResponse.secondaryAddress2) }
         )
     }
 
