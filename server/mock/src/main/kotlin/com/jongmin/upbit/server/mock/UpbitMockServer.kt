@@ -7,6 +7,7 @@ import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsCoinAddressesRe
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse1
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsKrwResponse
+import com.jongmin.upbit.server.mock.exchange.info.GetApiKyesResponse
 import com.jongmin.upbit.server.mock.exchange.info.GetWalletStatusResponse
 import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
@@ -61,6 +62,7 @@ class UpbitMockServer {
                         "/v1/deposits/krw" -> return ok(PostDepositsKrwResponse.fixture)
                         // info
                         "/v1/status/wallet" -> return ok(GetWalletStatusResponse.fixture)
+                        "/v1/api_keys" -> return ok(GetApiKyesResponse.fixture)
                     }
                     return notFound()
                 }

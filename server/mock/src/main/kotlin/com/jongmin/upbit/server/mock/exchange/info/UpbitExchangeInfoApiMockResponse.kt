@@ -19,3 +19,17 @@ object GetWalletStatusResponse {
         ]
     """.trimIndent()
 }
+
+object GetApiKyesResponse {
+    const val accessKey = "xxxxxxxxxxxxxxxxxxxxxxxx"
+    const val expireAt = "2021-03-09T12:39:39+00:00"
+
+    val fixture = """
+        [
+          {
+            "access_key": "$accessKey",
+            "expire_at": "$expireAt"
+          }
+        ]
+    """.trimIndent()
+}

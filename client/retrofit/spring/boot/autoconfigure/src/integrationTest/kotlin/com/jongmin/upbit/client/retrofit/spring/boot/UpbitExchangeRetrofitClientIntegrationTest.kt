@@ -10,6 +10,7 @@ import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse1
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse2
 import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsKrwResponse
+import com.jongmin.upbit.server.mock.exchange.info.GetApiKyesResponse
 import com.jongmin.upbit.server.mock.exchange.info.GetWalletStatusResponse
 import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
@@ -566,12 +567,29 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
         val result = upbitExchangeService.getWalletStatus()
 
         // then
-        assertAll("UpbitWalletStatus",
+        assertAll("UpbitWalletStatus[0]",
             { assertThat(result[0].currency).isEqualTo(GetWalletStatusResponse.currency) },
             { assertThat(result[0].walletState).isEqualTo(GetWalletStatusResponse.walletState) },
             { assertThat(result[0].blockState).isEqualTo(GetWalletStatusResponse.blockState) },
             { assertThat(result[0].blockHeight).isEqualTo(GetWalletStatusResponse.blockHeight) },
             { assertThat(result[0].blockUpdatedAt).isEqualTo(GetWalletStatusResponse.blockUpdatedAt) }
+        )
+    }
+
+    @Test
+    fun getApiKeys() {
+        // given
+        /**
+         * @see GetApiKyesResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.getApiKeys()
+
+        // then
+        assertAll("UpbitApiKey[0]",
+            { assertThat(result[0].accessKey).isEqualTo(GetApiKyesResponse.accessKey) },
+            { assertThat(result[0].expireAt).isEqualTo(GetApiKyesResponse.expireAt) }
         )
     }
 
