@@ -33,7 +33,7 @@ data class UpbitWithdrawResponse(
      * 타입: String
      */
     @JsonProperty("txid")
-    val txid: String,
+    val txid: String?,
 
     /**
      * 설명: 출금 상태
@@ -54,7 +54,7 @@ data class UpbitWithdrawResponse(
      * 타입: DateString
      */
     @JsonProperty("done_at")
-    val doneAt: String,
+    val doneAt: String?,
 
     /**
      * 설명: 출금 금액/수량

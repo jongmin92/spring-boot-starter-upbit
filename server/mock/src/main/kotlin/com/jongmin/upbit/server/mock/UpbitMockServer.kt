@@ -6,6 +6,8 @@ import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersResponse
 import com.jongmin.upbit.server.mock.exchange.order.PostOrdersResponse
+import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawResponse
+import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawsResponse
 import okhttp3.Protocol
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -34,6 +36,9 @@ class UpbitMockServer {
                         "/v1/orders" -> return ok(PostOrdersResponse.fixture)
                         "/v1/orders/chance?market=market" -> return ok(GetOrdersChanceResponse.fixture)
                         "/v1/orders?state=done&uuids=uuid" -> return ok(GetOrdersResponse.fixture)
+                        // withdraws
+                        "/v1/withdraw?uuid=uuid" -> return ok(GetWithdrawResponse.fixture)
+                        "/v1/withdraws?currency=currency&txids=txid" -> return ok(GetWithdrawsResponse.fixture)
                     }
                     return notFound()
                 }

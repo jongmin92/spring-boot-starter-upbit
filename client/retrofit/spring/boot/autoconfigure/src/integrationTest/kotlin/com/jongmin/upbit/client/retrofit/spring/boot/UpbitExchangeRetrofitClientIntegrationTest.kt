@@ -8,6 +8,8 @@ import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrdersResponse
 import com.jongmin.upbit.server.mock.exchange.order.PostOrdersResponse
+import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawResponse
+import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawsResponse
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -226,6 +228,59 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result.locked).isEqualTo(DeleteOrderResponse.locked) },
             { assertThat(result.executedVolume).isEqualTo(DeleteOrderResponse.executedVolume) },
             { assertThat(result.tradesCount).isEqualTo(DeleteOrderResponse.tradesCount) }
+        )
+    }
+
+    @Test
+    fun getWithdraws() {
+        // given
+        /**
+         * @see GetWithdrawsResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.getWithdraws(
+            currency = "currency",
+            txids = listOf("txid")
+        )
+
+        // then
+        assertAll("UpbitWithdraw[0]",
+            { assertThat(result[0].type).isEqualTo(GetWithdrawsResponse.type) },
+            { assertThat(result[0].uuid).isEqualTo(GetWithdrawsResponse.uuid) },
+            { assertThat(result[0].currency).isEqualTo(GetWithdrawsResponse.currency) },
+            { assertThat(result[0].txid).isEqualTo(GetWithdrawsResponse.txid) },
+            { assertThat(result[0].state).isEqualTo(GetWithdrawsResponse.state) },
+            { assertThat(result[0].createdAt).isEqualTo(GetWithdrawsResponse.createdAt) },
+            { assertThat(result[0].doneAt).isEqualTo(GetWithdrawsResponse.doneAt) },
+            { assertThat(result[0].amount).isEqualTo(GetWithdrawsResponse.amount) },
+            { assertThat(result[0].fee).isEqualTo(GetWithdrawsResponse.fee) },
+            { assertThat(result[0].transactionType).isEqualTo(GetWithdrawsResponse.transactionType) }
+        )
+    }
+
+    @Test
+    fun getWithdraw() {
+        // given
+        /**
+         * @see GetWithdrawResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.getWithdraw(uuid = "uuid")
+
+        // then
+        assertAll("UpbitWithdraw",
+            { assertThat(result.type).isEqualTo(GetWithdrawResponse.type) },
+            { assertThat(result.uuid).isEqualTo(GetWithdrawResponse.uuid) },
+            { assertThat(result.currency).isEqualTo(GetWithdrawResponse.currency) },
+            { assertThat(result.txid).isEqualTo(GetWithdrawResponse.txid) },
+            { assertThat(result.state).isEqualTo(GetWithdrawResponse.state) },
+            { assertThat(result.createdAt).isEqualTo(GetWithdrawResponse.createdAt) },
+            { assertThat(result.doneAt).isEqualTo(GetWithdrawResponse.doneAt) },
+            { assertThat(result.amount).isEqualTo(GetWithdrawResponse.amount) },
+            { assertThat(result.fee).isEqualTo(GetWithdrawResponse.fee) },
+            { assertThat(result.transactionType).isEqualTo(GetWithdrawResponse.transactionType) }
         )
     }
 

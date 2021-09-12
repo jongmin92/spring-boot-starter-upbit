@@ -16,20 +16,20 @@ interface UpbitExchangeWithdrawsApi {
 
     @GET("v1/withdraws")
     fun getWithdraws(
-        @Query("currency") currency: String,
-        @Query("state") state: String,
+        @Query("currency") currency: String?,
+        @Query("state") state: String?,
         @Query("uuids") uuids: List<String>,
         @Query("txids") txids: List<String>,
-        @Query("page") page: Int = 1,
-        @Query("limit") limit: Int = 100,
-        @Query("order_by") orderBy: String = "desc"
+        @Query("page") page: Int?,
+        @Query("limit") limit: Int?,
+        @Query("order_by") orderBy: String?
     ): Call<List<UpbitWithdrawResponse>>
 
     @GET("v1/withdraw")
     fun getWithdraw(
         @Query("uuid") uuid: String,
-        @Query("txid") txid: String,
-        @Query("currency") currency: String
+        @Query("txid") txid: String?,
+        @Query("currency") currency: String?
     ): Call<UpbitWithdrawResponse>
 
     @GET("v1/withdraws/chance")

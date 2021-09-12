@@ -118,9 +118,10 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun deleteOrder(uuid: String?, identifier: String?): UpbitOrderDelete {
-        val params = mutableMapOf<String, Any>()
-        uuid?.let { params.put("uuid", it) }
-        identifier?.let { params.put("identifier", it) }
+        val params = mutableMapOf<String, Any>().apply {
+            uuid?.let { this["uuid"] = it }
+            identifier?.let { this["identifier"] = it }
+        }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute { ordersApi.deleteOrder(uuid, identifier) }.toDomain()
         }
@@ -158,15 +159,18 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun getWithdraws(
-        currency: String,
-        state: String,
+        currency: String?,
+        state: String?,
         uuids: List<String>,
         txids: List<String>,
-        limit: Int,
-        page: Int,
-        orderBy: String
+        limit: Int?,
+        page: Int?,
+        orderBy: String?
     ): List<UpbitWithdraw> {
-        val params = mapOf("currency" to currency, "txids" to txids)
+        val params = mutableMapOf<String, Any>().apply {
+            currency?.let { this["uuid"] = it }
+            if (txids.isNotEmpty()) this["uuids"] = txids
+        }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute {
                 withdrawsApi.getWithdraws(
@@ -182,7 +186,7 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun getWithdraw(uuid: String, txid: String, currency: String): UpbitWithdraw {
+    override fun getWithdraw(uuid: String, txid: String?, currency: String?): UpbitWithdraw {
         val params = mapOf("uuid" to uuid)
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute { withdrawsApi.getWithdraw(uuid, txid, currency) }.toDomain()

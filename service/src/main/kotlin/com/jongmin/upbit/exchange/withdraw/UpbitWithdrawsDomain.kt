@@ -23,7 +23,7 @@ data class UpbitWithdraw(
      * 설명: 출금의 트랜잭션 아이디
      * 타입: String
      */
-    val txid: String,
+    val txid: String?,
 
     /**
      * 설명: 출금 상태
@@ -41,7 +41,7 @@ data class UpbitWithdraw(
      * 설명: 출금 완료 시간
      * 타입: DateString
      */
-    val doneAt: String,
+    val doneAt: String?,
 
     /**
      * 설명: 출금 금액/수량

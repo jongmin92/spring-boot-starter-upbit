@@ -15,8 +15,13 @@ interface UpbitWithdrawsService {
      * @return 출금 리스트
      */
     fun getWithdraws(
-        currency: String, state: String, uuids: List<String>, txids: List<String>, limit: Int = 1,
-        page: Int = 100, orderBy: String = "desc"
+        currency: String? = null,
+        state: String? = null,
+        uuids: List<String> = emptyList(),
+        txids: List<String> = emptyList(),
+        limit: Int? = null,
+        page: Int? = null,
+        orderBy: String? = null
     ): List<UpbitWithdraw>
 
     /**
@@ -28,7 +33,7 @@ interface UpbitWithdrawsService {
      * @param currency Currency 코드
      * @return 개별 출금 정보
      */
-    fun getWithdraw(uuid: String, txid: String, currency: String): UpbitWithdraw
+    fun getWithdraw(uuid: String, txid: String? = null, currency: String? = null): UpbitWithdraw
 
     /**
      * 출금 가능 정보
