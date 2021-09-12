@@ -1,6 +1,7 @@
 package com.jongmin.upbit.server.mock
 
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
+import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositResponse
 import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
 import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
 import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
@@ -47,6 +48,7 @@ class UpbitMockServer {
                         "/v1/withdraws/coin" -> return ok(PostWithdrawsCoinResponse.fixture)
                         "/v1/withdraws/krw" -> return ok(PostWithdrawsKrwResponse.fixture)
                         // deposits
+                        "/v1/deposit?uuid=uuid" -> return ok(GetDepositResponse.fixture)
                         "/v1/deposits?currency=currency&txids=txid" -> return ok(GetDepositsResponse.fixture)
                     }
                     return notFound()

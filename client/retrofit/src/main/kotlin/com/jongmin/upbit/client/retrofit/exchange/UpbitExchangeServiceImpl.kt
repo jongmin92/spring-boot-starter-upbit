@@ -266,7 +266,7 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun getDeposit(uuid: String, txid: String, currency: String): UpbitDeposit {
+    override fun getDeposit(uuid: String, txid: String?, currency: String?): UpbitDeposit {
         val params = mapOf("uuid" to uuid)
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute { depositsApi.getDeposit(uuid, txid, currency) }.toDomain()

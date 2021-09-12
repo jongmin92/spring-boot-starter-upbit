@@ -414,6 +414,31 @@ class UpbitExchangeRetrofitClientIntegrationTest : UpbitLocalMockServer() {
         )
     }
 
+    @Test
+    fun getDeposit() {
+        // given
+        /**
+         * @see GetDepositResponse.fixture
+         */
+
+        // when
+        val result = upbitExchangeService.getDeposit(uuid = "uuid")
+
+        // then
+        assertAll("UpbitDeposit",
+            { assertThat(result.type).isEqualTo(GetDepositsResponse.type) },
+            { assertThat(result.uuid).isEqualTo(GetDepositsResponse.uuid) },
+            { assertThat(result.currency).isEqualTo(GetDepositsResponse.currency) },
+            { assertThat(result.txid).isEqualTo(GetDepositsResponse.txid) },
+            { assertThat(result.state).isEqualTo(GetDepositsResponse.state) },
+            { assertThat(result.createdAt).isEqualTo(GetDepositsResponse.createdAt) },
+            { assertThat(result.doneAt).isEqualTo(GetDepositsResponse.doneAt) },
+            { assertThat(result.amount).isEqualTo(GetDepositsResponse.amount) },
+            { assertThat(result.fee).isEqualTo(GetDepositsResponse.fee) },
+            { assertThat(result.transactionType).isEqualTo(GetDepositsResponse.transactionType) }
+        )
+    }
+
     @AfterEach
     fun checkAuthorizationTokenExistInRequest() {
         assertThat(upbitMockServer.getAuthorizationToken()).isNotNull

@@ -22,8 +22,8 @@ interface UpbitExchangeDepositsApi {
     @GET("v1/deposit")
     fun getDeposit(
         @Query("uuid") uuid: String,
-        @Query("txid") txid: String,
-        @Query("currency") currency: String
+        @Query("txid") txid: String?,
+        @Query("currency") currency: String?
     ): Call<UpbitDepositResponse>
 
     @POST("v1/deposits/generate_coin_address")

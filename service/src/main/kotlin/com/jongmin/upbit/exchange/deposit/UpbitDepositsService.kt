@@ -32,7 +32,7 @@ interface UpbitDepositsService {
      * @param currency Currency 코드
      * @return 개별 입금 정보
      */
-    fun getDeposit(uuid: String, txid: String, currency: String): UpbitDeposit
+    fun getDeposit(uuid: String, txid: String? = null, currency: String? = null): UpbitDeposit
 
     /**
      * 입금 주소 생성 요청
