@@ -1,29 +1,13 @@
 package com.jongmin.upbit.server.mock
 
 import com.jongmin.upbit.server.mock.exchange.account.GetAccountsResponse
-import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositResponse
-import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsCoinAddressResponse
-import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsCoinAddressesResponse
-import com.jongmin.upbit.server.mock.exchange.deposit.GetDepositsResponse
-import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsGenerateCoinAddressResponse1
-import com.jongmin.upbit.server.mock.exchange.deposit.PostDepositsKrwResponse
+import com.jongmin.upbit.server.mock.exchange.deposit.*
 import com.jongmin.upbit.server.mock.exchange.info.GetApiKyesResponse
 import com.jongmin.upbit.server.mock.exchange.info.GetWalletStatusResponse
-import com.jongmin.upbit.server.mock.exchange.order.DeleteOrderResponse
-import com.jongmin.upbit.server.mock.exchange.order.GetOrderResponse
-import com.jongmin.upbit.server.mock.exchange.order.GetOrdersChanceResponse
-<<<<<<< HEAD
-import com.jongmin.upbit.server.mock.exchange.order.GetOrdersResponse
-import com.jongmin.upbit.server.mock.exchange.order.PostOrdersResponse
-import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawResponse
-import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawsChanceResponse
-import com.jongmin.upbit.server.mock.exchange.withdraw.GetWithdrawsResponse
-import com.jongmin.upbit.server.mock.exchange.withdraw.PostWithdrawsCoinResponse
-import com.jongmin.upbit.server.mock.exchange.withdraw.PostWithdrawsKrwResponse
-=======
+import com.jongmin.upbit.server.mock.exchange.order.*
+import com.jongmin.upbit.server.mock.exchange.withdraw.*
 import com.jongmin.upbit.server.mock.quotation.market.GetMarketResponse
 import com.jongmin.upbit.server.mock.quotation.orderbook.GetOrderbookResponse
->>>>>>> 4fc502b (Add Market, Orderbook integration Test)
 import okhttp3.Protocol
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
@@ -55,8 +39,10 @@ class UpbitMockServer {
 
                         // withdraws
                         "/v1/withdraw?uuid=uuid" -> return ok(GetWithdrawResponse.fixture)
-                        "/v1/withdraws?currency=currency&txids=txid" -> return ok(GetWithdrawsResponse.fixture)
-                        "/v1/withdraws/chance?currency=currency" -> return ok(GetWithdrawsChanceResponse.fixture)
+                        "/v1/withdraws?currency=currency&txids=txid" -> return ok(
+                            GetWithdrawsResponse.fixture)
+                        "/v1/withdraws/chance?currency=currency" -> return ok(
+                            GetWithdrawsChanceResponse.fixture)
                         "/v1/withdraws/coin" -> return ok(PostWithdrawsCoinResponse.fixture)
                         "/v1/withdraws/krw" -> return ok(PostWithdrawsKrwResponse.fixture)
 
