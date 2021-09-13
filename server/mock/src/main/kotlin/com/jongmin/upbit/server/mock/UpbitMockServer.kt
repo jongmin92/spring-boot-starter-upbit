@@ -75,7 +75,7 @@ class UpbitMockServer {
                         "/v1/market/all?isDetails=false" -> return ok(GetMarketResponse.fixture)
 
                         //orderbook
-                        "/v1/orderbook?markets=BTC-KRW" -> {print(GetOrderbookResponse.fixture);return ok(GetOrderbookResponse.fixture)}
+                        "/v1/orderbook?markets=BTC-KRW" -> {return ok(GetOrderbookResponse.fixture)}
                     }
                     return notFound()
                 }
