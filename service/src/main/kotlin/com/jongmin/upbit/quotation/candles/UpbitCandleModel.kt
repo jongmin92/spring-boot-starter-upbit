@@ -1,6 +1,6 @@
 package com.jongmin.upbit.quotation.candles
 
-data class MinuteCandle(
+data class UpbitMinuteCandle(
     /**
      * 설명: 마켓명
      * 타입: String
@@ -68,7 +68,7 @@ data class MinuteCandle(
     val unit: Int
 )
 
-data class DayCandle(
+data class UpbitDayCandle(
     /**
      * 설명: 마켓명
      * 타입: String
@@ -154,7 +154,7 @@ data class DayCandle(
     val convertedTradePrice: Double
 )
 
-data class WeekCandle(
+data class UpbitWeekCandle(
     /**
      * 설명: 마켓명
      * 타입: String
@@ -222,7 +222,7 @@ data class WeekCandle(
     val firstDayOfPeriod: String
 )
 
-data class MonthCandle(
+data class UpbitMonthCandle(
     /**
      * 설명: 마켓명
      * 타입: String

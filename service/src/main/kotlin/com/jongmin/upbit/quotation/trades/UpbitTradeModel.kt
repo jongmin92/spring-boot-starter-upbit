@@ -1,6 +1,6 @@
 package com.jongmin.upbit.quotation.trades
 
-class UpbitTick(
+data class UpbitTick(
 
     /**
      * 설명: 마켓명

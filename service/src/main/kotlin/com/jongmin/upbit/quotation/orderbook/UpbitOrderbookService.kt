@@ -8,5 +8,5 @@ interface UpbitOrderbookService {
      * @param markets 마켓코드 (반점으로 구분  ex. KRW-BTC, BTC-ETH)
      * @return 오더북 정보
      */
-    fun getOrderbooks(markets: String): List<UpbitOrderbook>
+    fun getUpbitOrderbooks(markets: String): List<UpbitOrderbook>
 }

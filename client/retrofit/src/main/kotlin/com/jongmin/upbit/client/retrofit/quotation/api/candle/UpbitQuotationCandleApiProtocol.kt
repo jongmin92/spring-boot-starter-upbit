@@ -1,12 +1,12 @@
 package com.jongmin.upbit.client.retrofit.quotation.api.candle
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.jongmin.upbit.quotation.candles.DayCandle
-import com.jongmin.upbit.quotation.candles.MinuteCandle
-import com.jongmin.upbit.quotation.candles.MonthCandle
-import com.jongmin.upbit.quotation.candles.WeekCandle
+import com.jongmin.upbit.quotation.candles.UpbitDayCandle
+import com.jongmin.upbit.quotation.candles.UpbitMinuteCandle
+import com.jongmin.upbit.quotation.candles.UpbitMonthCandle
+import com.jongmin.upbit.quotation.candles.UpbitWeekCandle
 
-data class MinuteCandleResponse(
+data class UpbitMinuteCandleResponse(
     /**
      * 설명: 마켓명
      * 타입: String
@@ -85,7 +85,7 @@ data class MinuteCandleResponse(
     val unit: Int
 )
 
-data class DayCandleResponse(
+data class UpbitDayCandleResponse(
     /**
      * 설명: 마켓명
      * 타입: String
@@ -185,7 +185,7 @@ data class DayCandleResponse(
     val convertedTradePrice: Double
 )
 
-data class WeekCandleResponse(
+data class UpbitWeekCandleResponse(
     /**
      * 설명: 마켓명
      * 타입: String
@@ -264,7 +264,7 @@ data class WeekCandleResponse(
     val firstDayOfPeriod: String
 )
 
-data class MonthCandleResponse(
+data class UpbitMonthCandleResponse(
     /**
      * 설명: 마켓명
      * 타입: String
@@ -343,7 +343,7 @@ data class MonthCandleResponse(
     val firstDayOfPeriod: String
 )
 
-fun MinuteCandleResponse.toDomain() = MinuteCandle(
+fun UpbitMinuteCandleResponse.toDomain() = UpbitMinuteCandle(
     market = market,
     candleDateTimeUtc = candleDateTimeUtc,
     candleDateTimeKst = candleDateTimeKst,
@@ -357,7 +357,7 @@ fun MinuteCandleResponse.toDomain() = MinuteCandle(
     unit = unit
 )
 
-fun DayCandleResponse.toDomain() = DayCandle(
+fun UpbitDayCandleResponse.toDomain() = UpbitDayCandle(
     market = market,
     candleDateTimeUtc = candleDateTimeUtc,
     candleDateTimeKst = candleDateTimeKst,
@@ -374,7 +374,7 @@ fun DayCandleResponse.toDomain() = DayCandle(
     convertedTradePrice = convertedTradePrice
 )
 
-fun WeekCandleResponse.toDomain() = WeekCandle(
+fun UpbitWeekCandleResponse.toDomain() = UpbitWeekCandle(
     market = market,
     candleDateTimeUtc = candleDateTimeUtc,
     candleDateTimeKst = candleDateTimeKst,
@@ -388,7 +388,7 @@ fun WeekCandleResponse.toDomain() = WeekCandle(
     firstDayOfPeriod = firstDayOfPeriod
 )
 
-fun MonthCandleResponse.toDomain() = MonthCandle(
+fun UpbitMonthCandleResponse.toDomain() = UpbitMonthCandle(
     market = market,
     candleDateTimeUtc = candleDateTimeUtc,
     candleDateTimeKst = candleDateTimeKst,
