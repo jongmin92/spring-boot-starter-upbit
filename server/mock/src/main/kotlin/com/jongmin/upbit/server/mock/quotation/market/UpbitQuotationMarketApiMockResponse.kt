@@ -14,16 +14,16 @@ object GetMarketResponse {
     val fixture = """
         [
           {
-            "market":"$market",
-            "korean_name":"$koreanName",
-            "english_name":"$englishName",
-            "market_warning":"$marketWarning"
+            "market": "$market",
+            "korean_name": "$koreanName",
+            "english_name": "$englishName",
+            "market_warning": "$marketWarning"
           },
           {
-            "market":"$market2",
-            "korean_name":"$koreanName2",
-            "english_name":"$englishName2",
-            "market_warning":"$marketWarning2"
+            "market": "$market2",
+            "korean_name": "$koreanName2",
+            "english_name": "$englishName2",
+            "market_warning": "$marketWarning2"
           }
         ]
     """.trimIndent()

@@ -11,12 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest(classes = [UpbitRetrofitClientAutoConfigure::class])
-class UpbitQuotationRetrofitClientIntegrationTest : UpbitLocalMockServer(){
+class UpbitQuotationRetrofitClientIntegrationTest : UpbitLocalMockServer() {
+
     @Autowired
     lateinit var upbitQuotationService: UpbitQuotationService
 
     @Test
-    fun getMarkets(){
+    fun getMarkets() {
         // given
         /**
          * @see GetMarketResponse.fixture
@@ -26,20 +27,22 @@ class UpbitQuotationRetrofitClientIntegrationTest : UpbitLocalMockServer(){
         val result = upbitQuotationService.getUpbitMarkets()
 
         // then
-        assertAll("UpbitMarkets",
+        assertAll("UpbitMarket[0]",
             { assertThat(result[0].market).isEqualTo(GetMarketResponse.market) },
             { assertThat(result[0].koreanName).isEqualTo(GetMarketResponse.koreanName) },
             { assertThat(result[0].englishName).isEqualTo(GetMarketResponse.englishName) },
-            { assertThat(result[0].marketWarning.name).isEqualTo(GetMarketResponse.marketWarning) },
+            { assertThat(result[0].marketWarning.name).isEqualTo(GetMarketResponse.marketWarning) }
+        )
+        assertAll("UpbitMarket[1]",
             { assertThat(result[1].market).isEqualTo(GetMarketResponse.market2) },
             { assertThat(result[1].koreanName).isEqualTo(GetMarketResponse.koreanName2) },
             { assertThat(result[1].englishName).isEqualTo(GetMarketResponse.englishName2) },
-            { assertThat(result[1].marketWarning.name).isEqualTo(GetMarketResponse.marketWarning2) },
+            { assertThat(result[1].marketWarning.name).isEqualTo(GetMarketResponse.marketWarning2) }
         )
     }
 
     @Test
-    fun getOrderbooks(){
+    fun getOrderbooks() {
         // given
         val markets = "BTC-KRW"
         /**
@@ -50,11 +53,11 @@ class UpbitQuotationRetrofitClientIntegrationTest : UpbitLocalMockServer(){
         val result = upbitQuotationService.getUpbitOrderbooks(markets)
 
         // then
-        assertAll("UpbitOrderbooks",
+        assertAll("UpbitOrderbook[0]",
             { assertThat(result[0].market).isEqualTo(GetOrderbookResponse.market) },
             { assertThat(result[0].totalAskSize).isEqualTo(GetOrderbookResponse.totalAskSize) },
             { assertThat(result[0].totalBidSize).isEqualTo(GetOrderbookResponse.totalBidSize) },
-            { assertThat(result[0].timestamp).isEqualTo(GetOrderbookResponse.timestamp) },
+            { assertThat(result[0].timestamp).isEqualTo(GetOrderbookResponse.timestamp) }
         )
     }
 }
