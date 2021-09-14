@@ -5,13 +5,14 @@ import org.junit.jupiter.api.extension.AfterAllCallback
 import org.junit.jupiter.api.extension.BeforeAllCallback
 import org.junit.jupiter.api.extension.ExtensionContext
 
-class UpbitMockServerExtension : BeforeAllCallback, AfterAllCallback  {
-    private val mockServer = UpbitMockServer()
+class UpbitMockServerExtension : BeforeAllCallback, AfterAllCallback {
+    private lateinit var mockServer: UpbitMockServer
 
     fun getUrl() = mockServer.getUrl()
     fun getAuthorizationToken() = mockServer.getAuthorizationToken()
 
     override fun beforeAll(context: ExtensionContext?) {
+        mockServer = UpbitMockServer()
         mockServer.start()
     }
 
