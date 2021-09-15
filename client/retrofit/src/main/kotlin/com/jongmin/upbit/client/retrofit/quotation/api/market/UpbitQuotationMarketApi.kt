@@ -7,5 +7,5 @@ import retrofit2.http.Query
 interface UpbitQuotationMarketApi {
 
     @GET("v1/market/all")
-    fun getMarkets(@Query("isDetails") isDetails: Boolean? = false): Call<List<UpbitMarketResponse>>
+    fun getMarkets(@Query("isDetails") isDetails: Boolean? = null): Call<List<UpbitMarketResponse>>
 }

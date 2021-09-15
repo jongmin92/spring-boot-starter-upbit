@@ -14,8 +14,8 @@ interface UpbitCandleService {
     fun getUpbitMinuteCandle(
         unit: Int = 1,
         market: String,
-        to: String? = "",
-        count: Int? = 1
+        to: String? = null,
+        count: Int? = null
     ): List<UpbitMinuteCandle>
 
     /**
@@ -29,9 +29,9 @@ interface UpbitCandleService {
      */
     fun getUpbitDayCandles(
         market: String,
-        to: String? = "",
-        count: Int? = 1,
-        convertingPriceUnit: String? = "KRW"
+        to: String? = null,
+        count: Int? = null,
+        convertingPriceUnit: String? = null
     ): List<UpbitDayCandle>
 
     /**
@@ -44,8 +44,8 @@ interface UpbitCandleService {
      */
     fun getUpbitWeekCandles(
         market: String,
-        to: String? = "",
-        count: Int? = 1
+        to: String? = null,
+        count: Int? = null
     ): List<UpbitWeekCandle>
 
     /**
@@ -58,7 +58,7 @@ interface UpbitCandleService {
      */
     fun getUpbitMonthCandles(
         market: String,
-        to: String? = "",
-        count: Int? = 1
+        to: String? = null,
+        count: Int? = null
     ): List<UpbitMonthCandle>
 }

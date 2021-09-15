@@ -11,29 +11,29 @@ interface UpbitQuotationCandleApi {
     fun getUpbitMinuteCandles(
         @Path("unit") unit: Int,
         @Query("market") market: String,
-        @Query("to") to: String?,
-        @Query("count") count: Int?
+        @Query("to") to: String? = null,
+        @Query("count") count: Int? = null
     ): Call<List<UpbitMinuteCandleResponse>>
 
     @GET("v1/candles/days")
     fun getUpbitDayCandles(
         @Query("market") market: String,
-        @Query("to") to: String?,
-        @Query("count") count: Int?,
-        @Query("convertingPriceUnit") convertingPriceUnit: String? = "KRW",
+        @Query("to") to: String? = null,
+        @Query("count") count: Int? = null,
+        @Query("convertingPriceUnit") convertingPriceUnit: String? = null,
     ): Call<List<UpbitDayCandleResponse>>
 
     @GET("v1/candles/weeks")
     fun getUpbitWeekCandles(
         @Query("market") market: String,
-        @Query("to") to: String? = "yyyy-MM-dd HH:mm:ss",
-        @Query("count") count: Int?
+        @Query("to") to: String? = null,
+        @Query("count") count: Int? = null
     ): Call<List<UpbitWeekCandleResponse>>
 
     @GET("v1/candles/months")
     fun getUpbitMonthCandles(
         @Query("market") market: String,
-        @Query("to") to: String? = "yyyy-MM-dd HH:mm:ss",
-        @Query("count") count: Int?
+        @Query("to") to: String? = null,
+        @Query("count") count: Int? = null
     ): Call<List<UpbitMonthCandleResponse>>
 }
