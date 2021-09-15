@@ -686,7 +686,7 @@ data class UpbitOrderPostResponse(
      * 타입: NumberString
      */
     @JsonProperty("avg_price")
-    val avgPrice: String,
+    val avgPrice: String?,
 
     /**
      * 설명: 주문 상태

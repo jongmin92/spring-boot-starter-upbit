@@ -22,7 +22,7 @@ class UpbitExchangeRetrofitClientConfiguration {
     fun authorizationTokenService(upbitClientSettings: UpbitClientSettings) =
         AuthorizationTokenServiceImpl(
             TokenProperties(upbitClientSettings.accessKey, upbitClientSettings.secretKey),
-            UUID::randomUUID::toString
+            { UUID.randomUUID().toString() }
         )
 
     @Bean
