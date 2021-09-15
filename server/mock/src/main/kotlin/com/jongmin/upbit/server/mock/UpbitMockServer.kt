@@ -72,7 +72,7 @@ class UpbitMockServer {
                          * Quotation API
                          */
                         // markets
-                        "/v1/market/all?isDetails=false" -> return ok(GetMarketResponse.fixture)
+                        "/v1/market/all" -> return ok(GetMarketResponse.fixture)
                         // orderbook
                         "/v1/orderbook?markets=BTC-KRW" -> return ok(GetOrderbookResponse.fixture)
                     }

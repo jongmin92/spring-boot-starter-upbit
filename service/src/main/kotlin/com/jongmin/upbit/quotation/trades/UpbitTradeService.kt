@@ -17,9 +17,9 @@ interface UpbitTradeService {
      */
     fun getUpbitTicks(
         market: String,
-        to: String? = "HHmmss",
-        count: Int? = 10,
-        cursor: String?,
-        daysAgo: Int? = 0
+        to: String? = null,
+        count: Int? = null,
+        cursor: String? = null,
+        daysAgo: Int? = null
     ): List<UpbitTick>
 }

@@ -9,5 +9,5 @@ interface UpbitMarketService {
      * @param isDetails 유의종목 필드과 같은 상세 정보 노출 여부
      * @return 마켓 리스트
      */
-    fun getUpbitMarkets(isDetails: Boolean? = false): List<UpbitMarket>
+    fun getUpbitMarkets(isDetails: Boolean? = null): List<UpbitMarket>
 }
