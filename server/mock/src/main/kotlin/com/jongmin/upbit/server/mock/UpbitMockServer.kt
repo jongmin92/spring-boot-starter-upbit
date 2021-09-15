@@ -48,7 +48,7 @@ class UpbitMockServer {
                         }
                         "/v1/orders" -> return ok(PostOrdersResponse.fixture)
                         "/v1/orders/chance?market=market" -> return ok(GetOrdersChanceResponse.fixture)
-                        "/v1/orders?state=done&uuids=uuid" -> return ok(GetOrdersResponse.fixture)
+                        "/v1/orders?state=done&uuids%5B%5D=uuid" -> return ok(GetOrdersResponse.fixture)
                         // withdraws
                         "/v1/withdraw?uuid=uuid" -> return ok(GetWithdrawResponse.fixture)
                         "/v1/withdraws?currency=currency&txids=txid" -> return ok(
