@@ -95,9 +95,9 @@ data class UpbitOrdersChance(
 
             /**
              * 설명: 최소 매도/매수 금액
-             * 타입: Number
+             * 타입: String
              */
-            val minTotal: Int,
+            val minTotal: String,
         )
 
         data class Ask(
@@ -115,9 +115,9 @@ data class UpbitOrdersChance(
 
             /**
              * 설명: 최소 매도/매수 금액
-             * 타입: Number
+             * 타입: String
              */
-            val minTotal: Int,
+            val minTotal: String,
         )
     }
 
@@ -198,7 +198,7 @@ data class UpbitOrdersChance(
     )
 }
 
-data class UpbitOrderIncludingTrades(
+data class UpbitOrderWithTrades(
     /**
      * 설명: 주문의 고유 아이디
      * 타입: String
@@ -357,7 +357,7 @@ data class UpbitOrder(
      * 설명: 주문 당시 화폐 가격
      * 타입: NumberString
      */
-    val price: String,
+    val price: String?,
 
     /**
      * 설명: 주문 상태

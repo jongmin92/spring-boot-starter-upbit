@@ -11,5 +11,4 @@ data class ApiErrorResponse(
     )
 }
 
-fun ApiErrorResponse.toDomainException(cause: Throwable?) =
-    UpbitExchangeException(error.name, error.message, cause)
+fun ApiErrorResponse.toDomainException() = UpbitExchangeException(error.name, error.message)

@@ -3,10 +3,9 @@ package com.jongmin.upbit.client.retrofit.exchange.api.order
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.jongmin.upbit.exchange.order.UpbitOrder
 import com.jongmin.upbit.exchange.order.UpbitOrderDelete
-import com.jongmin.upbit.exchange.order.UpbitOrderIncludingTrades
 import com.jongmin.upbit.exchange.order.UpbitOrderPost
+import com.jongmin.upbit.exchange.order.UpbitOrderWithTrades
 import com.jongmin.upbit.exchange.order.UpbitOrdersChance
-import java.util.UUID
 
 data class UpbitOrdersChanceResponse(
     /**
@@ -118,10 +117,10 @@ data class UpbitOrdersChanceResponse(
 
             /**
              * 설명: 최소 매도/매수 금액
-             * 타입: Number
+             * 타입: String
              */
             @JsonProperty("min_total")
-            val minTotal: Int
+            val minTotal: String
         )
 
         data class Ask(
@@ -141,10 +140,10 @@ data class UpbitOrdersChanceResponse(
 
             /**
              * 설명: 최소 매도/매수 금액
-             * 타입: Number
+             * 타입: String
              */
             @JsonProperty("min_total")
-            val minTotal: Int
+            val minTotal: String
         )
     }
 
@@ -237,7 +236,7 @@ data class UpbitOrdersChanceResponse(
     )
 }
 
-data class UpbitOrderIncludingTradesResponse(
+data class UpbitOrderWithTradesResponse(
     /**
      * 설명: 주문의 고유 아이디
      * 타입: String
@@ -422,7 +421,7 @@ data class UpbitOrderResponse(
      * 타입: NumberString
      */
     @JsonProperty("price")
-    val price: String,
+    val price: String?,
 
     /**
      * 설명: 주문 상태
@@ -650,7 +649,7 @@ data class UpbitOrderPostRequest(
      * 타입: String
      */
     @JsonProperty("identifier")
-    val identifier: String? = UUID.randomUUID().toString()
+    val identifier: String?
 )
 
 data class UpbitOrderPostResponse(
@@ -816,7 +815,7 @@ fun UpbitOrdersChanceResponse.AskAccountResponse.toDomain() = UpbitOrdersChance.
     unitCurrency = unitCurrency
 )
 
-fun UpbitOrderIncludingTradesResponse.toDomain() = UpbitOrderIncludingTrades(
+fun UpbitOrderWithTradesResponse.toDomain() = UpbitOrderWithTrades(
     uuid = uuid,
     side = side,
     ordType = ordType,
@@ -835,7 +834,7 @@ fun UpbitOrderIncludingTradesResponse.toDomain() = UpbitOrderIncludingTrades(
     trades = trades.map { it.toDomain() }
 )
 
-fun UpbitOrderIncludingTradesResponse.TradeResponse.toDomain() = UpbitOrderIncludingTrades.Trade(
+fun UpbitOrderWithTradesResponse.TradeResponse.toDomain() = UpbitOrderWithTrades.Trade(
     market = market,
     uuid = uuid,
     price = price,

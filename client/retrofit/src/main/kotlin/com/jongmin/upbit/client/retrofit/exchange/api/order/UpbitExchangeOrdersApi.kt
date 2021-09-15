@@ -16,15 +16,15 @@ interface UpbitExchangeOrdersApi {
     fun getOrder(
         @Query("uuid") uuid: String?,
         @Query("identifier") identifier: String?
-    ): Call<UpbitOrderIncludingTradesResponse>
+    ): Call<UpbitOrderWithTradesResponse>
 
     @GET("v1/orders")
     fun getOrders(
         @Query("market") market: String?,
         @Query("state") state: String?,
-        @Query("states") states: List<String>,
-        @Query("uuids") uuids: List<String>,
-        @Query("identifiers") identifiers: List<String>,
+        @Query("states[]") states: List<String>,
+        @Query("uuids[]") uuids: List<String>,
+        @Query("identifiers[]") identifiers: List<String>,
         @Query("page") page: Int?,
         @Query("limit") limit: Int?,
         @Query("order_by") orderBy: String?

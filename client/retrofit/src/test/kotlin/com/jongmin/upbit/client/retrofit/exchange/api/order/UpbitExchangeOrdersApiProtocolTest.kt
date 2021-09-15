@@ -177,8 +177,8 @@ internal fun upbitOrdersChanceResponseFixture() = UpbitOrdersChanceResponse(
         name = "name",
         orderTypes = listOf("orderType"),
         orderSides = listOf("orderSide"),
-        bid = UpbitOrdersChanceResponse.MarketResponse.Bid("currency", "priceUnit", 0),
-        ask = UpbitOrdersChanceResponse.MarketResponse.Ask("currency", "priceUnit", 0),
+        bid = UpbitOrdersChanceResponse.MarketResponse.Bid("currency", "priceUnit", "0"),
+        ask = UpbitOrdersChanceResponse.MarketResponse.Ask("currency", "priceUnit", "0"),
         maxTotal = "maxTotal",
         state = "state"
     ),
@@ -200,7 +200,7 @@ internal fun upbitOrdersChanceResponseFixture() = UpbitOrdersChanceResponse(
     )
 )
 
-internal fun upbitOrderIncludingTradesResponseFixture() = UpbitOrderIncludingTradesResponse(
+internal fun upbitOrderIncludingTradesResponseFixture() = UpbitOrderWithTradesResponse(
     uuid = "uuid",
     side = "side",
     ordType = "ordType",
@@ -217,7 +217,7 @@ internal fun upbitOrderIncludingTradesResponseFixture() = UpbitOrderIncludingTra
     executedVolume = "executedVolume",
     tradesCount = 0,
     trades = listOf(
-        UpbitOrderIncludingTradesResponse.TradeResponse(
+        UpbitOrderWithTradesResponse.TradeResponse(
             market = "market",
             uuid = "uuid",
             price = "price",

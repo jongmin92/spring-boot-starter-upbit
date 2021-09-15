@@ -28,7 +28,7 @@ internal fun Map<String, Any>.toQueryString(): String {
     val queryElements = mutableListOf<String>()
     this.forEach { entry ->
         when (entry.value) {
-            is String, Int, Long, Float, Double -> queryElements.add("${entry.key}=${entry.value}")
+            is String, is Int, is Long, is Float, is Double -> queryElements.add("${entry.key}=${entry.value}")
             is List<*> -> {
                 (entry.value as List<*>).forEach {
                     queryElements.add("${entry.key}[]=${it.toString()}")

@@ -10,10 +10,10 @@ object GetOrdersChanceResponse {
     const val marketOrderSide2 = "ask"
     const val marketBidCurrency = "KRW"
     val marketBidPriceUnit = null
-    const val marketBidMinTotal = 1000
+    const val marketBidMinTotal = "1000.0"
     const val marketAskCurrency = "BTC"
     val marketAskPriceUnit = null
-    const val marketAskMinTotal = 1000
+    const val marketAskMinTotal = "1000.0"
     const val maxTotal = "100000000.0"
     const val state = "active"
     const val bidAccountCurrency = "KRW"

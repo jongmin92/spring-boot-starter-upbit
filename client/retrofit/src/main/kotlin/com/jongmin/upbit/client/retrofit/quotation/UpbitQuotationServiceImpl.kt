@@ -1,5 +1,6 @@
 package com.jongmin.upbit.client.retrofit.quotation
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.quotation.api.ApiErrorResponse
@@ -34,6 +35,7 @@ class UpbitQuotationServiceImpl(
 ) : UpbitQuotationService {
 
     private val objectMapper = jacksonObjectMapper().apply {
+        setSerializationInclusion(JsonInclude.Include.NON_NULL)
         disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
     }
 

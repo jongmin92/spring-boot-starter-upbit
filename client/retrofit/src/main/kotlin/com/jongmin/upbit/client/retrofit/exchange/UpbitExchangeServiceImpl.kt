@@ -1,5 +1,6 @@
 package com.jongmin.upbit.client.retrofit.exchange
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.client.retrofit.exchange.api.ApiErrorResponse
@@ -29,8 +30,8 @@ import com.jongmin.upbit.exchange.info.UpbitApiKey
 import com.jongmin.upbit.exchange.info.UpbitWalletStatus
 import com.jongmin.upbit.exchange.order.UpbitOrder
 import com.jongmin.upbit.exchange.order.UpbitOrderDelete
-import com.jongmin.upbit.exchange.order.UpbitOrderIncludingTrades
 import com.jongmin.upbit.exchange.order.UpbitOrderPost
+import com.jongmin.upbit.exchange.order.UpbitOrderWithTrades
 import com.jongmin.upbit.exchange.order.UpbitOrdersChance
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdraw
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawCoinPost
@@ -53,6 +54,7 @@ class UpbitExchangeServiceImpl(
     }
 
     private val objectMapper = jacksonObjectMapper().apply {
+        setSerializationInclusion(JsonInclude.Include.NON_NULL)
         disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
     }
 
@@ -62,7 +64,7 @@ class UpbitExchangeServiceImpl(
             return response.body()!!
         } else {
             throw objectMapper.readValue(response.errorBody()!!.bytes(), ApiErrorResponse::class.java)
-                .toDomainException(null)
+                .toDomainException()
         }
     }
 
@@ -79,10 +81,11 @@ class UpbitExchangeServiceImpl(
         }
     }
 
-    override fun getOrder(uuid: String?, identifier: String?): UpbitOrderIncludingTrades {
-        val params = mutableMapOf<String, Any>()
-        uuid?.let { params.put("uuid", it) }
-        identifier?.let { params.put("identifier", it) }
+    override fun getOrder(uuid: String?, identifier: String?): UpbitOrderWithTrades {
+        val params = mutableMapOf<String, Any>().apply {
+            uuid?.let { this["uuid"] = it }
+            identifier?.let { this["identifier"] = it }
+        }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute { ordersApi.getOrder(uuid, identifier) }.toDomain()
         }
@@ -99,8 +102,14 @@ class UpbitExchangeServiceImpl(
         orderBy: String?
     ): List<UpbitOrder> {
         val params = mutableMapOf<String, Any>().apply {
+            market?.let { this["market"] = it }
             state?.let { this["state"] = it }
+            if (states.isNotEmpty()) this["states"] = states
+            if (identifiers.isNotEmpty()) this["identifiers"] = identifiers
             if (uuids.isNotEmpty()) this["uuids"] = uuids
+            page?.let { this["page"] = it }
+            limit?.let { this["limit"] = it }
+            orderBy?.let { this["order_by"] = it }
         }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute {
@@ -136,13 +145,15 @@ class UpbitExchangeServiceImpl(
         ordType: String,
         identifier: String?
     ): UpbitOrderPost {
-        val params = mapOf<String, Any>(
+        val params = mutableMapOf(
             "market" to market,
             "side" to side,
             "volume" to volume,
             "price" to price,
             "ord_type" to ordType
-        )
+        ).apply {
+            identifier?.let { this["identifier"] = it }
+        }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute {
                 ordersApi.postOrders(
