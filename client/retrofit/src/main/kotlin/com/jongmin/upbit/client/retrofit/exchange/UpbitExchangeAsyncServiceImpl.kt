@@ -26,11 +26,11 @@ import com.jongmin.upbit.token.AuthorizationTokenService
 import java.util.concurrent.CompletableFuture
 
 class UpbitExchangeAsyncServiceImpl(
-    private val accountsApi: UpbitExchangeAccountsAsyncApi,
-    private val ordersApi: UpbitExchangeOrdersAsyncApi,
-    private val withdrawsApi: UpbitExchangeWithdrawsAsyncApi,
-    private val depositsApi: UpbitExchangeDepositsAsyncApi,
-    private val infoApi: UpbitExchangeInfoAsyncApi,
+    private val accountsAsyncApi: UpbitExchangeAccountsAsyncApi,
+    private val ordersAsyncApi: UpbitExchangeOrdersAsyncApi,
+    private val withdrawsAsyncApi: UpbitExchangeWithdrawsAsyncApi,
+    private val depositsAsyncApi: UpbitExchangeDepositsAsyncApi,
+    private val infoAsyncApi: UpbitExchangeInfoAsyncApi,
     private val authorizationTokenService: AuthorizationTokenService
 ) : UpbitExchangeAsyncService {
 
