@@ -1,6 +1,6 @@
 package com.jongmin.upbit.client.retrofit.exchange.api
 
-import com.jongmin.upbit.exchange.UpbitExchangeException
+import com.jongmin.upbit.UpbitException
 
 data class ApiErrorResponse(
     val error: Error
@@ -11,4 +11,4 @@ data class ApiErrorResponse(
     )
 }
 
-fun ApiErrorResponse.toDomainException() = UpbitExchangeException(error.name, error.message)
+fun ApiErrorResponse.toDomainException() = UpbitException(error.name, error.message)

@@ -45,7 +45,7 @@ class UpbitQuotationServiceImpl(
             return response.body()!!
         } else {
             throw objectMapper.readValue(response.errorBody()!!.bytes(), ApiErrorResponse::class.java)
-                .toDomainException(null)
+                .toDomainException()
         }
     }
 
