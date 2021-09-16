@@ -31,13 +31,13 @@ class UpbitQuotationRetrofitClientIntegrationTest : UpbitLocalMockServer() {
             { assertThat(result[0].market).isEqualTo(GetMarketResponse.market) },
             { assertThat(result[0].koreanName).isEqualTo(GetMarketResponse.koreanName) },
             { assertThat(result[0].englishName).isEqualTo(GetMarketResponse.englishName) },
-            { assertThat(result[0].marketWarning.name).isEqualTo(GetMarketResponse.marketWarning) }
+            { assertThat(result[0].marketWarning!!.name).isEqualTo(GetMarketResponse.marketWarning) }
         )
         assertAll("UpbitMarket[1]",
             { assertThat(result[1].market).isEqualTo(GetMarketResponse.market2) },
             { assertThat(result[1].koreanName).isEqualTo(GetMarketResponse.koreanName2) },
             { assertThat(result[1].englishName).isEqualTo(GetMarketResponse.englishName2) },
-            { assertThat(result[1].marketWarning.name).isEqualTo(GetMarketResponse.marketWarning2) }
+            { assertThat(result[1].marketWarning!!.name).isEqualTo(GetMarketResponse.marketWarning2) }
         )
     }
 
