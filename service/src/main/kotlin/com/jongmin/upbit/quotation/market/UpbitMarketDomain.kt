@@ -25,7 +25,7 @@ data class UpbitMarket(
      * 설명: 유의 종목 여부
      * 타입: NONE(해당 사항 없음), CAUTION(투자유의)
      */
-    val marketWarning: MarketWarning
+    val marketWarning: MarketWarning?
 )
 
 enum class MarketWarning(val str: String) {

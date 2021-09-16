@@ -18,7 +18,7 @@ class UpbitQuotationMarketApiProtocolTest {
             { Assertions.assertThat(result.market).isEqualTo(marketResponse.market) },
             { Assertions.assertThat(result.koreanName).isEqualTo(marketResponse.koreanName) },
             { Assertions.assertThat(result.englishName).isEqualTo(marketResponse.englishName) },
-            { Assertions.assertThat(result.marketWarning.name).isEqualTo(marketResponse.marketWarning.name) },
+            { Assertions.assertThat(result.marketWarning!!.name).isEqualTo(marketResponse.marketWarning!!.name) },
         )
     }
 }

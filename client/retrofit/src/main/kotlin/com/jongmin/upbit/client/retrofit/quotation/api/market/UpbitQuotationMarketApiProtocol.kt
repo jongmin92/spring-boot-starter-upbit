@@ -31,7 +31,7 @@ data class UpbitMarketResponse(
      * 타입: NONE(해당 사항 없음), CAUTION(투자유의)
      */
     @JsonProperty("market_warning")
-    val marketWarning: MarketWarningProtocol
+    val marketWarning: MarketWarningProtocol?
 )
 
 enum class MarketWarningProtocol(val str: String) {
@@ -42,5 +42,5 @@ fun UpbitMarketResponse.toDomain() = UpbitMarket(
     market = market,
     koreanName = koreanName,
     englishName = englishName,
-    marketWarning = MarketWarning.valueOf(marketWarning.name)
+    marketWarning = marketWarning?.let { MarketWarning.valueOf(it.name) }
 )
