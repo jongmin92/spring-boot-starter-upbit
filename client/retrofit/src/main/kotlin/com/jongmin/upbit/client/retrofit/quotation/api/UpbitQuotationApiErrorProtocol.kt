@@ -1,6 +1,6 @@
 package com.jongmin.upbit.client.retrofit.quotation.api
 
-import com.jongmin.upbit.quotation.UpbitQuotationException
+import com.jongmin.upbit.UpbitException
 
 data class ApiErrorResponse(
     val error: Error
@@ -11,5 +11,5 @@ data class ApiErrorResponse(
     )
 }
 
-fun ApiErrorResponse.toDomainException(cause: Throwable?) =
-    UpbitQuotationException(error.name, error.message, cause)
+fun ApiErrorResponse.toDomainException() =
+    UpbitException(error.name, error.message)
