@@ -28,10 +28,10 @@ interface UpbitOrdersService {
      *
      * @param market Market ID
      * @param state 주문 상태
-     *  -wait: 체결 대기(default)
-     *  -watch: 예약주문 대기
-     *  -done: 전체 체결 완료
-     *  -cancel: 주문 취소
+     *   -wait: 체결 대기(default)
+     *   -watch: 예약주문 대기
+     *   -done: 전체 체결 완료
+     *   -cancel: 주문 취소
      * @param states 주문 상태의 목록
      *  -미체결 주문(wait, watch)과 완료 주문(done, cancel)은 혼합하여 조회하실 수 없습니다.
      * @param uuids 주문 UUID의 목록

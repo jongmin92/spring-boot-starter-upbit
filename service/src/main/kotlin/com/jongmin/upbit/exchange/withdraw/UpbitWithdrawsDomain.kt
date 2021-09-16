@@ -57,6 +57,8 @@ data class UpbitWithdraw(
 
     /**
      * 설명: 출금 유형
+     *   -default: 일반출금
+     *   -internal: 바로출금
      * 타입: String
      */
     val transactionType: String
@@ -230,7 +232,7 @@ data class UpbitWithdrawsChance(
          * 설명: 1일 출금 한도
          * 타입: NumberString
          */
-        val daily: String,
+        val daily: String?,
 
         /**
          * 설명: 1일 잔여 출금 한도
@@ -281,7 +283,7 @@ data class UpbitWithdrawCoinPost(
      * 설명: 출금의 트랜잭션 아이디
      * 타입: String
      */
-    val txid: String,
+    val txid: String?,
 
     /**
      * 설명: 출금 상태
@@ -349,7 +351,7 @@ data class UpbitWithdrawKrwPost(
      * 설명: 출금의 트랜잭션 아이디
      * 타입: String
      */
-    val txid: String,
+    val txid: String?,
 
     /**
      * 설명: 출금 상태
@@ -383,6 +385,8 @@ data class UpbitWithdrawKrwPost(
 
     /**
      * 설명: 출금 유형
+     *   -default: 일반출금
+     *   -internal: 바로출금
      * 타입: String
      */
     val transactionType: String

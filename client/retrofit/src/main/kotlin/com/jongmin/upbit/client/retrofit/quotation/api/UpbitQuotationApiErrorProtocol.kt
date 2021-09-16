@@ -11,5 +11,4 @@ data class ApiErrorResponse(
     )
 }
 
-fun ApiErrorResponse.toDomainException() =
-    UpbitException(error.name, error.message)
+fun ApiErrorResponse.toDomainException() = UpbitException(error.name, error.message)

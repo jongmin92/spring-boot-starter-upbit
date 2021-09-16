@@ -181,7 +181,12 @@ class UpbitExchangeServiceImpl(
     ): List<UpbitWithdraw> {
         val params = mutableMapOf<String, Any>().apply {
             currency?.let { this["currency"] = it }
+            state?.let { this["state"] = it }
+            if (uuids.isNotEmpty()) this["uuids"] = txids
             if (txids.isNotEmpty()) this["txids"] = txids
+            limit?.let { this["limit"] = it }
+            page?.let { this["page"] = it }
+            orderBy?.let { this["order_by"] = it }
         }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute {
@@ -199,7 +204,10 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun getWithdraw(uuid: String, txid: String?, currency: String?): UpbitWithdraw {
-        val params = mapOf("uuid" to uuid)
+        val params = mutableMapOf("uuid" to uuid).apply {
+            txid?.let { this["txid"] = it }
+            currency?.let { this["currency"] = it }
+        }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute { withdrawsApi.getWithdraw(uuid, txid, currency) }.toDomain()
         }
@@ -219,11 +227,14 @@ class UpbitExchangeServiceImpl(
         secondaryAddress: String?,
         transactionType: String?
     ): UpbitWithdrawCoinPost {
-        val params = mapOf(
+        val params = mutableMapOf(
             "currency" to currency,
             "amount" to amount,
             "address" to address
-        )
+        ).apply {
+            secondaryAddress?.let { this["secondary_address"] = it }
+            transactionType?.let { this["transaction_type"] = it }
+        }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute {
                 withdrawsApi.postWithdrawsCoin(
@@ -261,7 +272,12 @@ class UpbitExchangeServiceImpl(
     ): List<UpbitDeposit> {
         val params = mutableMapOf<String, Any>().apply {
             currency?.let { this["currency"] = it }
+            state?.let { this["state"] = it }
+            if (uuids.isNotEmpty()) this["uuids"] = txids
             if (txids.isNotEmpty()) this["txids"] = txids
+            limit?.let { this["limit"] = it }
+            page?.let { this["page"] = it }
+            orderBy?.let { this["order_by"] = it }
         }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute {
@@ -279,7 +295,10 @@ class UpbitExchangeServiceImpl(
     }
 
     override fun getDeposit(uuid: String, txid: String?, currency: String?): UpbitDeposit {
-        val params = mapOf("uuid" to uuid)
+        val params = mutableMapOf("uuid" to uuid).apply {
+            txid?.let { this["txid"] = it }
+            currency?.let { this["currency"] = it }
+        }
         Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
             return apiExecute { depositsApi.getDeposit(uuid, txid, currency) }.toDomain()
         }

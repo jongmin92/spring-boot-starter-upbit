@@ -273,7 +273,7 @@ data class UpbitWithdrawsChanceResponse(
          * 타입: NumberString
          */
         @JsonProperty("daily")
-        val daily: String,
+        val daily: String?,
 
         /**
          * 설명: 1일 잔여 출금 한도
@@ -369,7 +369,7 @@ data class UpbitWithdrawCoinPostResponse(
      * 타입: String
      */
     @JsonProperty("txid")
-    val txid: String,
+    val txid: String?,
 
     /**
      * 설명: 출금 상태
@@ -457,7 +457,7 @@ data class UpbitWithdrawKrwPostResponse(
      * 타입: String
      */
     @JsonProperty("txid")
-    val txid: String,
+    val txid: String?,
 
     /**
      * 설명: 출금 상태

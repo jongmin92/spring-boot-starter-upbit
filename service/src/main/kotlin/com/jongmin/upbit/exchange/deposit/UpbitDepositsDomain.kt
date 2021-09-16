@@ -57,6 +57,8 @@ data class UpbitDeposit(
 
     /**
      * 설명: 입금 유형
+     *   -default: 일반입금
+     *   -internal: 바로입금
      * 타입: String
      */
     val transactionType: String
@@ -171,6 +173,8 @@ data class UpbitDepositKrw(
 
     /**
      * 설명: 입금 유형
+     *   -default: 일반출금
+     *   -internal: 바로출금
      * 타입: String
      */
     val transactionType: String
