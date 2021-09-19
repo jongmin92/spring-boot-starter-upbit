@@ -26,6 +26,7 @@ allprojects {
 
 configureByTypePrefix("kotlin") {
     apply(plugin = "kotlin")
+    apply(plugin = "org.jetbrains.kotlin.kapt")
 
     configure<JavaPluginExtension> {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -47,7 +48,7 @@ configureByTypeHaving("boot") {
     apply(plugin = "kotlin-spring")
 
     dependencies {
-        annotationProcessor("org.springframework.boot:spring-boot-autoconfigure-processor:2.5.4")
+        kapt("org.springframework.boot:spring-boot-autoconfigure-processor:2.5.4")
 
         implementation("org.springframework.boot:spring-boot")
         implementation("org.springframework.boot:spring-boot-autoconfigure")
