@@ -33,6 +33,11 @@ configureByTypePrefix("kotlin") {
         api(platform("org.springframework.boot:spring-boot-dependencies:2.5.4"))
         api(platform("org.jetbrains.kotlin:kotlin-bom:1.5.30"))
         api(platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.5.2"))
+        api(platform("com.linecorp.armeria:armeria-bom:1.11.0"))
+        listOf("retrofit", "converter-jackson").forEach {
+            api(platform("com.squareup.retrofit2:$it:2.9.0"))
+        }
+
 
         api("org.jetbrains.kotlin:kotlin-reflect")
         api("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
