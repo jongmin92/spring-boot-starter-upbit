@@ -9,6 +9,8 @@ import com.jongmin.upbit.client.retrofit.exchange.api.account.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersAsyncApi
+import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitOrderPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.order.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsAsyncApi
 import com.jongmin.upbit.client.retrofit.quotation.api.ApiErrorResponse
 import com.jongmin.upbit.client.retrofit.quotation.api.toDomainException
@@ -67,11 +69,24 @@ class UpbitExchangeAsyncServiceImpl(
     }
 
     override fun getOrdersChance(market: String): CompletableFuture<UpbitOrdersChance> {
-        TODO("Not yet implemented")
+        val params = mapOf<String, Any>("market" to market)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return ordersAsyncApi.getOrdersChance(market)
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getOrder(uuid: String?, identifier: String?): CompletableFuture<UpbitOrderWithTrades> {
-        TODO("Not yet implemented")
+        val params = mutableMapOf<String, Any>().apply {
+            uuid?.let { this["uuid"] = it }
+            identifier?.let { this["identifier"] = it }
+        }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return ordersAsyncApi.getOrder(uuid, identifier)
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getOrders(
@@ -84,11 +99,42 @@ class UpbitExchangeAsyncServiceImpl(
         limit: Int?,
         orderBy: String?
     ): CompletableFuture<List<UpbitOrder>> {
-        TODO("Not yet implemented")
+        val params = mutableMapOf<String, Any>().apply {
+            market?.let { this["market"] = it }
+            state?.let { this["state"] = it }
+            if (states.isNotEmpty()) this["states"] = states
+            if (identifiers.isNotEmpty()) this["identifiers"] = identifiers
+            if (uuids.isNotEmpty()) this["uuids"] = uuids
+            page?.let { this["page"] = it }
+            limit?.let { this["limit"] = it }
+            orderBy?.let { this["order_by"] = it }
+        }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return ordersAsyncApi.getOrders(
+                market = market,
+                state = state,
+                states = states,
+                uuids = uuids,
+                identifiers = identifiers,
+                page = page,
+                limit = limit,
+                orderBy = orderBy
+            )
+                .thenApply { response -> response.map { it.toDomain() } }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun deleteOrder(uuid: String?, identifier: String?): CompletableFuture<UpbitOrderDelete> {
-        TODO("Not yet implemented")
+        val params = mutableMapOf<String, Any>().apply {
+            uuid?.let { this["uuid"] = it }
+            identifier?.let { this["identifier"] = it }
+        }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return ordersAsyncApi.deleteOrder(uuid, identifier)
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun postOrder(
@@ -99,7 +145,29 @@ class UpbitExchangeAsyncServiceImpl(
         ordType: String,
         identifier: String?
     ): CompletableFuture<UpbitOrderPost> {
-        TODO("Not yet implemented")
+        val params = mutableMapOf(
+            "market" to market,
+            "side" to side,
+            "volume" to volume,
+            "price" to price,
+            "ord_type" to ordType
+        ).apply {
+            identifier?.let { this["identifier"] = it }
+        }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return ordersAsyncApi.postOrders(
+                UpbitOrderPostRequest(
+                    market = market,
+                    side = side,
+                    volume = volume,
+                    price = price,
+                    ordType = ordType,
+                    identifier = identifier
+                )
+            )
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getWithdraws(
