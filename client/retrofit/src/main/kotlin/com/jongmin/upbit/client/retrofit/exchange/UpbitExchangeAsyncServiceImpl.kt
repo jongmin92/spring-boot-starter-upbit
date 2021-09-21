@@ -6,7 +6,10 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.jongmin.upbit.UpbitException
 import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccountsAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.account.toDomain
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitCreateDepositCoinAddressRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitDepositKrwRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsAsyncApi
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitOrderPostRequest
@@ -275,27 +278,75 @@ class UpbitExchangeAsyncServiceImpl(
         page: Int?,
         orderBy: String?
     ): CompletableFuture<List<UpbitDeposit>> {
-        TODO("Not yet implemented")
+        val params = mutableMapOf<String, Any>().apply {
+            currency?.let { this["currency"] = it }
+            state?.let { this["state"] = it }
+            if (uuids.isNotEmpty()) this["uuids"] = txids
+            if (txids.isNotEmpty()) this["txids"] = txids
+            limit?.let { this["limit"] = it }
+            page?.let { this["page"] = it }
+            orderBy?.let { this["order_by"] = it }
+        }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return depositsAsyncApi.getDeposits(
+                currency = currency,
+                state = state,
+                uuids = uuids,
+                txids = txids,
+                page = page,
+                limit = limit,
+                orderBy = orderBy
+            )
+                .thenApply { response -> response.map { it.toDomain() } }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getDeposit(uuid: String, txid: String?, currency: String?): CompletableFuture<UpbitDeposit> {
-        TODO("Not yet implemented")
+        val params = mutableMapOf("uuid" to uuid).apply {
+            txid?.let { this["txid"] = it }
+            currency?.let { this["currency"] = it }
+        }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return depositsAsyncApi.getDeposit(uuid, txid, currency)
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun createDepositCoinAddress(currency: String): CompletableFuture<UpbitCreateDepositCoinAddress> {
-        TODO("Not yet implemented")
+        val params = mapOf("currency" to currency)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return depositsAsyncApi.createDepositCoinAddress(UpbitCreateDepositCoinAddressRequest(currency))
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getDepositsCoinAddresses(): CompletableFuture<List<UpbitDepositCoinAddress>> {
-        TODO("Not yet implemented")
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken()).use {
+            return depositsAsyncApi.getDepositCoinAddresses()
+                .thenApply { response -> response.map { it.toDomain() } }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getDepositsCoinAddress(currency: String): CompletableFuture<UpbitDepositCoinAddress> {
-        TODO("Not yet implemented")
+        val params = mapOf("currency" to currency)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return depositsAsyncApi.getDepositsCoinAddress(currency)
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun postDepositKrw(amount: String): CompletableFuture<UpbitDepositKrw> {
-        TODO("Not yet implemented")
+        val params = mapOf("amount" to amount)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return depositsAsyncApi.postDepositsKrw(UpbitDepositKrwRequest(amount))
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getWalletStatus(): CompletableFuture<List<UpbitWalletStatus>> {
