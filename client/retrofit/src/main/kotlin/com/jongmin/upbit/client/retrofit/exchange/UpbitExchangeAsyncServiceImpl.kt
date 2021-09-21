@@ -1,10 +1,17 @@
 package com.jongmin.upbit.client.retrofit.exchange
 
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.jongmin.upbit.UpbitException
 import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccountsAsyncApi
+import com.jongmin.upbit.client.retrofit.exchange.api.account.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsAsyncApi
+import com.jongmin.upbit.client.retrofit.quotation.api.ApiErrorResponse
+import com.jongmin.upbit.client.retrofit.quotation.api.toDomainException
 import com.jongmin.upbit.exchange.UpbitExchangeAsyncService
 import com.jongmin.upbit.exchange.account.UpbitAccount
 import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
@@ -23,6 +30,8 @@ import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawCoinPost
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawKrwPost
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawsChance
 import com.jongmin.upbit.token.AuthorizationTokenService
+import com.linecorp.armeria.client.Clients
+import retrofit2.HttpException
 import java.util.concurrent.CompletableFuture
 
 class UpbitExchangeAsyncServiceImpl(
@@ -33,9 +42,28 @@ class UpbitExchangeAsyncServiceImpl(
     private val infoAsyncApi: UpbitExchangeInfoAsyncApi,
     private val authorizationTokenService: AuthorizationTokenService
 ) : UpbitExchangeAsyncService {
+    companion object {
+        const val AUTHORIZATION_HEADER = "Authorization"
+    }
+
+    private val objectMapper = jacksonObjectMapper().apply {
+        setSerializationInclusion(JsonInclude.Include.NON_NULL)
+        disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+    }
+
+    private fun handleApiException(e: Throwable): Nothing {
+        throw (e.cause as? HttpException)?.let {
+            objectMapper.readValue(it.response()?.errorBody()!!.bytes(), ApiErrorResponse::class.java)
+                .toDomainException()
+        } ?: UpbitException("unknown error", e.message ?: "")
+    }
 
     override fun getAccounts(): CompletableFuture<List<UpbitAccount>> {
-        TODO("Not yet implemented")
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken()).use {
+            return accountsAsyncApi.getAccounts()
+                .thenApply { response -> response.map { it.toDomain() } }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getOrdersChance(market: String): CompletableFuture<UpbitOrdersChance> {
