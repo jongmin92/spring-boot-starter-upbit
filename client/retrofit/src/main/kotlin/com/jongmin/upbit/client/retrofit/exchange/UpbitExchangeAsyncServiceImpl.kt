@@ -11,6 +11,9 @@ import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoAsyn
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitOrderPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.order.toDomain
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawKrwPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsAsyncApi
 import com.jongmin.upbit.client.retrofit.quotation.api.ApiErrorResponse
 import com.jongmin.upbit.client.retrofit.quotation.api.toDomainException
@@ -179,15 +182,49 @@ class UpbitExchangeAsyncServiceImpl(
         page: Int?,
         orderBy: String?
     ): CompletableFuture<List<UpbitWithdraw>> {
-        TODO("Not yet implemented")
+        val params = mutableMapOf<String, Any>().apply {
+            currency?.let { this["currency"] = it }
+            state?.let { this["state"] = it }
+            if (uuids.isNotEmpty()) this["uuids"] = txids
+            if (txids.isNotEmpty()) this["txids"] = txids
+            limit?.let { this["limit"] = it }
+            page?.let { this["page"] = it }
+            orderBy?.let { this["order_by"] = it }
+        }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return withdrawsAsyncApi.getWithdraws(
+                currency = currency,
+                state = state,
+                uuids = uuids,
+                txids = txids,
+                limit = limit,
+                page = page,
+                orderBy = orderBy
+            )
+                .thenApply { response -> response.map { it.toDomain() } }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getWithdraw(uuid: String, txid: String?, currency: String?): CompletableFuture<UpbitWithdraw> {
-        TODO("Not yet implemented")
+        val params = mutableMapOf("uuid" to uuid).apply {
+            txid?.let { this["txid"] = it }
+            currency?.let { this["currency"] = it }
+        }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return withdrawsAsyncApi.getWithdraw(uuid, txid, currency)
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getWithdrawsChance(currency: String): CompletableFuture<UpbitWithdrawsChance> {
-        TODO("Not yet implemented")
+        val params = mapOf("currency" to currency)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return withdrawsAsyncApi.getWithdrawsChance(currency)
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun postWithdrawCoin(
@@ -197,11 +234,36 @@ class UpbitExchangeAsyncServiceImpl(
         secondaryAddress: String?,
         transactionType: String?
     ): CompletableFuture<UpbitWithdrawCoinPost> {
-        TODO("Not yet implemented")
+        val params = mutableMapOf(
+            "currency" to currency,
+            "amount" to amount,
+            "address" to address,
+        ).apply {
+            secondaryAddress?.let { this["secondary_address"] = it }
+            transactionType?.let { this["transaction_type"] = it }
+        }
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return withdrawsAsyncApi.postWithdrawsCoin(
+                UpbitWithdrawCoinPostRequest(
+                    currency = currency,
+                    amount = amount,
+                    address = address,
+                    secondaryAddress = secondaryAddress,
+                    transactionType = transactionType
+                )
+            )
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun postWithdrawKrw(amount: String): CompletableFuture<UpbitWithdrawKrwPost> {
-        TODO("Not yet implemented")
+        val params = mapOf("amount" to amount)
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken(params)).use {
+            return withdrawsAsyncApi.postWithdrawsKrw(UpbitWithdrawKrwPostRequest(amount))
+                .thenApply { it.toDomain() }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getDeposits(
