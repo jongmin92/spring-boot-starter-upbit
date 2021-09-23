@@ -5,9 +5,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.linecorp.build-recipe-plugin") version "1.1.1"
-    kotlin("jvm") version "1.5.30"
-    kotlin("kapt") version "1.5.30"
-    kotlin("plugin.spring") version "1.5.30" apply false
+    kotlin("jvm") version "1.5.31"
+    kotlin("kapt") version "1.5.31"
+    kotlin("plugin.spring") version "1.5.31" apply false
 }
 
 allprojects {
