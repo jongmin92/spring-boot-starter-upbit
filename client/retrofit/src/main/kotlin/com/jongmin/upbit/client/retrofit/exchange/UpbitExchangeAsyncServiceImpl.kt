@@ -11,6 +11,7 @@ import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitDepositKrwReq
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoAsyncApi
+import com.jongmin.upbit.client.retrofit.exchange.api.info.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitOrderPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.order.toDomain
@@ -350,10 +351,18 @@ class UpbitExchangeAsyncServiceImpl(
     }
 
     override fun getWalletStatus(): CompletableFuture<List<UpbitWalletStatus>> {
-        TODO("Not yet implemented")
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken()).use {
+            return infoAsyncApi.getWalletStatus()
+                .thenApply { response -> response.map { it.toDomain() } }
+                .exceptionally { handleApiException(it) }
+        }
     }
 
     override fun getApiKeys(): CompletableFuture<List<UpbitApiKey>> {
-        TODO("Not yet implemented")
+        Clients.withHeader(AUTHORIZATION_HEADER, authorizationTokenService.createToken()).use {
+            return infoAsyncApi.getApiKeys()
+                .thenApply { response -> response.map { it.toDomain() } }
+                .exceptionally { handleApiException(it) }
+        }
     }
 }
