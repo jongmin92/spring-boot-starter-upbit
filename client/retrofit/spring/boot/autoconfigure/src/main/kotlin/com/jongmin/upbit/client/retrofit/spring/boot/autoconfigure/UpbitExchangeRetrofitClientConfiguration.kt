@@ -3,17 +3,13 @@ package com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure
 import com.jongmin.upbit.client.retrofit.RetrofitApiFactoryService
 import com.jongmin.upbit.client.retrofit.exchange.UpbitExchangeAsyncServiceImpl
 import com.jongmin.upbit.client.retrofit.exchange.UpbitExchangeServiceImpl
-import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccountsApi
 import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccountsAsyncApi
-import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsApi
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsAsyncApi
-import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoApi
 import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoAsyncApi
-import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersApi
 import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersAsyncApi
-import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsApi
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsAsyncApi
 import com.jongmin.upbit.client.retrofit.spring.boot.UpbitClientSettings
+import com.jongmin.upbit.exchange.UpbitExchangeAsyncService
 import com.jongmin.upbit.token.AuthorizationTokenService
 import com.jongmin.upbit.token.AuthorizationTokenServiceImpl
 import com.jongmin.upbit.token.TokenProperties
@@ -32,19 +28,6 @@ class UpbitExchangeRetrofitClientConfiguration {
         )
 
     @Bean
-    fun upbitExchangeService(
-        retrofitApiFactoryService: RetrofitApiFactoryService,
-        authorizationTokenService: AuthorizationTokenService
-    ) = UpbitExchangeServiceImpl(
-        accountsApi = retrofitApiFactoryService.default(UpbitExchangeAccountsApi::class.java),
-        ordersApi = retrofitApiFactoryService.default(UpbitExchangeOrdersApi::class.java),
-        withdrawsApi = retrofitApiFactoryService.default(UpbitExchangeWithdrawsApi::class.java),
-        depositsApi = retrofitApiFactoryService.default(UpbitExchangeDepositsApi::class.java),
-        infoApi = retrofitApiFactoryService.default(UpbitExchangeInfoApi::class.java),
-        authorizationTokenService = authorizationTokenService
-    )
-
-    @Bean
     fun upbitExchangeAsyncService(
         retrofitApiFactoryService: RetrofitApiFactoryService,
         authorizationTokenService: AuthorizationTokenService
@@ -56,4 +39,9 @@ class UpbitExchangeRetrofitClientConfiguration {
         infoAsyncApi = retrofitApiFactoryService.default(UpbitExchangeInfoAsyncApi::class.java),
         authorizationTokenService = authorizationTokenService
     )
+
+    @Bean
+    fun upbitExchangeService(
+        upbitExchangeAsyncService: UpbitExchangeAsyncService
+    ) = UpbitExchangeServiceImpl(upbitExchangeAsyncService)
 }

@@ -1,48 +1,74 @@
 package com.jongmin.upbit.client.retrofit.exchange
 
+import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccountsAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.account.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.account.upbitAccountResponseFixture
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitCreateDepositCoinAddressRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitDepositKrwRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.upbitCreateDepositCoinAddressResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.upbitDepositCoinAddressResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.upbitDepositKrwResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.deposit.upbitDepositResponseFixture
+import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.info.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.info.upbitApiKeyResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.info.upbitWalletStatusResponseFixture
+import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersAsyncApi
+import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitOrderPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.order.toDomain
 import com.jongmin.upbit.client.retrofit.exchange.api.order.upbitOrderDeleteResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.order.upbitOrderIncludingTradesResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.order.upbitOrderPostResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.order.upbitOrderResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.order.upbitOrdersChanceResponseFixture
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawCoinPostRequest
+import com.jongmin.upbit.client.retrofit.exchange.api.protocol.UpbitWithdrawKrwPostRequest
 import com.jongmin.upbit.client.retrofit.exchange.api.protocol.toDomain
+import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsAsyncApi
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.upbitWithdrawCoinPostResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.upbitWithdrawKrwPostResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.upbitWithdrawResponseFixture
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.upbitWithdrawsChanceResponseFixture
 import com.jongmin.upbit.client.retrofit.utils.success
-import com.jongmin.upbit.exchange.UpbitExchangeAsyncService
+import com.jongmin.upbit.token.AuthorizationTokenService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
+import org.mockito.kotlin.any
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-class UpbitExchangeServiceImplTest {
-    private val upbitExchangeAsyncService = mock<UpbitExchangeAsyncService>()
+class UpbitExchangeAsyncServiceImplTest {
+    private val accountsAsyncApi = mock<UpbitExchangeAccountsAsyncApi>()
+    private val ordersAsyncApi = mock<UpbitExchangeOrdersAsyncApi>()
+    private val withdrawsAsyncApi = mock<UpbitExchangeWithdrawsAsyncApi>()
+    private val depositsAsyncApi = mock<UpbitExchangeDepositsAsyncApi>()
+    private val infoAsyncApi = mock<UpbitExchangeInfoAsyncApi>()
+    private val authorizationTokenService = mock<AuthorizationTokenService> {
+        on { createToken() } doReturn "token"
+        on { createToken(any()) } doReturn "token"
+    }
 
-    private val cut = UpbitExchangeServiceImpl(upbitExchangeAsyncService)
+    private val cut = UpbitExchangeAsyncServiceImpl(
+        accountsAsyncApi = accountsAsyncApi,
+        ordersAsyncApi = ordersAsyncApi,
+        withdrawsAsyncApi = withdrawsAsyncApi,
+        depositsAsyncApi = depositsAsyncApi,
+        infoAsyncApi = infoAsyncApi,
+        authorizationTokenService = authorizationTokenService
+    )
 
     @Test
     fun getAccounts() {
         // given
         val accountResponse = upbitAccountResponseFixture()
-        whenever(upbitExchangeAsyncService.getAccounts())
-            .thenReturn(success(listOf(accountResponse.toDomain())))
+        whenever(accountsAsyncApi.getAccounts()).thenReturn(success(listOf(accountResponse)))
 
         // when
-        val result = cut.getAccounts()
+        val result = cut.getAccounts().joining()
 
         // then
         assertAll("account",
@@ -56,11 +82,10 @@ class UpbitExchangeServiceImplTest {
         // given
         val market = "market"
         val ordersChanceResponse = upbitOrdersChanceResponseFixture()
-        whenever(upbitExchangeAsyncService.getOrdersChance(market))
-            .thenReturn(success(ordersChanceResponse.toDomain()))
+        whenever(ordersAsyncApi.getOrdersChance(market)).thenReturn(success(ordersChanceResponse))
 
         // when
-        val result = cut.getOrdersChance(market)
+        val result = cut.getOrdersChance(market).joining()
 
         // then
         assertThat(result).isEqualTo(ordersChanceResponse.toDomain())
@@ -72,11 +97,10 @@ class UpbitExchangeServiceImplTest {
         val uuid = "uuid"
         val identifier = "identifier"
         val orderResponse = upbitOrderIncludingTradesResponseFixture()
-        whenever(upbitExchangeAsyncService.getOrder(uuid, identifier))
-            .thenReturn(success(orderResponse.toDomain()))
+        whenever(ordersAsyncApi.getOrder(uuid, identifier)).thenReturn(success(orderResponse))
 
         // when
-        val result = cut.getOrder(uuid, identifier)
+        val result = cut.getOrder(uuid, identifier).joining()
 
         // then
         assertThat(result).isEqualTo(orderResponse.toDomain())
@@ -95,7 +119,7 @@ class UpbitExchangeServiceImplTest {
         val orderBy = "orderBy"
         val orderResponse = upbitOrderResponseFixture()
         whenever(
-            upbitExchangeAsyncService.getOrders(
+            ordersAsyncApi.getOrders(
                 market = market,
                 state = state,
                 states = states,
@@ -105,7 +129,7 @@ class UpbitExchangeServiceImplTest {
                 limit = limit,
                 orderBy = orderBy
             )
-        ).thenReturn(success(listOf(orderResponse.toDomain())))
+        ).thenReturn(success(listOf(orderResponse)))
 
         // when
         val result = cut.getOrders(
@@ -117,7 +141,7 @@ class UpbitExchangeServiceImplTest {
             page = page,
             limit = limit,
             orderBy = orderBy
-        )
+        ).joining()
 
         // then
         assertAll("orders",
@@ -132,11 +156,10 @@ class UpbitExchangeServiceImplTest {
         val uuid = "uuid"
         val identifier = "identifier"
         val orderDeleteResponse = upbitOrderDeleteResponseFixture()
-        whenever(upbitExchangeAsyncService.deleteOrder(uuid, identifier))
-            .thenReturn(success(orderDeleteResponse.toDomain()))
+        whenever(ordersAsyncApi.deleteOrder(uuid, identifier)).thenReturn(success(orderDeleteResponse))
 
         // when
-        val result = cut.deleteOrder(uuid, identifier)
+        val result = cut.deleteOrder(uuid, identifier).joining()
 
         // then
         assertThat(result).isEqualTo(orderDeleteResponse.toDomain())
@@ -153,15 +176,17 @@ class UpbitExchangeServiceImplTest {
         val identifier = "identifier"
         val orderPostResponse = upbitOrderPostResponseFixture()
         whenever(
-            upbitExchangeAsyncService.postOrder(
-                market = market,
-                side = side,
-                volume = volume,
-                price = price,
-                ordType = ordType,
-                identifier = identifier
+            ordersAsyncApi.postOrders(
+                UpbitOrderPostRequest(
+                    market = market,
+                    side = side,
+                    volume = volume,
+                    price = price,
+                    ordType = ordType,
+                    identifier = identifier
+                )
             )
-        ).thenReturn(success(orderPostResponse.toDomain()))
+        ).thenReturn(success(orderPostResponse))
 
         // when
         val result = cut.postOrder(
@@ -171,7 +196,7 @@ class UpbitExchangeServiceImplTest {
             price = price,
             ordType = ordType,
             identifier = identifier
-        )
+        ).joining()
 
         // then
         assertThat(result).isEqualTo(orderPostResponse.toDomain())
@@ -189,7 +214,7 @@ class UpbitExchangeServiceImplTest {
         val orderBy = "orderBy"
         val withdrawResponse = upbitWithdrawResponseFixture()
         whenever(
-            upbitExchangeAsyncService.getWithdraws(
+            withdrawsAsyncApi.getWithdraws(
                 currency = currency,
                 state = state,
                 uuids = uuids,
@@ -198,7 +223,7 @@ class UpbitExchangeServiceImplTest {
                 page = page,
                 orderBy = orderBy
             )
-        ).thenReturn(success(listOf(withdrawResponse.toDomain())))
+        ).thenReturn(success(listOf(withdrawResponse)))
 
         // when
         val result = cut.getWithdraws(
@@ -209,7 +234,7 @@ class UpbitExchangeServiceImplTest {
             limit = limit,
             page = page,
             orderBy = orderBy
-        )
+        ).joining()
 
         // then
         assertAll("withdraw",
@@ -225,11 +250,10 @@ class UpbitExchangeServiceImplTest {
         val txid = "txid"
         val currency = "currency"
         val withdrawResponse = upbitWithdrawResponseFixture()
-        whenever(upbitExchangeAsyncService.getWithdraw(uuid, txid, currency))
-            .thenReturn(success(withdrawResponse.toDomain()))
+        doReturn(success(withdrawResponse)).whenever(withdrawsAsyncApi).getWithdraw(uuid, txid, currency)
 
         // when
-        val result = cut.getWithdraw(uuid, txid, currency)
+        val result = cut.getWithdraw(uuid, txid, currency).joining()
 
         // then
         assertThat(result).isEqualTo(withdrawResponse.toDomain())
@@ -240,11 +264,10 @@ class UpbitExchangeServiceImplTest {
         // given
         val currency = "currency"
         val withdrawsChanceResponse = upbitWithdrawsChanceResponseFixture()
-        whenever(upbitExchangeAsyncService.getWithdrawsChance(currency))
-            .thenReturn(success(withdrawsChanceResponse.toDomain()))
+        whenever(withdrawsAsyncApi.getWithdrawsChance(currency)).thenReturn(success(withdrawsChanceResponse))
 
         // when
-        val result = cut.getWithdrawsChance(currency)
+        val result = cut.getWithdrawsChance(currency).joining()
 
         // then
         assertThat(result).isEqualTo(withdrawsChanceResponse.toDomain())
@@ -260,14 +283,16 @@ class UpbitExchangeServiceImplTest {
         val transactionType = "transactionType"
         val withdrawCoinPostResponse = upbitWithdrawCoinPostResponseFixture()
         whenever(
-            upbitExchangeAsyncService.postWithdrawCoin(
-                currency = currency,
-                amount = amount,
-                address = address,
-                secondaryAddress = secondaryAddress,
-                transactionType = transactionType
+            withdrawsAsyncApi.postWithdrawsCoin(
+                UpbitWithdrawCoinPostRequest(
+                    currency = currency,
+                    amount = amount,
+                    address = address,
+                    secondaryAddress = secondaryAddress,
+                    transactionType = transactionType
+                )
             )
-        ).thenReturn(success(withdrawCoinPostResponse.toDomain()))
+        ).thenReturn(success(withdrawCoinPostResponse))
 
         // when
         val result = cut.postWithdrawCoin(
@@ -276,7 +301,7 @@ class UpbitExchangeServiceImplTest {
             address = address,
             secondaryAddress = secondaryAddress,
             transactionType = transactionType
-        )
+        ).joining()
 
         // then
         assertThat(result).isEqualTo(withdrawCoinPostResponse.toDomain())
@@ -287,11 +312,11 @@ class UpbitExchangeServiceImplTest {
         // given
         val amount = "amount"
         val withdrawKrwPostResponse = upbitWithdrawKrwPostResponseFixture()
-        whenever(upbitExchangeAsyncService.postWithdrawKrw(amount))
-            .thenReturn(success(withdrawKrwPostResponse.toDomain()))
+        whenever(withdrawsAsyncApi.postWithdrawsKrw(UpbitWithdrawKrwPostRequest(amount)))
+            .thenReturn(success(withdrawKrwPostResponse))
 
         // when
-        val result = cut.postWithdrawKrw(amount)
+        val result = cut.postWithdrawKrw(amount).joining()
 
         // then
         assertThat(result).isEqualTo(withdrawKrwPostResponse.toDomain())
@@ -309,7 +334,7 @@ class UpbitExchangeServiceImplTest {
         val orderBy = "orderBy"
         val depositResponse = upbitDepositResponseFixture()
         whenever(
-            upbitExchangeAsyncService.getDeposits(
+            depositsAsyncApi.getDeposits(
                 currency = currency,
                 state = state,
                 uuids = uuids,
@@ -318,7 +343,7 @@ class UpbitExchangeServiceImplTest {
                 page = page,
                 orderBy = orderBy
             )
-        ).thenReturn(success(listOf(depositResponse.toDomain())))
+        ).thenReturn(success(listOf(depositResponse)))
 
         // when
         val result = cut.getDeposits(
@@ -329,7 +354,7 @@ class UpbitExchangeServiceImplTest {
             limit = limit,
             page = page,
             orderBy = orderBy
-        )
+        ).joining()
 
         // then
         assertAll("deposit",
@@ -345,11 +370,10 @@ class UpbitExchangeServiceImplTest {
         val txid = "txid"
         val currency = "currency"
         val depositResponse = upbitDepositResponseFixture()
-        whenever(upbitExchangeAsyncService.getDeposit(uuid, txid, currency))
-            .thenReturn(success(depositResponse.toDomain()))
+        whenever(depositsAsyncApi.getDeposit(uuid, txid, currency)).thenReturn(success(depositResponse))
 
         // when
-        val result = cut.getDeposit(uuid, txid, currency)
+        val result = cut.getDeposit(uuid, txid, currency).joining()
 
         // then
         assertThat(result).isEqualTo(depositResponse.toDomain())
@@ -360,11 +384,11 @@ class UpbitExchangeServiceImplTest {
         // given
         val currency = "currency"
         val depositCoinAddressResponse = upbitCreateDepositCoinAddressResponseFixture()
-        whenever(upbitExchangeAsyncService.createDepositCoinAddress(currency))
-            .thenReturn(success(depositCoinAddressResponse.toDomain()))
+        whenever(depositsAsyncApi.createDepositCoinAddress(UpbitCreateDepositCoinAddressRequest(currency)))
+            .thenReturn(success(depositCoinAddressResponse))
 
         // when
-        val result = cut.createDepositCoinAddress(currency)
+        val result = cut.createDepositCoinAddress(currency).joining()
 
         // then
         assertThat(result).isEqualTo(depositCoinAddressResponse.toDomain())
@@ -374,11 +398,11 @@ class UpbitExchangeServiceImplTest {
     fun getDepositsCoinAddresses() {
         // given
         val depositCoinAddressResponse = upbitDepositCoinAddressResponseFixture()
-        whenever(upbitExchangeAsyncService.getDepositsCoinAddresses())
-            .thenReturn(success(listOf(depositCoinAddressResponse.toDomain())))
+        whenever(depositsAsyncApi.getDepositCoinAddresses())
+            .thenReturn(success(listOf(depositCoinAddressResponse)))
 
         // when
-        val result = cut.getDepositsCoinAddresses()
+        val result = cut.getDepositsCoinAddresses().joining()
 
         // then
         assertAll("depositCoinAddress",
@@ -392,11 +416,11 @@ class UpbitExchangeServiceImplTest {
         // given
         val currency = "currency"
         val depositCoinAddressResponse = upbitDepositCoinAddressResponseFixture()
-        whenever(upbitExchangeAsyncService.getDepositsCoinAddress(currency))
-            .thenReturn(success(depositCoinAddressResponse.toDomain()))
+        whenever(depositsAsyncApi.getDepositsCoinAddress(currency))
+            .thenReturn(success(depositCoinAddressResponse))
 
         // when
-        val result = cut.getDepositsCoinAddress(currency)
+        val result = cut.getDepositsCoinAddress(currency).joining()
 
         // then
         assertThat(result).isEqualTo(depositCoinAddressResponse.toDomain())
@@ -407,11 +431,11 @@ class UpbitExchangeServiceImplTest {
         // given
         val amount = "amount"
         val depositKrwResponse = upbitDepositKrwResponseFixture()
-        whenever(upbitExchangeAsyncService.postDepositKrw(amount))
-            .thenReturn(success(depositKrwResponse.toDomain()))
+        whenever(depositsAsyncApi.postDepositsKrw(UpbitDepositKrwRequest(amount)))
+            .thenReturn(success(depositKrwResponse))
 
         // when
-        val result = cut.postDepositKrw(amount)
+        val result = cut.postDepositKrw(amount).joining()
 
         // then
         assertThat(result).isEqualTo(depositKrwResponse.toDomain())
@@ -421,11 +445,10 @@ class UpbitExchangeServiceImplTest {
     fun getWalletStatus() {
         // given
         val walletStatusResponse = upbitWalletStatusResponseFixture()
-        whenever(upbitExchangeAsyncService.getWalletStatus())
-            .thenReturn(success(listOf(walletStatusResponse.toDomain())))
+        whenever(infoAsyncApi.getWalletStatus()).thenReturn(success(listOf(walletStatusResponse)))
 
         // when
-        val result = cut.getWalletStatus()
+        val result = cut.getWalletStatus().joining()
 
         // then
         assertAll("walletStatus",
@@ -438,11 +461,10 @@ class UpbitExchangeServiceImplTest {
     fun getApiKeys() {
         // given
         val apiKeyResponse = upbitApiKeyResponseFixture()
-        whenever(upbitExchangeAsyncService.getApiKeys())
-            .thenReturn(success(listOf(apiKeyResponse.toDomain())))
+        whenever(infoAsyncApi.getApiKeys()).thenReturn(success(listOf(apiKeyResponse)))
 
         // when
-        val result = cut.getApiKeys()
+        val result = cut.getApiKeys().joining()
 
         // then
         assertAll("apiKey",

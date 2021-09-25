@@ -45,6 +45,7 @@ class UpbitQuotationRetrofitClientIntegrationTest : UpbitLocalMockServer() {
     fun getOrderbooks() {
         // given
         val markets = "BTC-KRW"
+
         /**
          * @see GetOrderbookResponse.fixture
          */

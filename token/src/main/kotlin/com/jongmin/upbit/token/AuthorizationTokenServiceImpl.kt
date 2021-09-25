@@ -8,7 +8,7 @@ import java.security.MessageDigest
 
 class AuthorizationTokenServiceImpl(
     private val properties: TokenProperties,
-    private val nonceGenerator: () -> String
+    private inline val nonceGenerator: () -> String
 ) : AuthorizationTokenService {
     override fun createToken(parameter: Map<String, Any>): String {
         val token = Jwts.builder().apply {

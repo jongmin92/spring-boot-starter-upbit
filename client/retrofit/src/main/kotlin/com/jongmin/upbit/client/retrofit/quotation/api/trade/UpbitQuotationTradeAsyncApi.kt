@@ -1,10 +1,10 @@
 package com.jongmin.upbit.client.retrofit.quotation.api.trade
 
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.concurrent.CompletableFuture
 
-interface UpbitQuotationTradeApi {
+interface UpbitQuotationTradeAsyncApi {
 
     @GET("v1/trades/ticks")
     fun getTradeTicks(
@@ -13,5 +13,5 @@ interface UpbitQuotationTradeApi {
         @Query("count") count: Int? = null,
         @Query("cursor") cursor: String? = null,
         @Query("daysAgo") daysAgo: Int? = null
-    ): Call<List<UpbitTickResponse>>
+    ): CompletableFuture<List<UpbitTickResponse>>
 }

@@ -1,45 +1,30 @@
 package com.jongmin.upbit.client.retrofit.quotation
 
+import com.jongmin.upbit.client.retrofit.quotation.api.candle.toDomain
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.upbitDayCandleResponseFixture
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.upbitMinuteCandleResponseFixture
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.upbitMonthCandleResponseFixture
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.upbitWeekCandleResponseFixture
-import com.jongmin.upbit.client.retrofit.quotation.api.market.upbitMarketResponseFixture
-import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.upbitOrderbookResponseFixture
-import com.jongmin.upbit.client.retrofit.quotation.api.ticker.upbitTickerResponseFixture
-import com.jongmin.upbit.client.retrofit.quotation.api.trade.upbitTickResponseFixture
-import com.jongmin.upbit.client.retrofit.quotation.api.candle.UpbitQuotationCandleApi
-import com.jongmin.upbit.client.retrofit.quotation.api.candle.toDomain
-import com.jongmin.upbit.client.retrofit.quotation.api.market.UpbitQuotationMarketApi
 import com.jongmin.upbit.client.retrofit.quotation.api.market.toDomain
-import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.UpbitQuotationOrderbookApi
+import com.jongmin.upbit.client.retrofit.quotation.api.market.upbitMarketResponseFixture
 import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.toDomain
-import com.jongmin.upbit.client.retrofit.quotation.api.ticker.UpbitQuotationTickerApi
+import com.jongmin.upbit.client.retrofit.quotation.api.orderbook.upbitOrderbookResponseFixture
 import com.jongmin.upbit.client.retrofit.quotation.api.ticker.toDomain
-import com.jongmin.upbit.client.retrofit.quotation.api.trade.UpbitQuotationTradeApi
+import com.jongmin.upbit.client.retrofit.quotation.api.ticker.upbitTickerResponseFixture
 import com.jongmin.upbit.client.retrofit.quotation.api.trade.toDomain
+import com.jongmin.upbit.client.retrofit.quotation.api.trade.upbitTickResponseFixture
 import com.jongmin.upbit.client.retrofit.utils.success
+import com.jongmin.upbit.quotation.UpbitQuotationAsyncService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
-import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 class UpbitQuotationServiceImplTest {
-    private val candleApi = mock<UpbitQuotationCandleApi>()
-    private val marketApi = mock<UpbitQuotationMarketApi>()
-    private val orderbookApi = mock<UpbitQuotationOrderbookApi>()
-    private val tickerApi = mock<UpbitQuotationTickerApi>()
-    private val tradeApi = mock<UpbitQuotationTradeApi>()
+    private val upbitQuotationAsyncService = mock<UpbitQuotationAsyncService>()
 
-    private val cut = UpbitQuotationServiceImpl(
-        candleApi = candleApi,
-        marketApi = marketApi,
-        orderbookApi = orderbookApi,
-        tickerApi = tickerApi,
-        tradeApi = tradeApi
-    )
+    private val cut = UpbitQuotationServiceImpl(upbitQuotationAsyncService)
 
     @Test
     fun getMinuteCandles() {
@@ -49,7 +34,8 @@ class UpbitQuotationServiceImplTest {
         val to = "2021-07-21 09:00:00"
         val count = 1
         val minuteCandleResponse = upbitMinuteCandleResponseFixture()
-        doReturn(success(listOf(minuteCandleResponse))).whenever(candleApi).getUpbitMinuteCandles(unit, market, to, count)
+        whenever(upbitQuotationAsyncService.getUpbitMinuteCandle(unit, market, to, count))
+            .thenReturn(success(listOf(minuteCandleResponse.toDomain())))
 
         //result
         val result = cut.getUpbitMinuteCandle(unit, market, to, count)
@@ -57,7 +43,7 @@ class UpbitQuotationServiceImplTest {
         //then
         assertAll("minuteCandle",
             { assertThat(result).hasSize(1) },
-            { assertThat(result.first()).isEqualTo(minuteCandleResponse.toDomain())}
+            { assertThat(result.first()).isEqualTo(minuteCandleResponse.toDomain()) }
         )
     }
 
@@ -69,7 +55,8 @@ class UpbitQuotationServiceImplTest {
         val count = 1
         val convertingPriceUnit = "KRW"
         val dayCandleResponse = upbitDayCandleResponseFixture()
-        doReturn(success(listOf(dayCandleResponse))).whenever(candleApi).getUpbitDayCandles(market, to, count, convertingPriceUnit)
+        whenever(upbitQuotationAsyncService.getUpbitDayCandles(market, to, count, convertingPriceUnit))
+            .thenReturn(success(listOf(dayCandleResponse.toDomain())))
 
         //result
         val result = cut.getUpbitDayCandles(market, to, count, convertingPriceUnit)
@@ -77,7 +64,7 @@ class UpbitQuotationServiceImplTest {
         //then
         assertAll("dayCandle",
             { assertThat(result).hasSize(1) },
-            { assertThat(result.first()).isEqualTo(dayCandleResponse.toDomain())}
+            { assertThat(result.first()).isEqualTo(dayCandleResponse.toDomain()) }
         )
     }
 
@@ -88,7 +75,8 @@ class UpbitQuotationServiceImplTest {
         val to = "2021-07-21 09:00:00"
         val count = 1
         val weekCandleResponse = upbitWeekCandleResponseFixture()
-        doReturn(success(listOf(weekCandleResponse))).whenever(candleApi).getUpbitWeekCandles(market, to, count)
+        whenever(upbitQuotationAsyncService.getUpbitWeekCandles(market, to, count))
+            .thenReturn(success(listOf(weekCandleResponse.toDomain())))
 
         //result
         val result = cut.getUpbitWeekCandles(market, to, count)
@@ -96,7 +84,7 @@ class UpbitQuotationServiceImplTest {
         //then
         assertAll("weekCandle",
             { assertThat(result).hasSize(1) },
-            { assertThat(result.first()).isEqualTo(weekCandleResponse.toDomain())}
+            { assertThat(result.first()).isEqualTo(weekCandleResponse.toDomain()) }
         )
     }
 
@@ -107,7 +95,8 @@ class UpbitQuotationServiceImplTest {
         val to = "2021-07-21 09:00:00"
         val count = 1
         val monthCandleResponse = upbitMonthCandleResponseFixture()
-        doReturn(success(listOf(monthCandleResponse))).whenever(candleApi).getUpbitMonthCandles(market, to, count)
+        whenever(upbitQuotationAsyncService.getUpbitMonthCandles(market, to, count))
+            .thenReturn(success(listOf(monthCandleResponse.toDomain())))
 
         //result
         val result = cut.getUpbitMonthCandles(market, to, count)
@@ -115,7 +104,7 @@ class UpbitQuotationServiceImplTest {
         //then
         assertAll("monthCandle",
             { assertThat(result).hasSize(1) },
-            { assertThat(result.first()).isEqualTo(monthCandleResponse.toDomain())}
+            { assertThat(result.first()).isEqualTo(monthCandleResponse.toDomain()) }
         )
     }
 
@@ -123,7 +112,8 @@ class UpbitQuotationServiceImplTest {
     fun getUpbitMarkets() {
         // given
         val marketResponse = upbitMarketResponseFixture()
-        doReturn(success(listOf(marketResponse))).whenever(marketApi).getMarkets()
+        whenever(upbitQuotationAsyncService.getUpbitMarkets())
+            .thenReturn(success(listOf(marketResponse.toDomain())))
 
         //result
         val result = cut.getUpbitMarkets()
@@ -131,7 +121,7 @@ class UpbitQuotationServiceImplTest {
         //then
         assertAll("markets",
             { assertThat(result).hasSize(1) },
-            { assertThat(result.first()).isEqualTo(marketResponse.toDomain())}
+            { assertThat(result.first()).isEqualTo(marketResponse.toDomain()) }
         )
     }
 
@@ -140,7 +130,8 @@ class UpbitQuotationServiceImplTest {
         // given
         val markets = "markets"
         val orderbookResponse = upbitOrderbookResponseFixture()
-        doReturn(success(listOf(orderbookResponse))).whenever(orderbookApi).getOrderbooks(markets)
+        whenever(upbitQuotationAsyncService.getUpbitOrderbooks(markets))
+            .thenReturn(success(listOf(orderbookResponse.toDomain())))
 
         //result
         val result = cut.getUpbitOrderbooks(markets)
@@ -148,7 +139,7 @@ class UpbitQuotationServiceImplTest {
         //then
         assertAll("orderbooks",
             { assertThat(result).hasSize(1) },
-            { assertThat(result.first()).isEqualTo(orderbookResponse.toDomain())}
+            { assertThat(result.first()).isEqualTo(orderbookResponse.toDomain()) }
         )
     }
 
@@ -157,7 +148,8 @@ class UpbitQuotationServiceImplTest {
         // given
         val markets = "markets"
         val tickerResponse = upbitTickerResponseFixture()
-        doReturn(success(listOf(tickerResponse))).whenever(tickerApi).getCurrentTicker(markets)
+        whenever(upbitQuotationAsyncService.getUpbitTicker(markets))
+            .thenReturn(success(listOf(tickerResponse.toDomain())))
 
         //result
         val result = cut.getUpbitTicker(markets)
@@ -165,7 +157,7 @@ class UpbitQuotationServiceImplTest {
         //then
         assertAll("tickers",
             { assertThat(result).hasSize(1) },
-            { assertThat(result.first()).isEqualTo(tickerResponse.toDomain())}
+            { assertThat(result.first()).isEqualTo(tickerResponse.toDomain()) }
         )
     }
 
@@ -179,7 +171,8 @@ class UpbitQuotationServiceImplTest {
         val daysAgo = 1
 
         val tickResponse = upbitTickResponseFixture()
-        doReturn(success(listOf(tickResponse))).whenever(tradeApi).getTradeTicks(market, to, count, cursor, daysAgo)
+        whenever(upbitQuotationAsyncService.getUpbitTicks(market, to, count, cursor, daysAgo))
+            .thenReturn(success(listOf(tickResponse.toDomain())))
 
         //result
         val result = cut.getUpbitTicks(market, to, count, cursor, daysAgo)
@@ -187,7 +180,7 @@ class UpbitQuotationServiceImplTest {
         //then
         assertAll("tradeTicks",
             { assertThat(result).hasSize(1) },
-            { assertThat(result.first()).isEqualTo(tickResponse.toDomain())}
+            { assertThat(result.first()).isEqualTo(tickResponse.toDomain()) }
         )
     }
 }

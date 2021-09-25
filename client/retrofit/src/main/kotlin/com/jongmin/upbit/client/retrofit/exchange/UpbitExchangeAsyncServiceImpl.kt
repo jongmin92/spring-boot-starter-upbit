@@ -52,7 +52,7 @@ class UpbitExchangeAsyncServiceImpl(
     private val authorizationTokenService: AuthorizationTokenService
 ) : UpbitExchangeAsyncService {
     companion object {
-        const val AUTHORIZATION_HEADER = "Authorization"
+        private const val AUTHORIZATION_HEADER = "Authorization"
     }
 
     private val objectMapper = jacksonObjectMapper().apply {
