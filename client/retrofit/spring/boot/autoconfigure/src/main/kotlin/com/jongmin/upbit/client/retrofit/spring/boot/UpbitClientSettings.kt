@@ -6,7 +6,13 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 @ConfigurationProperties(prefix = "upbit.client")
 data class UpbitClientSettings(
-    val apiBaseURL: String = "https://api.upbit.com/",
+    val apiBaseUrl: String = "https://api.upbit.com/",
+    /**
+     * Open API Access key
+     */
     val accessKey: String,
+    /**
+     * Open API Secret key
+     */
     val secretKey: String
 )

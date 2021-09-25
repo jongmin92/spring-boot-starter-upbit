@@ -58,6 +58,7 @@ configureByTypeHaving("boot") {
 
     dependencies {
         kapt("org.springframework.boot:spring-boot-autoconfigure-processor:2.5.4")
+        kapt("org.springframework.boot:spring-boot-configuration-processor:2.5.4")
 
         implementation("org.springframework.boot:spring-boot")
         implementation("org.springframework.boot:spring-boot-autoconfigure")

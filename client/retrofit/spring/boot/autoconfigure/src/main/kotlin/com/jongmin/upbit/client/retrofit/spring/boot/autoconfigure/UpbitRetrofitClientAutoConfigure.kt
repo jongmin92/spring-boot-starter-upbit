@@ -19,5 +19,5 @@ class UpbitRetrofitClientAutoConfigure {
 
     @Bean
     fun retrofitApiFactoryService(upbitClientSettings: UpbitClientSettings) =
-        RetrofitApiFactoryService(upbitClientSettings.apiBaseURL)
+        RetrofitApiFactoryService(upbitClientSettings.apiBaseUrl)
 }
