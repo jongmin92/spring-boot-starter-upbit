@@ -1,6 +1,5 @@
 package com.jongmin.upbit.client.retrofit.quotation
 
-import com.jongmin.upbit.client.retrofit.exchange.joining
 import com.jongmin.upbit.quotation.UpbitQuotationAsyncService
 import com.jongmin.upbit.quotation.UpbitQuotationService
 import com.jongmin.upbit.quotation.candles.UpbitDayCandle
@@ -11,6 +10,7 @@ import com.jongmin.upbit.quotation.market.UpbitMarket
 import com.jongmin.upbit.quotation.orderbook.UpbitOrderbook
 import com.jongmin.upbit.quotation.ticker.UpbitTicker
 import com.jongmin.upbit.quotation.trades.UpbitTick
+import joining
 
 class UpbitQuotationServiceImpl(
     private val upbitQuotationAsyncService: UpbitQuotationAsyncService

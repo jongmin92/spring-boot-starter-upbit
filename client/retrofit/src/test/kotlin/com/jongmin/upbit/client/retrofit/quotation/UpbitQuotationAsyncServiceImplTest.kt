@@ -1,6 +1,5 @@
 package com.jongmin.upbit.client.retrofit.quotation
 
-import com.jongmin.upbit.client.retrofit.exchange.joining
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.UpbitQuotationCandleAsyncApi
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.toDomain
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.upbitDayCandleResponseFixture
@@ -20,12 +19,12 @@ import com.jongmin.upbit.client.retrofit.quotation.api.trade.UpbitQuotationTrade
 import com.jongmin.upbit.client.retrofit.quotation.api.trade.toDomain
 import com.jongmin.upbit.client.retrofit.quotation.api.trade.upbitTickResponseFixture
 import com.jongmin.upbit.client.retrofit.utils.success
+import joining
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
-import java.util.concurrent.CompletableFuture
 
 class UpbitQuotationAsyncServiceImplTest {
     private val candleAsyncApi = mock<UpbitQuotationCandleAsyncApi>()
