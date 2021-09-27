@@ -1,5 +1,7 @@
 package com.jongmin.upbit.exchange.withdraw
 
+import kotlinx.coroutines.Deferred
+
 interface UpbitWithdrawsCoroutineService {
 
     /**
@@ -26,7 +28,7 @@ interface UpbitWithdrawsCoroutineService {
      *   -desc: 내림차순(default)
      * @return 출금 리스트
      */
-    suspend fun getWithdraws(
+    fun getWithdraws(
         currency: String? = null,
         state: String? = null,
         uuids: List<String> = emptyList(),
@@ -34,7 +36,7 @@ interface UpbitWithdrawsCoroutineService {
         limit: Int? = null,
         page: Int? = null,
         orderBy: String? = null
-    ): List<UpbitWithdraw>
+    ): Deferred<List<UpbitWithdraw>>
 
     /**
      * 개별 출금 조회
@@ -45,7 +47,7 @@ interface UpbitWithdrawsCoroutineService {
      * @param currency Currency 코드
      * @return 개별 출금 정보
      */
-    suspend fun getWithdraw(uuid: String, txid: String? = null, currency: String? = null): UpbitWithdraw
+    fun getWithdraw(uuid: String, txid: String? = null, currency: String? = null): Deferred<UpbitWithdraw>
 
     /**
      * 출금 가능 정보
@@ -54,7 +56,7 @@ interface UpbitWithdrawsCoroutineService {
      * @param currency Currency 코드
      * @return 해당 통화의 가능한 출금 정보
      */
-    suspend fun getWithdrawsChance(currency: String): UpbitWithdrawsChance
+    fun getWithdrawsChance(currency: String): Deferred<UpbitWithdrawsChance>
 
     /**
      * 코인 출금하기
@@ -77,10 +79,10 @@ interface UpbitWithdrawsCoroutineService {
      *   -internal: 바로출금
      * @return 코인 출금 결과
      */
-    suspend fun postWithdrawCoin(
+    fun postWithdrawCoin(
         currency: String, amount: String, address: String, secondaryAddress: String? = null,
         transactionType: String? = null
-    ): UpbitWithdrawCoinPost
+    ): Deferred<UpbitWithdrawCoinPost>
 
     /**
      * 원화 출금하기
@@ -89,5 +91,5 @@ interface UpbitWithdrawsCoroutineService {
      * @param amount 출금 원화 수량
      * @return 원화 출금 결과
      */
-    suspend fun postWithdrawKrw(amount: String): UpbitWithdrawKrwPost
+    fun postWithdrawKrw(amount: String): Deferred<UpbitWithdrawKrwPost>
 }

@@ -1,5 +1,7 @@
 package com.jongmin.upbit.exchange.order
 
+import kotlinx.coroutines.Deferred
+
 interface UpbitOrdersCoroutineService {
 
     /**
@@ -9,7 +11,7 @@ interface UpbitOrdersCoroutineService {
      * @param market Market ID
      * @return 마켓별 주문 가능 정보
      */
-    suspend fun getOrdersChance(market: String): UpbitOrdersChance
+    fun getOrdersChance(market: String): Deferred<UpbitOrdersChance>
 
     /**
      * 개별 주문 조회.
@@ -20,7 +22,7 @@ interface UpbitOrdersCoroutineService {
      * (uuid, identifier 둘 중 하나의 값이 반드시 포함되어야 합니다.)
      * @return 개별 주문건
      */
-    suspend fun getOrder(uuid: String? = null, identifier: String? = null): UpbitOrderWithTrades
+    fun getOrder(uuid: String? = null, identifier: String? = null): Deferred<UpbitOrderWithTrades>
 
     /**
      * 주문 리스트 조회.
@@ -48,7 +50,7 @@ interface UpbitOrdersCoroutineService {
      *  예시2) wait, done 주문을 한 번에 조회 => 불가능 (각각 API 호출 필요))
      * @return 주문 리스트
      */
-    suspend fun getOrders(
+    fun getOrders(
         market: String? = null,
         state: String? = null,
         states: List<String> = emptyList(),
@@ -57,7 +59,7 @@ interface UpbitOrdersCoroutineService {
         page: Int? = null,
         limit: Int? = null,
         orderBy: String? = null
-    ): List<UpbitOrder>
+    ): Deferred<List<UpbitOrder>>
 
     /**
      * 주문 취소 접수.
@@ -67,7 +69,7 @@ interface UpbitOrdersCoroutineService {
      * @param identifier 조회용 사용자 지정값
      * @return 주문 취소
      */
-    suspend fun deleteOrder(uuid: String? = null, identifier: String? = null): UpbitOrderDelete
+    fun deleteOrder(uuid: String? = null, identifier: String? = null): Deferred<UpbitOrderDelete>
 
     /**
      * 주문하기.
@@ -99,7 +101,7 @@ interface UpbitOrdersCoroutineService {
      *   -주문의 성공 / 실패 여부와 관계없이 중복해서 들어온 identifier 값에서는 중복 오류가 발생하니, 매 요청시 새로운 값을 생성해주세요.
      * @return 주문 결과
      */
-    suspend fun postOrder(
+    fun postOrder(
         market: String, side: String, volume: String, price: String, ordType: String, identifier: String? = null
-    ): UpbitOrderPost
+    ): Deferred<UpbitOrderPost>
 }

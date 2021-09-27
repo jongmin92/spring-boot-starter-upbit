@@ -1,14 +1,6 @@
 package com.jongmin.upbit.client.retrofit.exchange
 
-import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.jongmin.upbit.client.retrofit.exchange.api.account.UpbitExchangeAccountsCoroutineApi
-import com.jongmin.upbit.client.retrofit.exchange.api.account.toDomain
-import com.jongmin.upbit.client.retrofit.exchange.api.deposit.UpbitExchangeDepositsCoroutineApi
-import com.jongmin.upbit.client.retrofit.exchange.api.info.UpbitExchangeInfoCoroutineApi
-import com.jongmin.upbit.client.retrofit.exchange.api.order.UpbitExchangeOrdersCoroutineApi
-import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.UpbitExchangeWithdrawsCoroutineApi
+import com.jongmin.upbit.exchange.UpbitExchangeAsyncService
 import com.jongmin.upbit.exchange.UpbitExchangeCoroutineService
 import com.jongmin.upbit.exchange.account.UpbitAccount
 import com.jongmin.upbit.exchange.deposit.UpbitCreateDepositCoinAddress
@@ -26,39 +18,26 @@ import com.jongmin.upbit.exchange.withdraw.UpbitWithdraw
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawCoinPost
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawKrwPost
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawsChance
-import com.jongmin.upbit.token.AuthorizationTokenService
-import com.linecorp.armeria.client.Clients
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.future.asDeferred
 
 class UpbitExchangeCoroutineServiceImpl(
-    private val accountsCoroutineApi: UpbitExchangeAccountsCoroutineApi,
-    private val ordersCoroutineApi: UpbitExchangeOrdersCoroutineApi,
-    private val withdrawsCoroutineApi: UpbitExchangeWithdrawsCoroutineApi,
-    private val depositsCoroutineApi: UpbitExchangeDepositsCoroutineApi,
-    private val infoCoroutineApi: UpbitExchangeInfoCoroutineApi,
-    private val authorizationTokenService: AuthorizationTokenService
+    private val upbitExchangeAsyncService: UpbitExchangeAsyncService
 ) : UpbitExchangeCoroutineService {
-    companion object {
-        private const val AUTHORIZATION_HEADER = "Authorization"
+
+    override fun getAccounts(): Deferred<List<UpbitAccount>> {
+        return upbitExchangeAsyncService.getAccounts().asDeferred()
     }
 
-    private val objectMapper = jacksonObjectMapper().apply {
-        setSerializationInclusion(JsonInclude.Include.NON_NULL)
-        disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+    override fun getOrdersChance(market: String): Deferred<UpbitOrdersChance> {
+        return upbitExchangeAsyncService.getOrdersChance(market).asDeferred()
     }
 
-    override suspend fun getAccounts(): List<UpbitAccount> {
-        TODO("Not yet implemented")
+    override fun getOrder(uuid: String?, identifier: String?): Deferred<UpbitOrderWithTrades> {
+        return upbitExchangeAsyncService.getOrder(uuid, identifier).asDeferred()
     }
 
-    override suspend fun getOrdersChance(market: String): UpbitOrdersChance {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getOrder(uuid: String?, identifier: String?): UpbitOrderWithTrades {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getOrders(
+    override fun getOrders(
         market: String?,
         state: String?,
         states: List<String>,
@@ -67,26 +46,42 @@ class UpbitExchangeCoroutineServiceImpl(
         page: Int?,
         limit: Int?,
         orderBy: String?
-    ): List<UpbitOrder> {
-        TODO("Not yet implemented")
+    ): Deferred<List<UpbitOrder>> {
+        return upbitExchangeAsyncService.getOrders(
+            market = market,
+            state = state,
+            states = states,
+            uuids = uuids,
+            identifiers = identifiers,
+            page = page,
+            limit = limit,
+            orderBy = orderBy
+        ).asDeferred()
     }
 
-    override suspend fun deleteOrder(uuid: String?, identifier: String?): UpbitOrderDelete {
-        TODO("Not yet implemented")
+    override fun deleteOrder(uuid: String?, identifier: String?): Deferred<UpbitOrderDelete> {
+        return upbitExchangeAsyncService.deleteOrder(uuid, identifier).asDeferred()
     }
 
-    override suspend fun postOrder(
+    override fun postOrder(
         market: String,
         side: String,
         volume: String,
         price: String,
         ordType: String,
         identifier: String?
-    ): UpbitOrderPost {
-        TODO("Not yet implemented")
+    ): Deferred<UpbitOrderPost> {
+        return upbitExchangeAsyncService.postOrder(
+            market = market,
+            side = side,
+            volume = volume,
+            price = price,
+            ordType = ordType,
+            identifier = identifier
+        ).asDeferred()
     }
 
-    override suspend fun getWithdraws(
+    override fun getWithdraws(
         currency: String?,
         state: String?,
         uuids: List<String>,
@@ -94,33 +89,47 @@ class UpbitExchangeCoroutineServiceImpl(
         limit: Int?,
         page: Int?,
         orderBy: String?
-    ): List<UpbitWithdraw> {
-        TODO("Not yet implemented")
+    ): Deferred<List<UpbitWithdraw>> {
+        return upbitExchangeAsyncService.getWithdraws(
+            currency = currency,
+            state = state,
+            uuids = uuids,
+            txids = txids,
+            limit = limit,
+            page = page,
+            orderBy = orderBy
+        ).asDeferred()
     }
 
-    override suspend fun getWithdraw(uuid: String, txid: String?, currency: String?): UpbitWithdraw {
-        TODO("Not yet implemented")
+    override fun getWithdraw(uuid: String, txid: String?, currency: String?): Deferred<UpbitWithdraw> {
+        return upbitExchangeAsyncService.getWithdraw(uuid, txid, currency).asDeferred()
     }
 
-    override suspend fun getWithdrawsChance(currency: String): UpbitWithdrawsChance {
-        TODO("Not yet implemented")
+    override fun getWithdrawsChance(currency: String): Deferred<UpbitWithdrawsChance> {
+        return upbitExchangeAsyncService.getWithdrawsChance(currency).asDeferred()
     }
 
-    override suspend fun postWithdrawCoin(
+    override fun postWithdrawCoin(
         currency: String,
         amount: String,
         address: String,
         secondaryAddress: String?,
         transactionType: String?
-    ): UpbitWithdrawCoinPost {
-        TODO("Not yet implemented")
+    ): Deferred<UpbitWithdrawCoinPost> {
+        return upbitExchangeAsyncService.postWithdrawCoin(
+            currency = currency,
+            amount = amount,
+            address = address,
+            secondaryAddress = secondaryAddress,
+            transactionType = transactionType
+        ).asDeferred()
     }
 
-    override suspend fun postWithdrawKrw(amount: String): UpbitWithdrawKrwPost {
-        TODO("Not yet implemented")
+    override fun postWithdrawKrw(amount: String): Deferred<UpbitWithdrawKrwPost> {
+        return upbitExchangeAsyncService.postWithdrawKrw(amount).asDeferred()
     }
 
-    override suspend fun getDeposits(
+    override fun getDeposits(
         currency: String?,
         state: String?,
         uuids: List<String>,
@@ -128,35 +137,43 @@ class UpbitExchangeCoroutineServiceImpl(
         limit: Int?,
         page: Int?,
         orderBy: String?
-    ): List<UpbitDeposit> {
-        TODO("Not yet implemented")
+    ): Deferred<List<UpbitDeposit>> {
+        return upbitExchangeAsyncService.getDeposits(
+            currency = currency,
+            state = state,
+            uuids = uuids,
+            txids = txids,
+            page = page,
+            limit = limit,
+            orderBy = orderBy
+        ).asDeferred()
     }
 
-    override suspend fun getDeposit(uuid: String, txid: String?, currency: String?): UpbitDeposit {
-        TODO("Not yet implemented")
+    override fun getDeposit(uuid: String, txid: String?, currency: String?): Deferred<UpbitDeposit> {
+        return upbitExchangeAsyncService.getDeposit(uuid, txid, currency).asDeferred()
     }
 
-    override suspend fun createDepositCoinAddress(currency: String): UpbitCreateDepositCoinAddress {
-        TODO("Not yet implemented")
+    override fun createDepositCoinAddress(currency: String): Deferred<UpbitCreateDepositCoinAddress> {
+        return upbitExchangeAsyncService.createDepositCoinAddress(currency).asDeferred()
     }
 
-    override suspend fun getDepositsCoinAddresses(): List<UpbitDepositCoinAddress> {
-        TODO("Not yet implemented")
+    override fun getDepositsCoinAddresses(): Deferred<List<UpbitDepositCoinAddress>> {
+        return upbitExchangeAsyncService.getDepositsCoinAddresses().asDeferred()
     }
 
-    override suspend fun getDepositsCoinAddress(currency: String): UpbitDepositCoinAddress {
-        TODO("Not yet implemented")
+    override fun getDepositsCoinAddress(currency: String): Deferred<UpbitDepositCoinAddress> {
+        return upbitExchangeAsyncService.getDepositsCoinAddress(currency).asDeferred()
     }
 
-    override suspend fun postDepositKrw(amount: String): UpbitDepositKrw {
-        TODO("Not yet implemented")
+    override fun postDepositKrw(amount: String): Deferred<UpbitDepositKrw> {
+        return upbitExchangeAsyncService.postDepositKrw(amount).asDeferred()
     }
 
-    override suspend fun getWalletStatus(): List<UpbitWalletStatus> {
-        TODO("Not yet implemented")
+    override fun getWalletStatus(): Deferred<List<UpbitWalletStatus>> {
+        return upbitExchangeAsyncService.getWalletStatus().asDeferred()
     }
 
-    override suspend fun getApiKeys(): List<UpbitApiKey> {
-        TODO("Not yet implemented")
+    override fun getApiKeys(): Deferred<List<UpbitApiKey>> {
+        return upbitExchangeAsyncService.getApiKeys().asDeferred()
     }
 }

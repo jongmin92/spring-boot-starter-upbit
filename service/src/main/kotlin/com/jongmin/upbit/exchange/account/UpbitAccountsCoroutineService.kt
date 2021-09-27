@@ -1,5 +1,7 @@
 package com.jongmin.upbit.exchange.account
 
+import kotlinx.coroutines.Deferred
+
 interface UpbitAccountsCoroutineService {
 
     /**
@@ -8,5 +10,5 @@ interface UpbitAccountsCoroutineService {
      *
      * @return 자산 리스트
      */
-    suspend fun getAccounts(): List<UpbitAccount>
+    fun getAccounts(): Deferred<List<UpbitAccount>>
 }

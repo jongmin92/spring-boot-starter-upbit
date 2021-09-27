@@ -1,5 +1,7 @@
 package com.jongmin.upbit.exchange.deposit
 
+import kotlinx.coroutines.Deferred
+
 interface UpbitDepositsCoroutineService {
 
     /**
@@ -24,7 +26,7 @@ interface UpbitDepositsCoroutineService {
      *   -desc: 내림차순(default)
      * @return 입금 리스트
      */
-    suspend fun getDeposits(
+    fun getDeposits(
         currency: String? = null,
         state: String? = null,
         uuids: List<String> = emptyList(),
@@ -32,7 +34,7 @@ interface UpbitDepositsCoroutineService {
         limit: Int? = null,
         page: Int? = null,
         orderBy: String? = null
-    ): List<UpbitDeposit>
+    ): Deferred<List<UpbitDeposit>>
 
     /**
      * 개별 입금 조회
@@ -42,7 +44,7 @@ interface UpbitDepositsCoroutineService {
      * @param currency Currency 코드
      * @return 개별 입금 정보
      */
-    suspend fun getDeposit(uuid: String, txid: String? = null, currency: String? = null): UpbitDeposit
+    fun getDeposit(uuid: String, txid: String? = null, currency: String? = null): Deferred<UpbitDeposit>
 
     /**
      * 입금 주소 생성 요청
@@ -58,7 +60,7 @@ interface UpbitDepositsCoroutineService {
      * @param currency Currency 코드
      * @return 입금 주소 생성 요청 결과 (주소 발급 이전) 또는 생성 결과 (주소 발급 완료)
      */
-    suspend fun createDepositCoinAddress(currency: String): UpbitCreateDepositCoinAddress
+    fun createDepositCoinAddress(currency: String): Deferred<UpbitCreateDepositCoinAddress>
 
     /**
      * 전체 입금 주소 조회
@@ -69,7 +71,7 @@ interface UpbitDepositsCoroutineService {
      *
      * @return 보유한 입금 주소 리스트
      */
-    suspend fun getDepositsCoinAddresses(): List<UpbitDepositCoinAddress>
+    fun getDepositsCoinAddresses(): Deferred<List<UpbitDepositCoinAddress>>
 
     /**
      * 개별 입금 주소 조회
@@ -80,7 +82,7 @@ interface UpbitDepositsCoroutineService {
      * @param currency Currency 코드
      * @return 보유한 입금 주소
      */
-    suspend fun getDepositsCoinAddress(currency: String): UpbitDepositCoinAddress
+    fun getDepositsCoinAddress(currency: String): Deferred<UpbitDepositCoinAddress>
 
     /**
      * 원화 입금하기
@@ -89,5 +91,5 @@ interface UpbitDepositsCoroutineService {
      * @param amount 입금액
      * @return 입금 결과
      */
-    suspend fun postDepositKrw(amount: String): UpbitDepositKrw
+    fun postDepositKrw(amount: String): Deferred<UpbitDepositKrw>
 }

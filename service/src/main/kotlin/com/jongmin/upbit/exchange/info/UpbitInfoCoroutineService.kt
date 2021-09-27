@@ -1,5 +1,7 @@
 package com.jongmin.upbit.exchange.info
 
+import kotlinx.coroutines.Deferred
+
 interface UpbitInfoCoroutineService {
 
     /**
@@ -12,7 +14,7 @@ interface UpbitInfoCoroutineService {
      *
      * @return 입출금 현황 및 블록 상태
      */
-    suspend fun getWalletStatus(): List<UpbitWalletStatus>
+    fun getWalletStatus(): Deferred<List<UpbitWalletStatus>>
 
     /**
      * API 키 리스트 조회
@@ -20,5 +22,5 @@ interface UpbitInfoCoroutineService {
      *
      * @return API 키 목록 및 만료 일자
      */
-    suspend fun getApiKeys(): List<UpbitApiKey>
+    fun getApiKeys(): Deferred<List<UpbitApiKey>>
 }

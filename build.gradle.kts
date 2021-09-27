@@ -42,11 +42,13 @@ configureByTypePrefix("kotlin") {
             api(platform("com.squareup.retrofit2:$it:2.9.0"))
         }
 
-
         api("org.jetbrains.kotlin:kotlin-reflect")
         api("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        api("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+        api("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8")
 
         testImplementation(kotlin("test"))
+        testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test")
         testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
         testImplementation("org.assertj:assertj-core")
     }
