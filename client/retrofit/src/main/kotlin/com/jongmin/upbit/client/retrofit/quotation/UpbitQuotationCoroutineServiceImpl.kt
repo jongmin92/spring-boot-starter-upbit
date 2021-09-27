@@ -1,7 +1,7 @@
 package com.jongmin.upbit.client.retrofit.quotation
 
 import com.jongmin.upbit.quotation.UpbitQuotationAsyncService
-import com.jongmin.upbit.quotation.UpbitQuotationService
+import com.jongmin.upbit.quotation.UpbitQuotationCoroutineService
 import com.jongmin.upbit.quotation.candles.UpbitDayCandle
 import com.jongmin.upbit.quotation.candles.UpbitMinuteCandle
 import com.jongmin.upbit.quotation.candles.UpbitMonthCandle
@@ -10,24 +10,25 @@ import com.jongmin.upbit.quotation.market.UpbitMarket
 import com.jongmin.upbit.quotation.orderbook.UpbitOrderbook
 import com.jongmin.upbit.quotation.ticker.UpbitTicker
 import com.jongmin.upbit.quotation.trades.UpbitTick
-import joining
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.future.asDeferred
 
-class UpbitQuotationServiceImpl(
+class UpbitQuotationCoroutineServiceImpl(
     private val upbitQuotationAsyncService: UpbitQuotationAsyncService
-) : UpbitQuotationService {
+) : UpbitQuotationCoroutineService {
 
     override fun getUpbitMinuteCandle(
         unit: Int,
         market: String,
         to: String?,
         count: Int?
-    ): List<UpbitMinuteCandle> {
+    ): Deferred<List<UpbitMinuteCandle>> {
         return upbitQuotationAsyncService.getUpbitMinuteCandle(
             unit = unit,
             market = market,
             to = to,
             count = count
-        ).joining()
+        ).asDeferred()
     }
 
     override fun getUpbitDayCandles(
@@ -35,41 +36,41 @@ class UpbitQuotationServiceImpl(
         to: String?,
         count: Int?,
         convertingPriceUnit: String?
-    ): List<UpbitDayCandle> {
+    ): Deferred<List<UpbitDayCandle>> {
         return upbitQuotationAsyncService.getUpbitDayCandles(
             market = market,
             to = to,
             count = count,
             convertingPriceUnit = convertingPriceUnit
-        ).joining()
+        ).asDeferred()
     }
 
     override fun getUpbitWeekCandles(
         market: String,
         to: String?,
         count: Int?
-    ): List<UpbitWeekCandle> {
-        return upbitQuotationAsyncService.getUpbitWeekCandles(market, to, count).joining()
+    ): Deferred<List<UpbitWeekCandle>> {
+        return upbitQuotationAsyncService.getUpbitWeekCandles(market, to, count).asDeferred()
     }
 
     override fun getUpbitMonthCandles(
         market: String,
         to: String?,
         count: Int?
-    ): List<UpbitMonthCandle> {
-        return upbitQuotationAsyncService.getUpbitMonthCandles(market, to, count).joining()
+    ): Deferred<List<UpbitMonthCandle>> {
+        return upbitQuotationAsyncService.getUpbitMonthCandles(market, to, count).asDeferred()
     }
 
-    override fun getUpbitMarkets(isDetails: Boolean?): List<UpbitMarket> {
-        return upbitQuotationAsyncService.getUpbitMarkets(isDetails).joining()
+    override fun getUpbitMarkets(isDetails: Boolean?): Deferred<List<UpbitMarket>> {
+        return upbitQuotationAsyncService.getUpbitMarkets(isDetails).asDeferred()
     }
 
-    override fun getUpbitOrderbooks(markets: String): List<UpbitOrderbook> {
-        return upbitQuotationAsyncService.getUpbitOrderbooks(markets).joining()
+    override fun getUpbitOrderbooks(markets: String): Deferred<List<UpbitOrderbook>> {
+        return upbitQuotationAsyncService.getUpbitOrderbooks(markets).asDeferred()
     }
 
-    override fun getUpbitTicker(markets: String): List<UpbitTicker> {
-        return upbitQuotationAsyncService.getUpbitTicker(markets).joining()
+    override fun getUpbitTicker(markets: String): Deferred<List<UpbitTicker>> {
+        return upbitQuotationAsyncService.getUpbitTicker(markets).asDeferred()
     }
 
     override fun getUpbitTicks(
@@ -78,13 +79,13 @@ class UpbitQuotationServiceImpl(
         count: Int?,
         cursor: String?,
         daysAgo: Int?
-    ): List<UpbitTick> {
+    ): Deferred<List<UpbitTick>> {
         return upbitQuotationAsyncService.getUpbitTicks(
             market = market,
             to = to,
             count = count,
             cursor = cursor,
             daysAgo = daysAgo
-        ).joining()
+        ).asDeferred()
     }
 }

@@ -2,6 +2,7 @@ package com.jongmin.upbit.client.retrofit.spring.boot.autoconfigure
 
 import com.jongmin.upbit.client.retrofit.RetrofitApiFactoryService
 import com.jongmin.upbit.client.retrofit.quotation.UpbitQuotationAsyncServiceImpl
+import com.jongmin.upbit.client.retrofit.quotation.UpbitQuotationCoroutineServiceImpl
 import com.jongmin.upbit.client.retrofit.quotation.UpbitQuotationServiceImpl
 import com.jongmin.upbit.client.retrofit.quotation.api.candle.UpbitQuotationCandleAsyncApi
 import com.jongmin.upbit.client.retrofit.quotation.api.market.UpbitQuotationMarketAsyncApi
@@ -30,4 +31,9 @@ class UpbitQuotationRetrofitClientConfiguration {
     fun upbitQuotationService(
         upbitQuotationAsyncService: UpbitQuotationAsyncService
     ) = UpbitQuotationServiceImpl(upbitQuotationAsyncService)
+
+    @Bean
+    fun upbitQuotationCoroutineService(
+        upbitQuotationAsyncService: UpbitQuotationAsyncService
+    ) = UpbitQuotationCoroutineServiceImpl(upbitQuotationAsyncService)
 }
