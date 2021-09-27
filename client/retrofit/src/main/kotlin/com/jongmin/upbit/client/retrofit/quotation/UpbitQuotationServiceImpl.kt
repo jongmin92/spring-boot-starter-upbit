@@ -10,7 +10,7 @@ import com.jongmin.upbit.quotation.market.UpbitMarket
 import com.jongmin.upbit.quotation.orderbook.UpbitOrderbook
 import com.jongmin.upbit.quotation.ticker.UpbitTicker
 import com.jongmin.upbit.quotation.trades.UpbitTick
-import joining
+import com.jongmin.upbit.client.retrofit.joining
 
 class UpbitQuotationServiceImpl(
     private val upbitQuotationAsyncService: UpbitQuotationAsyncService

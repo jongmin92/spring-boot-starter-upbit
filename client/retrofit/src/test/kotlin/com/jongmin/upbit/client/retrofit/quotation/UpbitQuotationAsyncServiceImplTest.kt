@@ -19,7 +19,7 @@ import com.jongmin.upbit.client.retrofit.quotation.api.trade.UpbitQuotationTrade
 import com.jongmin.upbit.client.retrofit.quotation.api.trade.toDomain
 import com.jongmin.upbit.client.retrofit.quotation.api.trade.upbitTickResponseFixture
 import com.jongmin.upbit.client.retrofit.utils.success
-import joining
+import com.jongmin.upbit.client.retrofit.joining
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll

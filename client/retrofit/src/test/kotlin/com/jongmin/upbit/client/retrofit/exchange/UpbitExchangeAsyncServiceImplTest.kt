@@ -33,7 +33,7 @@ import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.upbitWithdrawResp
 import com.jongmin.upbit.client.retrofit.exchange.api.withdraw.upbitWithdrawsChanceResponseFixture
 import com.jongmin.upbit.client.retrofit.utils.success
 import com.jongmin.upbit.token.AuthorizationTokenService
-import joining
+import com.jongmin.upbit.client.retrofit.joining
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll

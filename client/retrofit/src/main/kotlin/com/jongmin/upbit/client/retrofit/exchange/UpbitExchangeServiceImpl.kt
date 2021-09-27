@@ -18,7 +18,7 @@ import com.jongmin.upbit.exchange.withdraw.UpbitWithdraw
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawCoinPost
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawKrwPost
 import com.jongmin.upbit.exchange.withdraw.UpbitWithdrawsChance
-import joining
+import com.jongmin.upbit.client.retrofit.joining
 
 class UpbitExchangeServiceImpl(
     private val upbitExchangeAsyncService: UpbitExchangeAsyncService
