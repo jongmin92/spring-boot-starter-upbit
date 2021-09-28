@@ -30,6 +30,9 @@ val mockServerProjectTestSet = mockServerProject.sourceSets["test"].output
 dependencies {
     implementation(project(":client:retrofit"))
 
+    // spring
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
     // retrofit
     implementation("com.squareup.retrofit2:retrofit")
 
