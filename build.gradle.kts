@@ -4,6 +4,7 @@ import com.linecorp.support.project.multi.recipe.configureByTypeSuffix
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("maven-publish")
     id("com.linecorp.build-recipe-plugin") version "1.1.1"
     kotlin("jvm") version "1.5.31"
     kotlin("kapt") version "1.5.31"
@@ -12,6 +13,16 @@ plugins {
 
 allprojects {
     repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply<MavenPublishPlugin>()
+
+    repositories {
+        mavenLocal()
         mavenCentral()
     }
 }
@@ -71,4 +82,12 @@ configureByTypeHaving("boot") {
 
 configureByTypeSuffix("lib") {
     apply(plugin = "java-library")
+
+    publishing {
+        publications {
+            create<MavenPublication>("mavenJar") {
+                from(components["java"])
+            }
+        }
+    }
 }
