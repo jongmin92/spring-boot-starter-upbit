@@ -86,8 +86,26 @@ configureByTypeSuffix("lib") {
     publishing {
         publications {
             create<MavenPublication>("mavenJar") {
+                groupId = resolvedGroupName(project)
+                artifactId = resolvedModuleName(project)
                 from(components["java"])
             }
         }
     }
+}
+
+fun resolvedGroupName(project: Project): String {
+    return project.group.toString()
+}
+
+fun resolvedModuleName(project: Project): String {
+    var self = project
+    var name = self.name
+
+    while (self.parent != project.rootProject) {
+        self = self.parent!!
+        name = "${self.name}-${name}"
+    }
+
+    return name
 }
