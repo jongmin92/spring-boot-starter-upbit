@@ -85,6 +85,12 @@ configureByTypeHaving("boot") {
 configureByTypeSuffix("lib") {
     apply(plugin = "java-library")
 
+    tasks {
+        withType<Jar> {
+            archiveBaseName.set(resolvedModuleName(project))
+        }
+    }
+
     publishing {
         publications {
             create<MavenPublication>("mavenJar") {
