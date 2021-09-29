@@ -7,6 +7,8 @@ interface UpbitWithdrawsCoroutineService {
     /**
      * 출금 리스트 조회
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param currency Currency 코드
      * @param state 출금 상태
      *   -submitting : 처리 중
@@ -42,6 +44,8 @@ interface UpbitWithdrawsCoroutineService {
      * 개별 출금 조회
      * 출금 UUID를 통해 개별 출금 정보를 조회한다.
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param uuid 출금 UUID
      * @param txid 출금 TXID
      * @param currency Currency 코드
@@ -52,6 +56,8 @@ interface UpbitWithdrawsCoroutineService {
     /**
      * 출금 가능 정보
      * 해당 통화의 가능한 출금 정보를 확인한다.
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * @param currency Currency 코드
      * @return 해당 통화의 가능한 출금 정보
@@ -70,6 +76,8 @@ interface UpbitWithdrawsCoroutineService {
      * - 업비트 회원의 주소가 아닌 주소로 바로출금을 요청하는 경우, 출금이 정상적으로 수행되지 않습니다.
      * - 반드시 주소를 확인 후 출금을 진행하시기 바랍니다.
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param currency Currency 코드
      * @param amount 출금 코인 수량
      * @param address 출금 지갑 주소
@@ -87,6 +95,8 @@ interface UpbitWithdrawsCoroutineService {
     /**
      * 원화 출금하기
      * 원화 출금을 요청한다. 등록된 출금 계좌로 출금된다.
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * @param amount 출금 원화 수량
      * @return 원화 출금 결과

@@ -27,6 +27,8 @@ configureByTypePrefix("kotlin") {
 
     java {
         targetCompatibility = JavaVersion.VERSION_1_8
+        withSourcesJar()
+        withJavadocJar()
     }
 
     tasks {
@@ -36,6 +38,11 @@ configureByTypePrefix("kotlin") {
 
         withType<Test> {
             useJUnitPlatform()
+        }
+
+        withType<Javadoc> {
+            source = sourceSets.main.get().allJava
+            options.encoding = "UTF-8"
         }
     }
 

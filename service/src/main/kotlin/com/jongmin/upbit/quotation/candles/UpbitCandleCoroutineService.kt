@@ -7,6 +7,8 @@ interface UpbitCandleCoroutineService {
     /**
      * 분봉 캔들 조회
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param unit 분 단위
      * @param market 마켓 코드
      * @param to 마지막 캔들시각 (yyyy-MM-dd'T'HH:mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
@@ -22,6 +24,8 @@ interface UpbitCandleCoroutineService {
 
     /**
      * 일별 캔들을 조회
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * @param market 마켓 코드
      * @param to 마지막 캔들시각 (yyyy-MM-dd'T'HH:mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
@@ -39,6 +43,8 @@ interface UpbitCandleCoroutineService {
     /**
      * 주별 캔들 조회
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param market 마켓 코드
      * @param to 마지막 캔들시각 (yyyy-MM-dd'T'HH:mm:ss'Z' or yyyy-MM-dd HH:mm:ss)
      * @param count 캔들 개수
@@ -52,6 +58,8 @@ interface UpbitCandleCoroutineService {
 
     /**
      * 월별 캔들 조회
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * @param market 마켓 코드
      * @param to 마지막 캔들시각 (yyyy-MM-dd'T'HH:mm:ss'Z' or yyyy-MM-dd HH:mm:ss)

@@ -6,6 +6,8 @@ interface UpbitOrdersService {
      * 주문 가능 정보.
      * 마켓별 주문 가능 정보를 확인한다.
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param market Market ID
      * @return 마켓별 주문 가능 정보
      */
@@ -14,6 +16,8 @@ interface UpbitOrdersService {
     /**
      * 개별 주문 조회.
      * 주문 UUID 를 통해 개별 주문건을 조회한다.
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * @param uuid 주문 UUID
      * @param identifier 조회용 사용자 지정 값
@@ -25,6 +29,8 @@ interface UpbitOrdersService {
     /**
      * 주문 리스트 조회.
      * 주문 리스트를 조회한다.
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * @param market Market ID
      * @param state 주문 상태
@@ -63,6 +69,8 @@ interface UpbitOrdersService {
      * 주문 취소 접수.
      * 주문 UUID를 통해 해당 주문에 대한 취소 접수를 한다.
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param uuid 주문 UUID
      * @param identifier 조회용 사용자 지정값
      * @return 주문 취소
@@ -72,6 +80,8 @@ interface UpbitOrdersService {
     /**
      * 주문하기.
      * 주문 요청을 한다.
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * - 원화 마켓 가격 단위를 확인하세요.
      *   - 원화 마켓에서 주문을 요청 할 경우, 원화 마켓 주문 가격 단위 를 확인하여 값을 입력해주세요.

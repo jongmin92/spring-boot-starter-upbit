@@ -8,6 +8,8 @@ interface UpbitOrdersAsyncService {
      * 주문 가능 정보.
      * 마켓별 주문 가능 정보를 확인한다.
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param market Market ID
      * @return 마켓별 주문 가능 정보
      */
@@ -16,6 +18,8 @@ interface UpbitOrdersAsyncService {
     /**
      * 개별 주문 조회.
      * 주문 UUID 를 통해 개별 주문건을 조회한다.
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * @param uuid 주문 UUID
      * @param identifier 조회용 사용자 지정 값
@@ -27,6 +31,8 @@ interface UpbitOrdersAsyncService {
     /**
      * 주문 리스트 조회.
      * 주문 리스트를 조회한다.
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * @param market Market ID
      * @param state 주문 상태
@@ -65,6 +71,8 @@ interface UpbitOrdersAsyncService {
      * 주문 취소 접수.
      * 주문 UUID를 통해 해당 주문에 대한 취소 접수를 한다.
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param uuid 주문 UUID
      * @param identifier 조회용 사용자 지정값
      * @return 주문 취소
@@ -81,6 +89,8 @@ interface UpbitOrdersAsyncService {
      *   - 시장가 주문은 ord_type 필드를 price or market 으로 설정해야됩니다.
      *   - 매수 주문의 경우 ord_type을 price로 설정하고 volume을 null 혹은 제외해야됩니다.
      *   - 매도 주문의 경우 ord_type을 market로 설정하고 price을 null 혹은 제외해야됩니다.
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * @param market Market ID
      * @param side 주문 종류

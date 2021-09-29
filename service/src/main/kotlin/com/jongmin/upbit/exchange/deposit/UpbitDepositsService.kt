@@ -5,6 +5,8 @@ interface UpbitDepositsService {
     /**
      * 입금 리스트 조회
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param currency Currency 코드
      * @param state 입금 상태
      *  -submitting: 처리 중
@@ -37,6 +39,8 @@ interface UpbitDepositsService {
     /**
      * 개별 입금 조회
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * @param uuid 개별 입금의 UUID
      * @param txid 개별 입금의 TXID
      * @param currency Currency 코드
@@ -47,6 +51,8 @@ interface UpbitDepositsService {
     /**
      * 입금 주소 생성 요청
      * 입금 주소 생성을 요청한다.
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * - 입금 주소 생성 요청 API 유의사항
      *   - 입금 주소의 생성은 서버에서 비동기적으로 이뤄집니다.
@@ -64,6 +70,8 @@ interface UpbitDepositsService {
      * 전체 입금 주소 조회
      * 내가 보유한 자산 리스트를 보여줍니다.
      *
+     * @throws com.jongmin.upbit.UpbitException
+     *
      * - 입금 주소 조회 요청 API 유의사항
      *   - 입금 주소 생성 요청 이후 아직 발급되지 않은 상태일 경우 deposit_address가 null일 수 있습니다.
      *
@@ -73,6 +81,8 @@ interface UpbitDepositsService {
 
     /**
      * 개별 입금 주소 조회
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * - 입금 주소 조회 요청 API 유의사항
      *   - 입금 주소 생성 요청 이후 아직 발급되지 않은 상태일 경우 deposit_address가 null일 수 있습니다.
@@ -85,6 +95,8 @@ interface UpbitDepositsService {
     /**
      * 원화 입금하기
      * 원화 입금을 요청한다.
+     *
+     * @throws com.jongmin.upbit.UpbitException
      *
      * @param amount 입금액
      * @return 입금 결과
