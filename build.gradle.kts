@@ -9,6 +9,7 @@ plugins {
     kotlin("jvm") version "1.5.31"
     kotlin("kapt") version "1.5.31"
     kotlin("plugin.spring") version "1.5.31" apply false
+    signing
 }
 
 allprojects {
@@ -20,6 +21,10 @@ allprojects {
 
 subprojects {
     apply<MavenPublishPlugin>()
+
+    if (!file("gradle.properties").exists()) {
+        ext["type"] = null
+    }
 }
 
 configureByTypePrefix("kotlin") {
@@ -84,23 +89,24 @@ configureByTypeHaving("boot") {
 
 configureByTypeSuffix("lib") {
     apply(plugin = "java-library")
+    apply(plugin = "signing")
 
     tasks {
         withType<Jar> {
-            archiveBaseName.set(resolvedModuleName(project))
+            archiveBaseName.set(resolvedModuleName())
         }
     }
 
     publishing {
         publications {
-            create<MavenPublication>("mavenJar") {
+            create<MavenPublication>("mavenPublication") {
                 groupId = "io.github.jongmin92"
-                artifactId = resolvedModuleName(project)
+                artifactId = resolvedModuleName()
                 from(components["java"])
 
                 pom {
                     name.set("Spring Boot Upbit Client Starter")
-                    description.set("")
+                    description.set("Spring Boot Upbit Client Starter")
                     url.set("https://github.com/jongmin92/spring-boot-starter-upbit/blob/master/README.md")
                     packaging = "jar"
 
@@ -116,6 +122,16 @@ configureByTypeSuffix("lib") {
                             name.set("JongMin Kim")
                             email.set("imd92@naver.com")
                         }
+                        developer {
+                            id.set("evan-hwang")
+                            name.set("HyuckJin Hwang")
+                            email.set("id920809@naver.com")
+                        }
+                        developer {
+                            id.set("xyom")
+                            name.set("SuHwan Yun")
+                            email.set("xyom19@gmail.com")
+                        }
                     }
                     scm {
                         connection.set("scm:git:git://jongmin92/spring-boot-starter-upbit.git")
@@ -123,19 +139,44 @@ configureByTypeSuffix("lib") {
                         url.set("https://github.com/jongmin92/spring-boot-starter-upbit.git")
                     }
                 }
+
+                repositories {
+                    maven {
+                        val releaseRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+                        val snapshotRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                        setUrl(if (version.endsWith("SNAPSHOT")) snapshotRepoUrl else releaseRepoUrl)
+                        credentials {
+                            username = getProperty("ossrh.username")
+                            password = getProperty("ossrh.password")
+                        }
+                    }
+                }
             }
         }
     }
+
+    signing {
+        sign(publishing.publications["mavenPublication"])
+    }
 }
 
-fun resolvedModuleName(project: Project): String {
-    var self = project
+fun Project.resolvedModuleName(): String {
+    var self = this
     var name = self.name
 
-    while (self.parent != project.rootProject) {
+    while (self.parent != this.rootProject) {
         self = self.parent!!
         name = "${self.name}-${name}"
     }
 
-    return name
+    return "${rootProject.name}-${name}"
+}
+
+fun Project.getProperty(name: String): String? {
+    val systemProperty = System.getenv(name) ?: System.getProperty(name)
+    return try {
+        systemProperty ?: this.property(name)?.toString()
+    } catch (e: Exception) {
+        null
+    }
 }
