@@ -1,3 +1,10 @@
+import OSS.Pom.licenseName
+import OSS.Pom.licenseUrl
+import OSS.Pom.scmConnection
+import OSS.Pom.scmDeveloperConnection
+import OSS.Pom.scmUrl
+import OSS.Repository.releaseRepoUrl
+import OSS.Repository.snapshotRepoUrl
 import com.linecorp.support.project.multi.recipe.configureByTypeHaving
 import com.linecorp.support.project.multi.recipe.configureByTypePrefix
 import com.linecorp.support.project.multi.recipe.configureByTypeSuffix
@@ -103,45 +110,29 @@ configureByTypeSuffix("lib") {
                     afterEvaluate { from(components["java"]) }
 
                     pom {
-                        name.set("Spring Boot Upbit Client Starter")
-                        description.set("Spring Boot Upbit Client Starter")
-                        url.set("https://github.com/jongmin92/spring-boot-starter-upbit/blob/master/README.md")
+                        name.set(OSS.Pom.name)
+                        description.set(OSS.Pom.description)
+                        url.set(OSS.Pom.url)
                         packaging = "jar"
 
                         licenses {
                             license {
-                                name.set("MIT License")
-                                url.set("http://www.opensource.org/licenses/mit-license.php")
+                                name.set(licenseName)
+                                url.set(licenseUrl)
                             }
                         }
                         developers {
-                            developer {
-                                id.set("jongmin92")
-                                name.set("JongMin Kim")
-                                email.set("imd92@naver.com")
-                            }
-                            developer {
-                                id.set("evan-hwang")
-                                name.set("HyuckJin Hwang")
-                                email.set("id920809@naver.com")
-                            }
-                            developer {
-                                id.set("xyom")
-                                name.set("SuHwan Yun")
-                                email.set("xyom19@gmail.com")
-                            }
+                            OSS.Pom.developers
                         }
                         scm {
-                            connection.set("scm:git:git://jongmin92/spring-boot-starter-upbit.git")
-                            developerConnection.set("scm:git:ssh://jongmin92/spring-boot-starter-upbit.git")
-                            url.set("https://github.com/jongmin92/spring-boot-starter-upbit.git")
+                            connection.set(scmConnection)
+                            developerConnection.set(scmDeveloperConnection)
+                            url.set(scmUrl)
                         }
                     }
 
                     repositories {
                         maven {
-                            val releaseRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-                            val snapshotRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
                             setUrl(if (version.endsWith("SNAPSHOT")) snapshotRepoUrl else releaseRepoUrl)
                             credentials {
                                 username = getProperty("ossrh.username")
