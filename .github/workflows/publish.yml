@@ -14,6 +14,7 @@ jobs:
       ossrh.username: ${{ secrets.OSSRH_USERNAME }}
       ossrh.password: ${{ secrets.OSSRH_PASSWORD }}
       signing.keyId: ${{ secrets.SIGNING_KEYID }}
+      signing.secretKey: ${{ secrets.GPG_PRIVATE_KEY }}
       signing.password: ${{ secrets.SIGNING_PASSWORD }}
 
     steps:
