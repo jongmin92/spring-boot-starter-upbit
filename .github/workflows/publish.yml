@@ -13,6 +13,8 @@ jobs:
     env:
       ossrh.username: ${{ secrets.OSSRH_USERNAME }}
       ossrh.password: ${{ secrets.OSSRH_PASSWORD }}
+      signing.keyId: ${{ secrets.SIGNING_KEYID }}
+      signing.password: ${{ secrets.SIGNING_PASSWORD }}
 
     steps:
       - name: Checkout
@@ -24,13 +26,6 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
-
-      - name: GPG user ID
-        run: |
-          echo "fingerprint: ${{ steps.import_gpg.outputs.fingerprint }}"
-          echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
-          echo "name:        ${{ steps.import_gpg.outputs.name }}"
-          echo "email:       ${{ steps.import_gpg.outputs.email }}"
 
       # Build & Publish
       - name: Set up JDK 1.8
