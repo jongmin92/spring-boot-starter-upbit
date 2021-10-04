@@ -13,8 +13,7 @@ jobs:
     env:
       ossrh.username: ${{ secrets.OSSRH_USERNAME }}
       ossrh.password: ${{ secrets.OSSRH_PASSWORD }}
-      signing.keyId: ${{ secrets.SIGNING_KEYID }}
-      signing.secretKey: ${{ secrets.GPG_PRIVATE_KEY }}
+      signing.secretKey: ${{ secrets.SIGNING_SECRETKEY }}
       signing.password: ${{ secrets.SIGNING_PASSWORD }}
 
     steps:
@@ -22,11 +21,11 @@ jobs:
         uses: actions/checkout@v2
 
       # Import GPG Key
-      - name: Import GPG Key
-        uses: crazy-max/ghaction-import-gpg@v4
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+#      - name: Import GPG Key
+#        uses: crazy-max/ghaction-import-gpg@v4
+#        with:
+#          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+#          passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       # Build & Publish
       - name: Set up JDK 1.8
