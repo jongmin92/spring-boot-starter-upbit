@@ -145,7 +145,6 @@ configureByTypeSuffix("lib") {
         }
 
         signing {
-            useInMemoryPgpKeys(getProperty("signing.secretKey"), getProperty("signing.password"))
             sign(publishing.publications["ossPublication"])
         }
     }

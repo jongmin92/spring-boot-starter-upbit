@@ -10,12 +10,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
 
-    env:
-      ossrh.username: ${{ secrets.OSSRH_USERNAME }}
-      ossrh.password: ${{ secrets.OSSRH_PASSWORD }}
-      signing.secretKey: ${{ secrets.SIGNING_SECRETKEY }}
-      signing.password: ${{ secrets.SIGNING_PASSWORD }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -33,5 +27,17 @@ jobs:
       - name: Build
         run: ./gradlew build
 
+      - name: Decode
+        run: |
+          echo "${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}" > ~/.gradle/secring.gpg.b64
+          base64 -d ~/.gradle/secring.gpg.b64 > ~/.gradle/secring.gpg
+
       - name: Publish
-        run: ./gradlew publish
+        run: >
+          ./gradlew publish
+          -Psigning.keyId=${{ secrets.SIGNING_KEY_ID }}
+          -Psigning.password=${{ secrets.SIGNING_PASSWORD }}
+          -Psigning.secretKeyRingFile=$(echo ~/.gradle/secring.gp)
+        env:
+          ossrh.username: ${{ secrets.OSSRH_USERNAME }}
+          ossrh.password: ${{ secrets.OSSRH_PASSWORD }}
