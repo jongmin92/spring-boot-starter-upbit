@@ -13,9 +13,9 @@ fun Project.resolvedModuleName(): String {
 }
 
 fun Project.getProperty(name: String): String? {
-    val systemProperty = System.getenv(name) ?: System.getProperty(name)
     return try {
-        systemProperty ?: this.property(name)?.toString()
+        val systemProperty = System.getenv(name) ?: System.getProperty(name)
+        return systemProperty ?: this.property(name)?.toString()
     } catch (e: Exception) {
         null
     }
