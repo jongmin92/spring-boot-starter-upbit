@@ -37,7 +37,7 @@ jobs:
           ./gradlew publish
           -Psigning.keyId=${{ secrets.SIGNING_KEY_ID }}
           -Psigning.password=${{ secrets.SIGNING_PASSWORD }}
-          -Psigning.secretKeyRingFile=$(echo ~/.gradle/secring.gp)
+          -Psigning.secretKeyRingFile=$(echo ~/.gradle/secring.gpg)
         env:
           ossrh.username: ${{ secrets.OSSRH_USERNAME }}
           ossrh.password: ${{ secrets.OSSRH_PASSWORD }}
