@@ -76,4 +76,4 @@ lateinit var upbitQuotationCoroutineService: UpbitQuotationCoroutineService
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/jongmin92/spring-boot-starter-upbit/blob/master/LICENSE)
