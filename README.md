@@ -4,8 +4,8 @@
 [![build](https://github.com/jongmin92/spring-boot-starter-upbit/actions/workflows/build.yml/badge.svg?branch=master&event=push)](https://github.com/jongmin92/spring-boot-starter-upbit/actions/workflows/build.yml)
 ![GitHub](https://img.shields.io/github/license/jongmin92/spring-boot-starter-upbit)
 
-This is a Spring Boot Starter of client library just call Upbit API based
-on [Upbit v1.2.0 reference](https://docs.upbit.com/reference).
+This is an Upbit Open API Client Spring Boot Starter based on
+the [Upbit v1.2.0 reference](https://docs.upbit.com/reference).
 
 ## Download
 
