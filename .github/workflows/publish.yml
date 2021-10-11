@@ -39,5 +39,5 @@ jobs:
           -Psigning.password=${{ secrets.SIGNING_PASSWORD }}
           -Psigning.secretKeyRingFile=$(echo ~/.gradle/secring.gpg)
         env:
-          ossrh.username: ${{ secrets.OSSRH_USERNAME }}
-          ossrh.password: ${{ secrets.OSSRH_PASSWORD }}
+          ossrh_username: ${{ secrets.OSSRH_USERNAME }}
+          ossrh_password: ${{ secrets.OSSRH_PASSWORD }}

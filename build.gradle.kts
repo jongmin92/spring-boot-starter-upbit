@@ -135,8 +135,8 @@ configureByTypeSuffix("lib") {
                         maven {
                             setUrl(if (version.endsWith("SNAPSHOT")) snapshotRepoUrl else releaseRepoUrl)
                             credentials {
-                                username = getProperty("ossrh.username")
-                                password = getProperty("ossrh.password")
+                                username = getProperty("ossrh_username")
+                                password = getProperty("ossrh_password")
                             }
                         }
                     }
