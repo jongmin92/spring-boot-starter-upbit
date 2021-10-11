@@ -122,7 +122,13 @@ configureByTypeSuffix("lib") {
                             }
                         }
                         developers {
-                            OSS.Pom.developers
+                            OSS.Pom.developers.forEach {
+                                developer {
+                                    id.set(it["id"])
+                                    name.set(it["name"])
+                                    email.set(it["email"])
+                                }
+                            }
                         }
                         scm {
                             connection.set(scmConnection)
