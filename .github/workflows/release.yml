@@ -1,11 +1,11 @@
-# This workflow will build a package using Gradle and then publish it to GitHub packages when a 'v*' tag is created
+# This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java#publishing-using-gradle
 
-name: Publish
+name: release
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types:
+      - created
 jobs:
   publish:
     runs-on: ubuntu-latest
