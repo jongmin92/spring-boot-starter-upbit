@@ -19,7 +19,7 @@ dependencies {
 }
 ```
 
-## Useage
+## Usage
 
 ### Set API Keys
 
